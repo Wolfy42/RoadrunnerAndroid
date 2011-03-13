@@ -1,7 +1,7 @@
 package at.roadrunner.android.test.activity;
 
 import android.test.ActivityInstrumentationTestCase2;
-import at.roadrunner.android.Roadrunner;
+import at.roadrunner.android.activity.Roadrunner;
 
 public class RoadrunnerTest extends ActivityInstrumentationTestCase2<Roadrunner> {
 

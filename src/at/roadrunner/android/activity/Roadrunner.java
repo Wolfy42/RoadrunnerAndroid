@@ -1,7 +1,8 @@
-package at.roadrunner.android;
+package at.roadrunner.android.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import at.roadrunner.android.R;
 
 public class Roadrunner extends Activity {
 
