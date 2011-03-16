@@ -2,3 +2,7 @@
 /gen
 /tests/bin
 /tests/gen
+.classpath
+.project
+/tests/.classpath
+/tests/.project
