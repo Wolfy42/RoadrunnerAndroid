@@ -1,3 +1,6 @@
 [submodule "framework"]
 	path = framework
 	url = git@github.com:Wolfy42/Roadrunner.git
+[submodule "vendor/DroidCouch"]
+	path = vendor/DroidCouch
+	url = https://github.com/sig/DroidCouch.git
