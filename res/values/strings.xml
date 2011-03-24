@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Roadrunner</string>
-    <string name="roadrunner_loadItem">Load Item</string>
-    <string name="roadrunner_unloadItem">Unload Item</string>
+    <string name="roadrunner_scan">Scan Item</string>
     <string name="roadrunner_menu_settings">Settings</string>
     <string name="roadrunner_menu_info">Info</string>
     <string name="info_text">

@@ -16,16 +16,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
-            <Button android:id="@+id/roadrunner_btn_loadItem"
+            <Button android:id="@+id/roadrunner_btn_scan"
                 style="@style/NavigationButton"
-                android:onClick="onLoadItemClick"
-                android:text="@string/roadrunner_loadItem"
-                android:drawableTop="@drawable/ic_roadrunner_btn_loaditem"/>
-            <Button android:id="@+id/roadrunner_btn_unloadItem"
-                style="@style/NavigationButton"
-                android:onClick="onUnloadItemClick"
-                android:text="@string/roadrunner_unloadItem"
-                android:drawableTop="@drawable/ic_roadrunner_btn_unloaditem"/>
+                android:onClick="onScanClick"
+                android:text="@string/roadrunner_scan"
+                android:drawableTop="@drawable/ic_roadrunner_btn_scan"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -3,12 +3,14 @@ package at.roadrunner.android.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import at.roadrunner.android.R;
+import at.roadrunner.android.barcode.BarcodeIntent;
 
 public class Roadrunner extends Activity {
 
@@ -17,22 +19,22 @@ public class Roadrunner extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_roadrunner);
     }
-    
+   
     /*
-     * Event loadItem
+     * Event unScan
      */
-    public void onLoadItemClick(View view) {
-    	Toast toast = Toast.makeText(getApplicationContext(), "not yet implemented!", 3);
-    	toast.show();
+    public void onScanClick(View view) {
+    	startActivityForResult(new BarcodeIntent(), 0);
     }
     
     /*
-     * Event unloadItem
+     * 
      */
-    public void onUnloadItemClick(View view) {
-    	Toast toast = Toast.makeText(getApplicationContext(), "not yet implemented!", 3);
-    	toast.show();
-    }
+    @Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.e("w", data.getDataString());
+		
+	}
     
     /*
      * inflate menu
