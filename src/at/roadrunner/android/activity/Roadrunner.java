@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import at.roadrunner.android.R;
+import at.roadrunner.android.barcode.BarcodeIntent;
 
 public class Roadrunner extends Activity {
 
@@ -22,8 +23,7 @@ public class Roadrunner extends Activity {
      * Event unScan
      */
     public void onScanClick(View view) {
-    	Toast toast = Toast.makeText(getApplicationContext(), "not yet implemented!", 3);
-    	toast.show();
+    	startActivityForResult(new BarcodeIntent(), 0);
     }
     
     /*
