@@ -2,6 +2,7 @@ package at.roadrunner.android.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,8 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import at.roadrunner.android.R;
+import at.roadrunner.android.util.Intents;
 
 public class Roadrunner extends Activity {
+	// Intent for scanning
+	public static final String SCAN_INTENT = "com.google.zxing.client.android.SCAN";
+	public static final String SCAN_INTENT_PACKAGE = "com.google.zxing.client.android";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,10 +27,16 @@ public class Roadrunner extends Activity {
      * Event onScan
      */
     public void onScanClick(View view) {
-    	Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-        intent.setPackage("com.google.zxing.client.android");
-        intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-        startActivityForResult(intent, 0);
+    	if (Intents.isIntentAvailable(this, SCAN_INTENT)) {
+	    	Intent intent = new Intent(SCAN_INTENT);
+	        intent.setPackage(SCAN_INTENT_PACKAGE);
+	        intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+	        
+	        startActivityForResult(intent, 0);
+    	} else {
+    		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.zxing.client.android")); 
+    		startActivity(intent); 
+    	}
     }
     
     /*
@@ -42,8 +53,7 @@ public class Roadrunner extends Activity {
                 Toast toast = Toast.makeText(getApplicationContext(), contents, 3);
     	    	toast.show();
             } else if (resultCode == RESULT_CANCELED) {
-            	Toast toast = Toast.makeText(getApplicationContext(), R.string.roadrunner_exception_activitynotfound, 3);
-    	    	toast.show();
+            	
             }
     	}
 	}
