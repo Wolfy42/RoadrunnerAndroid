@@ -21,7 +21,7 @@ public class Roadrunner extends Activity {
     }
    
     /*
-     * Event unScan
+     * Event onScan
      */
     public void onScanClick(View view) {
     	startActivityForResult(new BarcodeIntent(), 0);
@@ -32,8 +32,8 @@ public class Roadrunner extends Activity {
      */
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.e("w", data.getDataString());
-		
+    	Toast toast = Toast.makeText(getApplicationContext(), data.getDataString(), 3);
+    	toast.show();
 	}
     
     /*
