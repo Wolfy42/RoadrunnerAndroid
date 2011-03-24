@@ -11,6 +11,21 @@ public class Roadrunner extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
     }
+    
+    
+    /*
+     *  TODO:
+     *  
+     *  bei APP start -> couchDB starten (meldung wenn nicht installiert)
+     *  Einstellungen Dialog -> server IP einstellen
+     *  local.ini editieren:
+     *      - admin user anlegen
+     *      - datenbank anlegen
+     *      - datenbank von server replizieren (gefiltert)
+     *      
+     *  
+     */
+    
 }
 
 
