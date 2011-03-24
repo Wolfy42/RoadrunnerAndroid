@@ -4,15 +4,28 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
   
-   <Button android:id="@+id/roadrunner_btn_loadItem"
-            android:layout_width="wrap_content"
+  <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="6dip">
+        
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/roadrunner_loadItem" 
-            android:onClick="loadItem"/>
-            
-   <Button android:id="@+id/roadrunner_btn_unloadItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/roadrunner_unloadItem" 
-            android:onClick="unloadItem"/>
+            android:layout_weight="1">
+            <Button android:id="@+id/roadrunner_btn_loadItem"
+                style="@style/NavigationButton"
+                android:onClick="onLoadItemClick"
+                android:text="@string/roadrunner_loadItem"
+                android:drawableTop="@drawable/ic_roadrunner_btn_loaditem"/>
+            <Button android:id="@+id/roadrunner_btn_unloadItem"
+                style="@style/NavigationButton"
+                android:onClick="onUnloadItemClick"
+                android:text="@string/roadrunner_unloadItem"
+                android:drawableTop="@drawable/ic_roadrunner_btn_unloaditem"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

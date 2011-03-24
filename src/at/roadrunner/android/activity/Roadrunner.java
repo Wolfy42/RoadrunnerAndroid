@@ -1,10 +1,13 @@
 package at.roadrunner.android.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import at.roadrunner.android.R;
 
 public class Roadrunner extends Activity {
@@ -18,15 +21,17 @@ public class Roadrunner extends Activity {
     /*
      * Event loadItem
      */
-    public void loadItem(View view) {
-    	
+    public void onLoadItemClick(View view) {
+    	Toast toast = Toast.makeText(getApplicationContext(), "not yet implemented!", 3);
+    	toast.show();
     }
     
     /*
      * Event unloadItem
      */
-    public void unloadItem(View view) {
-    	
+    public void onUnloadItemClick(View view) {
+    	Toast toast = Toast.makeText(getApplicationContext(), "not yet implemented!", 3);
+    	toast.show();
     }
     
     /*
@@ -37,6 +42,23 @@ public class Roadrunner extends Activity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.roadrunner_menu, menu);
         return true;
+    }
+    
+    /*
+     * Event OptionsMenuItemSelected
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.roadrunner_menu_settings:
+        	startActivity(new Intent(this, Settings.class));
+            return true;
+        case R.id.roadrunner_menu_info:
+        	startActivity(new Intent(this, Info.class));
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
     
     /*

@@ -5,4 +5,26 @@
     <string name="roadrunner_unloadItem">Unload Item</string>
     <string name="roadrunner_menu_settings">Settings</string>
     <string name="roadrunner_menu_info">Info</string>
+    <string name="info_text">
+    	Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den sueßen Fruehlingsmorgen, 
+    	die ich mit ganzem Herzen geniesse. Ich bin allein und freue mich meines Lebens in dieser Gegend, 
+    	die fuer solche Seelen geschaffen ist wie die meine. Ich bin so gluecklich, mein Bester, so ganz 
+    	in dem Gefuehle von ruhigem Dasein versunken, daß meine Kunst darunter leidet. Ich koennte jetzt nicht zeichnen, 
+    	nicht einen Strich, und bin nie ein groeßerer Maler gewesen als in diesen Augenblicken.
+    	Wenn das liebe Tal um mich dampft, und die hohe Sonne an der Oberflaeche der undurchdringlichen Finsternis 
+    	meines Waldes ruht, und nur einzelne Strahlen sich in das innere Heiligtum stehlen, ich dann im hohen Grase 
+    	am fallenden Bache liege, und näher an der Erde tausend mannigfaltige Graeschen mir merkwürdig werden,
+    	wenn ich das Wimmeln der kleinen Welt zwischen Halmen, die unzähligen, unergruendlichen Gestalten der Wuermchen, 
+    	der Mueckchen naeher an meinem Herzen fuehle, und fuehle die Gegenwart des Allmaechtigen, der uns 
+    	nach seinem Bilde schuf, das Wehen des Alliebenden, der uns in ewiger Wonne schwebend traegt und erhaelt -
+    	mein Freund! Wenns dann um meine Augen daemmert, und die Welt um mich her und der Himmel ganz in meiner 
+    	Seele ruhn wie die Gestalt einer Geliebten - dann sehne ich mich oft und denke - ach koenntest du das wieder 
+    	ausdruecken, koenntest du dem Papiere das einhauchen, was so voll, so warm in dir lebt, daß es wuerde der 
+    	Spiegel deiner Seele, wie deine Seele ist der Spiegel des unendlichen Gottes! - mein Freund - aber ich gehe darueber
+    	zugrunde, ich erliege unter der Gewalt der Herrlichkeit dieser Erscheinungen. Eine wunderbare Heiterkeit 
+    	hat meine ganze Seele eingenommen, gleich den sueßen Frühlingsmorgen, die ich mit ganzem Herzen geniesse.
+	</string>
+    <string name="pref_server">Connection Settings</string>
+    <string name="pref_server_ip">Server IP</string>
+    <string name="pref_server_database">Databasename</string>
 </resources>
