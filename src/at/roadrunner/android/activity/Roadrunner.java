@@ -17,19 +17,11 @@ public class Roadrunner extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_roadrunner);
     }
-    
+   
     /*
-     * Event loadItem
+     * Event unScan
      */
-    public void onLoadItemClick(View view) {
-    	Toast toast = Toast.makeText(getApplicationContext(), "not yet implemented!", 3);
-    	toast.show();
-    }
-    
-    /*
-     * Event unloadItem
-     */
-    public void onUnloadItemClick(View view) {
+    public void onScanClick(View view) {
     	Toast toast = Toast.makeText(getApplicationContext(), "not yet implemented!", 3);
     	toast.show();
     }
