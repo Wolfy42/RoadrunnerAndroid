@@ -1,8 +1,11 @@
 package at.roadrunner.android.activity;
 
-import android.R;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
+import at.roadrunner.android.R;
 
 public class Roadrunner extends Activity {
 
@@ -12,6 +15,29 @@ public class Roadrunner extends Activity {
         setContentView(R.layout.activity_roadrunner);
     }
     
+    /*
+     * Event loadItem
+     */
+    public void loadItem(View view) {
+    	
+    }
+    
+    /*
+     * Event unloadItem
+     */
+    public void unloadItem(View view) {
+    	
+    }
+    
+    /*
+     * inflate menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.roadrunner_menu, menu);
+        return true;
+    }
     
     /*
      *  TODO:
