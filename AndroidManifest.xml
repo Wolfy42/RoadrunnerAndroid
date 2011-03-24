@@ -3,15 +3,40 @@
       package="at.roadrunner.android"
       android:versionCode="1"
       android:versionName="1.0">
+      
+      <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="7" />
 
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
+        <!-- Roadrunner Activity -->
         <activity android:name=".activity.Roadrunner"
+        		  android:theme="@style/Theme.Roadrunner"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        
+        <!-- Settings Activity -->
+        <activity android:name=".activity.Settings"
+        		  android:theme="@style/Theme.Roadrunner"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+		
+		<!-- Settings Activity -->
+        <activity android:name=".activity.Info"
+        		  android:theme="@style/Theme.Roadrunner"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>
