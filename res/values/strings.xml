@@ -26,4 +26,5 @@
     <string name="pref_server">Connection Settings</string>
     <string name="pref_server_ip">Server IP</string>
     <string name="pref_server_database">Databasename</string>
+    <string name="roadrunner_exception_activitynotfound">You need a barcode scanner app on you device.</string>
 </resources>

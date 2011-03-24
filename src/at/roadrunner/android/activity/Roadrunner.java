@@ -3,14 +3,12 @@ package at.roadrunner.android.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import at.roadrunner.android.R;
-import at.roadrunner.android.barcode.BarcodeIntent;
 
 public class Roadrunner extends Activity {
 
@@ -21,19 +19,33 @@ public class Roadrunner extends Activity {
     }
    
     /*
-     * Event unScan
+     * Event onScan
      */
     public void onScanClick(View view) {
-    	startActivityForResult(new BarcodeIntent(), 0);
+    	Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+        intent.setPackage("com.google.zxing.client.android");
+        intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+        startActivityForResult(intent, 0);
     }
     
     /*
-     * 
+     * onActivityResult
      */
     @Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.e("w", data.getDataString());
-		
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    	if (requestCode == 0 ) {
+    		if (resultCode == RESULT_OK) {
+                String contents = intent.getStringExtra("SCAN_RESULT");
+                @SuppressWarnings("unused")
+				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+    	    	
+                Toast toast = Toast.makeText(getApplicationContext(), contents, 3);
+    	    	toast.show();
+            } else if (resultCode == RESULT_CANCELED) {
+            	Toast toast = Toast.makeText(getApplicationContext(), R.string.roadrunner_exception_activitynotfound, 3);
+    	    	toast.show();
+            }
+    	}
 	}
     
     /*
