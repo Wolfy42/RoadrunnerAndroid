@@ -3,6 +3,7 @@ package at.roadrunner.android.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +26,15 @@ public class Roadrunner extends Activity {
     public void onScanClick(View view) {
     	startActivityForResult(new BarcodeIntent(), 0);
     }
+    
+    /*
+     * 
+     */
+    @Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.e("w", data.getDataString());
+		
+	}
     
     /*
      * inflate menu
