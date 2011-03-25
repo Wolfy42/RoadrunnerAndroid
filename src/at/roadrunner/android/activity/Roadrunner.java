@@ -80,6 +80,9 @@ public class Roadrunner extends Activity {
         case R.id.roadrunner_menu_info:
         	startActivity(new Intent(this, Info.class));
             return true;
+        case R.id.roadrunner_menu_systemtest:
+        	startActivity(new Intent(this, SystemTest.class));
+            return true;
         default:
             return super.onOptionsItemSelected(item);
         }
