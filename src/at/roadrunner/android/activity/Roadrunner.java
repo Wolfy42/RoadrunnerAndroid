@@ -61,8 +61,7 @@ public class Roadrunner extends Activity {
 	 * onActivityResult
 	 */
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode,
-			Intent intent) {
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		if (requestCode == 0) {
 			if (resultCode == RESULT_OK) {
 				String contents = intent.getStringExtra("SCAN_RESULT");
@@ -88,20 +87,23 @@ public class Roadrunner extends Activity {
 		return true;
 	}
 
-	/*
-	 * Event OptionsMenuItemSelected
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.roadrunner_menu_settings:
-			startActivity(new Intent(this, Settings.class));
-			return true;
-		case R.id.roadrunner_menu_info:
-			startActivity(new Intent(this, Info.class));
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+    /*
+     * Event OptionsMenuItemSelected
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.roadrunner_menu_settings:
+        	startActivity(new Intent(this, Settings.class));
+            return true;
+        case R.id.roadrunner_menu_info:
+        	startActivity(new Intent(this, Info.class));
+            return true;
+        case R.id.roadrunner_menu_systemtest:
+        	startActivity(new Intent(this, SystemTest.class));
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
 }

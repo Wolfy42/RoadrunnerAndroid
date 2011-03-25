@@ -6,4 +6,7 @@
     <item android:id="@+id/roadrunner_menu_info"
           android:icon="@drawable/ic_menu_info"
           android:title="@string/roadrunner_menu_info" />
+	<item android:id="@+id/roadrunner_menu_systemtest"
+          android:icon="@drawable/ic_menu_info"
+          android:title="@string/roadrunner_menu_systemtest" />
 </menu>

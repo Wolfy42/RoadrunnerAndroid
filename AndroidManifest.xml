@@ -33,5 +33,11 @@
         		  android:theme="@style/Theme.Roadrunner"
                   android:label="@string/app_name">
         </activity>
+        
+        <!-- SystemTest Activity -->
+        <activity android:name=".activity.SystemTest"
+        		  android:theme="@style/Theme.Roadrunner"
+                  android:label="@string/app_name">
+        </activity>
     </application>
 </manifest>
