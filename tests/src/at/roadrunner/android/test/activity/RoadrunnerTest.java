@@ -16,10 +16,13 @@ public class RoadrunnerTest extends ActivityInstrumentationTestCase2<Roadrunner>
 		super.setUp();
 		
 		_a = getActivity();
+
 	}
 	
 	public void testPreconditions()  {
 		assertNotNull(_a);
+		
+		
 	}
 
 }
