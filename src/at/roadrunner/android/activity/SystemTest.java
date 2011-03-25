@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.GridView;
@@ -16,6 +17,7 @@ public class SystemTest extends Activity {
 	
 	private GridView _testCaseList;
 	private ArrayList<HashMap<String, String>> _testList;
+	private SimpleAdapter _mSchedule;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +30,9 @@ public class SystemTest extends Activity {
         _testList = new ArrayList<HashMap<String, String>>();
         
         
-        SimpleAdapter mSchedule = new SimpleAdapter(this, _testList, R.layout.item_systemtest,
+        _mSchedule = new SimpleAdapter(this, _testList, R.layout.item_systemtest,
 	                    new String[] {RESULT, TESTCASE}, new int[] {R.id.RESULT, R.id.TESTCASE});
-        _testCaseList.setAdapter(mSchedule);
+        _testCaseList.setAdapter(_mSchedule);
         
         new UpdateTask().execute();
         
@@ -44,12 +46,31 @@ public class SystemTest extends Activity {
 	        testListItem.put(RESULT, "OK");
 	        testListItem.put(TESTCASE, "RUNNING");
 	        publishProgress(testListItem);
+	        try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        publishProgress(testListItem);
+	        publishProgress(testListItem);
+	        try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        publishProgress(testListItem);
+	        publishProgress(testListItem);
 			return null;
 		}
 		
 		protected void onProgressUpdate(HashMap<String,String>... testItem) {
 						
 	        _testList.add(testItem[0]);
+
+
+	        _testCaseList.setAdapter(_mSchedule);
 			
 		};
 		
