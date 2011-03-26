@@ -4,6 +4,7 @@ public class Config {
 
 	public static String LOCAL_INI = "/sdcard/couch/etc/couchdb/local.ini";
 	
+	public static String DATABASE = "roadrunner";
 	public static String USERNAME = "roadrunner";
 	public static String PASSWORD = "roadrunner";
 	

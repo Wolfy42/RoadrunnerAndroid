@@ -17,6 +17,6 @@
 	    android:padding="1mm"
 	    android:id="@+id/TESTCASE" 
 	    android:layout_weight="70" 
-	    android:gravity="left">
+	    android:gravity="left" >
 	</TextView>
 </LinearLayout>
