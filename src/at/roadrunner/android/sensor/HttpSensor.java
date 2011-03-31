@@ -11,19 +11,23 @@
 package at.roadrunner.android.sensor;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
+import java.io.InputStream;
+import java.net.URL;
 
 /**
  * Class HttpSensor
  * 
- * @author Franziskus Domig
+ * @author Matthias Schmid
  */
 public class HttpSensor implements Sensor {
 
-	protected HttpURLConnection _connection;
+	protected URL _url;
 
-	public HttpSensor(HttpURLConnection connection) {
-		_connection = connection;
+	protected SensorConnectionFactory _factory;
+	
+	public HttpSensor(URL url, SensorConnectionFactory f) {
+		_url = url;
+		_factory = f;
 	}
 
 	/*
@@ -34,7 +38,9 @@ public class HttpSensor implements Sensor {
 	public String getData() throws IOException {
 		StringBuilder string = new StringBuilder();
 		int b = 0;
-		while (-1 != (b = _connection.getInputStream().read())) {
+		InputStream stream = _factory.openHttpConnection(_url)
+				.getInputStream();
+		while (-1 != (b = stream.read())) {
 			string.append((char) b);
 		}
 		return string.toString();
