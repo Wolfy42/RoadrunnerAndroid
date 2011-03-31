@@ -1,5 +1,7 @@
 package at.roadrunner.android.activity;
 
+import org.apache.http.client.methods.HttpPost;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import at.roadrunner.android.R;
+import at.roadrunner.android.couchdb.RequestFactory;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Log.LogType;
 import at.roadrunner.android.util.Intents;
@@ -57,6 +60,12 @@ public class Roadrunner extends Activity {
 			
 			alert.show();
 		}
+	}
+	
+	public void onReplicateClick(View view)  {
+		
+		RequestWorker.replicate();
+		
 	}
 
 	/*

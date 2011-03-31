@@ -1,6 +1,7 @@
 package at.roadrunner.android.couchdb;
 
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 
@@ -22,6 +23,17 @@ public class RequestFactory {
 		setHeader(put);
 		
 		return put;
+	}
+	
+	public static HttpPost createHttpPost(String path)  {
+		StringBuilder sb = new StringBuilder(Config.HOST);
+		if (path != null)  {
+			sb.append(path);
+		}
+		HttpPost post = new HttpPost(sb.toString());
+		setHeader(post);
+		
+		return post;
 	}
 	
 	private static void setHeader(HttpRequestBase request)  {
