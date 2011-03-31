@@ -10,14 +10,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
 import at.roadrunner.android.model.Log;
 import at.roadrunner.android.model.Log.LogType;
 
 public class RequestWorker {
+	private Context m_context;
 	
-	public static void saveLog(String itemId, LogType logType)  {
+	public RequestWorker(Context context) {
+		m_context = context;
+	}
+	
+	/*
+	 * save the log of an item
+	 */
+	public void saveLog(String itemId, LogType logType)  {
 		
 		JSONObject log = new JSONObject();
 		try {
@@ -40,12 +51,23 @@ public class RequestWorker {
 		}	
 	}
 	
-	public static void replicate() {
+	/*
+	 * replicate the DB with the server
+	 */
+	public void replicate() {
+		String IPandPort;
+		String dbName;
+		
+		// get the ip and name of the database
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
+		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":" + Config.ROADRUNNER_SERVER_PORT);
+		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
 
 		JSONObject repl = new JSONObject();
 		try {
-			repl.put("source", Config.DATABASE);
-			repl.put("target", "http://172.16.102.224:5984/"+Config.DATABASE);
+			//repl.put("source", Config.DATABASE);
+			repl.put("source", dbName);
+			repl.put("target", "http://" + IPandPort + "/" + dbName);
 			repl.put("filter", "roadrunnermobile/logfilter");
 			
 			HttpPost post = RequestFactory.createHttpPost("_replicate");
@@ -56,20 +78,17 @@ public class RequestWorker {
 	        result.toString();
 			
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (CouchDBNotReachableException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		
-		
 	}
 		
+	/*
+	 * returns the next ID
+	 */
 	public static String getNextId()  {
 		try {
 			HttpGet get = RequestFactory.createHttpGet("_uuids");		
@@ -84,6 +103,4 @@ public class RequestWorker {
 		}
 		return null;
 	}
-
-
 }

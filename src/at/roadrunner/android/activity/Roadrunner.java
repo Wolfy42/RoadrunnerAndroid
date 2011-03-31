@@ -59,10 +59,11 @@ public class Roadrunner extends Activity {
 		}
 	}
 	
+	/*
+	 * Event onReplicateClick
+	 */
 	public void onReplicateClick(View view)  {
-		
-		RequestWorker.replicate();
-		
+		new RequestWorker(this).replicate();
 	}
 
 	/*
@@ -76,11 +77,10 @@ public class Roadrunner extends Activity {
 				@SuppressWarnings("unused")
 				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 
-				Toast toast = Toast.makeText(getApplicationContext(), contents,
-						3);
+				Toast toast = Toast.makeText(getApplicationContext(), contents, 3);
 				toast.show();
 				
-				RequestWorker.saveLog(contents, LogType.LOAD);
+				new RequestWorker(this).saveLog(contents, LogType.LOAD);
 				
 			} else if (resultCode == RESULT_CANCELED) {
 
