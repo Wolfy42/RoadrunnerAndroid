@@ -14,11 +14,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
 import at.roadrunner.android.model.Log;
 import at.roadrunner.android.util.HttpHelper;
 
 public class RequestWorker {
-
+	
 	public static void saveLogForLoad(String itemId)  {
 		
 		JSONObject log = new JSONObject();
@@ -31,27 +32,20 @@ public class RequestWorker {
 	        StringEntity body = new StringEntity(log.toString());
 	        put.setEntity(body);
 			
-			HttpClient client = new DefaultHttpClient();
-			HttpResponse response = client.execute(put);
-			JSONObject content = new JSONObject(HttpHelper.contentToString(response)); 
-			
-			android.util.Log.e("w", content.toString());
-			content.toString();
-	        
+	        HttpExecutor.getInstance().executeForResponse(put);
+				        
+		} catch (CouchDBNotReachableException e) {
+			e.printStackTrace();
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public static String getNextId()  {
 		try {
-			HttpGet get = RequestFactory.createHttpGetForId();		
+			HttpGet get = RequestFactory.createHttpGet("_uuids");		
 			HttpClient client = new DefaultHttpClient();
 			HttpResponse response = client.execute(get);
 			JSONObject content = new JSONObject(HttpHelper.contentToString(response)); 

@@ -12,6 +12,8 @@ import org.json.JSONObject;
 import android.content.Context;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
+import at.roadrunner.android.couchdb.HttpExecutor;
+import at.roadrunner.android.couchdb.RequestFactory;
 import at.roadrunner.android.util.HttpHelper;
 
 public class SystemTestCases {
@@ -39,12 +41,9 @@ public class SystemTestCases {
 	public TestCase localCouchDBReachable()  {
 		String test = _context.getString(R.string.systemtest_test_local_couch_db_reachable);
 			
-		HttpClient client = new DefaultHttpClient();
-		HttpGet request = new HttpGet(Config.HOST);
 		try {
-			HttpResponse response = client.execute(request);
-			JSONObject content = new JSONObject(HttpHelper.contentToString(response)); 
-			if (content.getString("couchdb") != null)  {
+			JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(RequestFactory.createHttpGet(null)));
+			if (response.getString("couchdb") != null)  {
 				return new TestCase(_ok,test);
 			}
 		} catch (Exception e) {  }
@@ -54,11 +53,8 @@ public class SystemTestCases {
 	public TestCase localDatabaseExists()  {
 		String test = _context.getString(R.string.systemtest_test_local_db_exists);
 			
-		HttpClient client = new DefaultHttpClient();
-		HttpGet request = new HttpGet(Config.HOST+"_all_dbs");
 		try {
-			HttpResponse response = client.execute(request);
-			JSONArray content = new JSONArray(HttpHelper.contentToString(response)); 
+			JSONArray content = new JSONArray(HttpExecutor.getInstance().executeForResponse(RequestFactory.createHttpGet("_all_dbs"))); 
 			for (int i=0; i<content.length(); i++)  {
 				if (content.getString(i).equals(Config.DATABASE))  {
 					return new TestCase(_ok,test);
