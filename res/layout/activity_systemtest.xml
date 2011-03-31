@@ -8,17 +8,19 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:padding="6dip">
 
 		<GridView xmlns:android="http://schemas.android.com/apk/res/android"
 			android:id="@+id/TestCaseList" 
-	    	android:layout_alignParentTop="true"
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="2mm"
-			android:layout_marginRight="2mm"
 	   		/>
+	   <ProgressBar  
+			android:id="@+id/systemstate_progressbar" 
+	    	android:layout_width="wrap_content" 
+	    	android:layout_height="wrap_content" 
+	    	android:visibility="invisible"
+	    	/>
 	</LinearLayout>
 </LinearLayout>
 	

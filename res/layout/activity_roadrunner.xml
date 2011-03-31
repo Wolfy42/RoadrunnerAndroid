@@ -21,6 +21,11 @@
                 android:onClick="onScanClick"
                 android:text="@string/roadrunner_scan"
                 android:drawableTop="@drawable/ic_roadrunner_btn_scan"/>
+            <Button android:id="@+id/roadrunner_btn_replicate"
+                style="@style/NavigationButton"
+                android:onClick="onReplicateClick"
+                android:text="@string/roadrunner_replicate"
+                android:drawableTop="@drawable/ic_roadrunner_btn_scan"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -14,7 +14,7 @@ public class CouchDB {
 
 	public void insertRoadrunnerUser()  {
 		
-		File iniFile = new File(Config.LOCAL_INI);
+		File iniFile = getIniFile();
 				
 		URLConnection conn;
 		BufferedReader reader = null;
@@ -81,6 +81,10 @@ public class CouchDB {
 				} catch (IOException e)  {}
 			}		
 		}	
+	}
+	
+	public static File getIniFile()  {
+		return new File(Config.LOCAL_INI);
 	}
 	
 }

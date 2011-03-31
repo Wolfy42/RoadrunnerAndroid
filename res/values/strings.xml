@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Roadrunner</string><string name="app_dialog_yes">Yes</string>
-    <string name="app_dialog_no">No</string><string name="roadrunner_scan">Scan Item</string>
+    <string name="app_name">Roadrunner</string>
+    <string name="app_dialog_yes">Yes</string>
+    <string name="app_dialog_no">No</string>
+    <string name="roadrunner_scan">Scan Item</string>
+    <string name="roadrunner_replicate">Replicate</string>
     <string name="roadrunner_menu_settings">Settings</string>
     <string name="roadrunner_menu_info">Info</string>
     <string name="roadrunner_menu_systemtest">System Test</string>
@@ -30,4 +33,11 @@
     <string name="pref_server">Connection Settings</string>
     <string name="pref_server_ip">Server IP</string>
     <string name="pref_server_database">Databasename</string>
+    
+    <string name="systemtest_test_ok">OK</string>
+    <string name="systemtest_test_fail">FAIL</string>
+    <string name="systemtest_test_ini_file_exists">Existence of local.ini of CouchDB</string>
+    <string name="systemtest_test_local_couch_db_reachable">Local CouchDB reachable</string>
+    <string name="systemtest_test_local_db_exists">Local Database exists</string>
+    
 </resources>
