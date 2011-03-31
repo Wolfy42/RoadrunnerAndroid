@@ -1,6 +1,5 @@
 package at.roadrunner.android.test.simple;
 
-import se.msc.android.droidcouch.CouchBulkDeleteDocuments;
 import junit.framework.TestCase;
 
 public class SimpleTest extends TestCase {
