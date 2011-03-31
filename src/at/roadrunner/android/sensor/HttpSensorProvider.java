@@ -6,6 +6,8 @@ package at.roadrunner.android.sensor;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.roadrunner.android.couchdb.GetRequest;
+
 
 /**
  * Class HttpSensorProvider
@@ -53,6 +55,9 @@ public class HttpSensorProvider {
 	 */
 	private String[] getSensorUris(Integer cId) {
 		String[] sensorUris =  new String[1];
+		GetRequest query = new GetRequest();
+		
+		
 		sensorUris[0] = "http://roadrunner.server:4711";
 		return sensorUris;
 	}
