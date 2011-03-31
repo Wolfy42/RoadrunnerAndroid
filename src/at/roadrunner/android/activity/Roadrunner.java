@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.RequestWorker;
+import at.roadrunner.android.model.Log.LogType;
 import at.roadrunner.android.util.Intents;
 
 public class Roadrunner extends Activity {
@@ -73,7 +74,7 @@ public class Roadrunner extends Activity {
 						3);
 				toast.show();
 				
-				RequestWorker.saveLogForLoad(contents);
+				RequestWorker.saveLog(contents, LogType.LOAD);
 				
 			} else if (resultCode == RESULT_CANCELED) {
 

@@ -11,15 +11,16 @@ import org.json.JSONObject;
 
 import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
 import at.roadrunner.android.model.Log;
+import at.roadrunner.android.model.Log.LogType;
 
 public class RequestWorker {
 	
-	public static void saveLogForLoad(String itemId)  {
+	public static void saveLog(String itemId, LogType logType)  {
 		
 		JSONObject log = new JSONObject();
 		try {
 			log.put(Log.TYPE_KEY, Log.TYPE_VALUE);
-			log.put(Log.LOG_TYPE_KEY, Log.LogType.LOAD.name());
+			log.put(Log.LOG_TYPE_KEY, logType.name());
 			log.put(Log.ITEM_KEY, itemId);
 			
 			HttpPut put = RequestFactory.createHttpPut(getNextId());
