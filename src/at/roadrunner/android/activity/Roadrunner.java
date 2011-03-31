@@ -68,8 +68,7 @@ public class Roadrunner extends Activity {
 				@SuppressWarnings("unused")
 				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 
-				Toast toast = Toast.makeText(getApplicationContext(), contents,
-						3);
+				Toast toast = Toast.makeText(getApplicationContext(), contents, 3);
 				toast.show();
 			} else if (resultCode == RESULT_CANCELED) {
 
