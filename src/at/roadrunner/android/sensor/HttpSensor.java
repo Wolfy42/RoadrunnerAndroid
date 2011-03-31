@@ -11,12 +11,7 @@
 package at.roadrunner.android.sensor;
 
 import java.io.IOException;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import java.net.HttpURLConnection;
 
 /**
  * Class HttpSensor
@@ -25,17 +20,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
  */
 public class HttpSensor implements Sensor {
 
-	/**
-	 * URI
-	 */
-	protected String _uri;
+	protected HttpURLConnection _connection;
 
-	/**
-	 * Constructor
-	 * @param uri
-	 */
-	public HttpSensor(String uri) {
-		_uri = uri;
+	public HttpSensor(HttpURLConnection connection) {
+		_connection = connection;
 	}
 
 	/*
@@ -46,21 +34,9 @@ public class HttpSensor implements Sensor {
 	public String getData() throws IOException {
 		StringBuilder string = new StringBuilder();
 		int b = 0;
-		while (-1 != (b = query().getEntity().getContent().read())) {
+		while (-1 != (b = _connection.getInputStream().read())) {
 			string.append((char) b);
 		}
 		return string.toString();
-	}
-	
-	/**
-	 * Establishes the Sensor Connection
-	 * 
-	 * @return HttpResponse
-	 * @throws ClientProtocolException
-	 * @throws IOException
-	 */
-	public HttpResponse query() throws ClientProtocolException, IOException {
-		HttpClient c = new DefaultHttpClient();
-		return c.execute(new HttpGet(_uri));
 	}
 }

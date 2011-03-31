@@ -3,8 +3,12 @@
  */
 package at.roadrunner.android.sensor;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import at.roadrunner.android.couchdb.GetRequest;
 
 
 /**
@@ -34,13 +38,14 @@ public class HttpSensorProvider {
 	 * Discovers all available sensors 
 	 * 
 	 * @return List<Sensor> the registered sensors of container
+	 * @throws MalformedURLException 
 	 */
-	public List<Sensor> discover() {
+	public List<URL> discover() throws MalformedURLException {
 		
 		String[] uris = getSensorUris(_container_id);
-		List<Sensor> sensors = new ArrayList<Sensor>();
+		List<URL> sensors = new ArrayList<URL>();
 		for (String s : uris) {
-			sensors.add(new HttpSensor(s));
+			sensors.add(new URL(s));
 		}
 		return sensors;
 	}
@@ -53,6 +58,9 @@ public class HttpSensorProvider {
 	 */
 	private String[] getSensorUris(Integer cId) {
 		String[] sensorUris =  new String[1];
+		GetRequest query = new GetRequest();
+		
+		
 		sensorUris[0] = "http://roadrunner.server:4711";
 		return sensorUris;
 	}
