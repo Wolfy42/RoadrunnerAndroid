@@ -1,22 +1,16 @@
 package at.roadrunner.android.couchdb;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
 import at.roadrunner.android.model.Log;
-import at.roadrunner.android.util.HttpHelper;
 
 public class RequestWorker {
 	
@@ -46,26 +40,15 @@ public class RequestWorker {
 	public static String getNextId()  {
 		try {
 			HttpGet get = RequestFactory.createHttpGet("_uuids");		
-			HttpClient client = new DefaultHttpClient();
-			HttpResponse response = client.execute(get);
-			JSONObject content = new JSONObject(HttpHelper.contentToString(response)); 
+			JSONObject content = new JSONObject(HttpExecutor.getInstance().executeForResponse(get)); 
 			JSONArray array = new JSONArray(content.getString("uuids"));
 			return array.getString(0);
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CouchDBNotReachableException e) {
 			e.printStackTrace();
 		}
 		return null;
-		
-		
-		
 	}
-	
-	
 }
