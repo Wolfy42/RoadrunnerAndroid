@@ -17,10 +17,5 @@ public class Log {
 		TRACK,
 		TEMPSENSOR,
 		POSSENSOR;
-		
-		
 	}
-	
-	
-	
 }

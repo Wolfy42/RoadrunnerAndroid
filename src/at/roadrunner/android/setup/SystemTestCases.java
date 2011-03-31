@@ -2,10 +2,6 @@ package at.roadrunner.android.setup;
 
 import java.io.File;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,7 +10,6 @@ import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.HttpExecutor;
 import at.roadrunner.android.couchdb.RequestFactory;
-import at.roadrunner.android.util.HttpHelper;
 
 public class SystemTestCases {
 
