@@ -12,7 +12,9 @@ public class Config {
 	public static String URL = "127.0.0.1";
 	public static String PORT = "5984";
 	
-	public static String HOST = PROTOCOL + URL + ":" + PORT + "/";;
+	public static String HOST = PROTOCOL + URL + ":" + PORT + "/";
 	public static String AUTH_HOST = PROTOCOL + USERNAME + ":" + PASSWORD + "@" + URL + ":" + PORT + "/";
+	
+	public static String DB_HOST = PROTOCOL + URL + ":" + PORT + "/" + DATABASE + "/";
 	
 }

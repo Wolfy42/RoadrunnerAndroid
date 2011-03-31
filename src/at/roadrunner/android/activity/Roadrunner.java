@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import at.roadrunner.android.R;
+import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.util.Intents;
 
 public class Roadrunner extends Activity {
@@ -71,6 +72,9 @@ public class Roadrunner extends Activity {
 				Toast toast = Toast.makeText(getApplicationContext(), contents,
 						3);
 				toast.show();
+				
+				RequestWorker.saveLogForLoad(contents);
+				
 			} else if (resultCode == RESULT_CANCELED) {
 
 			}
