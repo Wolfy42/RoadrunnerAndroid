@@ -3,8 +3,11 @@
  */
 package at.roadrunner.android.sensor;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +24,9 @@ public class HttpSensorProvider {
 	/**
 	 * The Container Id
 	 */
-	private Integer _container_id;
+	protected Integer _container_id;
+	
+	protected SensorConnectionFactory _connection_fact;
 	
 	/**
 	 * Constructor
@@ -29,6 +34,7 @@ public class HttpSensorProvider {
 	 */
 	public HttpSensorProvider(Integer cId) {
 		_container_id = cId;
+		_connection_fact = new SensorConnectionFactory();
 	}
 	
 	
@@ -36,14 +42,15 @@ public class HttpSensorProvider {
 	 * Discovers all available sensors 
 	 * 
 	 * @return List<Sensor> the registered sensors of container
-	 * @throws MalformedURLException 
+	 * @throws IOException 
 	 */
-	public List<URL> discover() throws MalformedURLException {
+	public List<Sensor> discover() throws IOException {
 		
 		String[] uris = getSensorUris(_container_id);
-		List<URL> sensors = new ArrayList<URL>();
+		List<Sensor> sensors = new ArrayList<Sensor>();
 		for (String s : uris) {
-			sensors.add(new URL(s));
+			URL url = new URL(s);
+			sensors.add(new HttpSensor(url, _connection_fact));
 		}
 		return sensors;
 	}
