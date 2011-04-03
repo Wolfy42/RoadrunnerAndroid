@@ -1,6 +1,8 @@
 package at.roadrunner.android.test.simple;
 
 import junit.framework.TestCase;
+import mockit.Mockit;
+import at.roadrunner.android.model.Log;
 
 public class SimpleTest extends TestCase {
 
@@ -18,6 +20,13 @@ public class SimpleTest extends TestCase {
 	
 	public void testMore()  {
 		assertEquals(true, true);
+	}
+	
+	public void testMock()  {
+		 Log log = Mockit.setUpMock(new Log());
+		 
+		 assertTrue(log != null);
+		 
 	}
 	
 	
