@@ -25,9 +25,10 @@ public class RoadrunnerMenuTest {
 	@Before
 	public void setUp() throws Exception {
 		_activity = new Roadrunner();
-		_activity.onCreate(null);
 		_menu = new TestMenu();
-		_activity.getMenuInflater().inflate(R.menu.roadrunner_menu, _menu);
+		
+		_activity.onCreate(null);
+		_activity.onCreateOptionsMenu(_menu);
 	}
 	
 	@Test
