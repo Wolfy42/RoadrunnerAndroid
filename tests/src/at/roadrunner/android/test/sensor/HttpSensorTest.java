@@ -1,3 +1,4 @@
+
 package at.roadrunner.android.test.sensor;
 
 
@@ -7,16 +8,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import junit.framework.TestCase;
-import android.util.Log;
+
 import at.roadrunner.android.sensor.HttpSensor;
 import at.roadrunner.android.sensor.SensorConnectionFactory;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class HttpSensorTest extends TestCase {
 
 	private HttpSensor _httpSensor;
+
+	protected SensorConnectionFactory _cf ;
 
 	static protected int _pos = 0;
 	
@@ -57,10 +58,8 @@ public class HttpSensorTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		URL url  = new URL("http://172.16.102.224:4711");
-		SensorConnectionFactory cf = mock(SensorConnectionFactory.class);
-		
-		when(cf.openHttpConnection(url)).thenReturn(new MockHttpURLConnection(url));
-		_httpSensor = new HttpSensor(url, cf);
+
+		_httpSensor = new HttpSensor(url, _cf);
 	}
 	
 	/**
@@ -69,11 +68,13 @@ public class HttpSensorTest extends TestCase {
 	 * @throws IOException 
 	 */
 	public void testHttpSensor() throws IOException {
+
 		assertTrue(_httpSensor.getData().compareTo("17") == 0);
 		assertTrue(_httpSensor.getData().compareTo("17") == 0);
 		assertTrue(_httpSensor.getData().compareTo("17") == 0);
 		assertTrue(_httpSensor.getData().compareTo("17") == 0);
 		assertTrue(_httpSensor.getData().compareTo("17") == 0);
+
 	}
 	
 	@Override
