@@ -22,13 +22,19 @@
             </intent-filter>
         </activity>
         
+        <!-- Items Activity -->
+        <activity android:name=".activity.Items"
+        		  android:theme="@style/Theme.Roadrunner"
+                  android:label="@string/app_name">
+        </activity>
+        
         <!-- Settings Activity -->
         <activity android:name=".activity.Settings"
         		  android:theme="@style/Theme.Roadrunner"
                   android:label="@string/app_name">
         </activity>
 		
-		<!-- Settings Activity -->
+		<!-- Info Activity -->
         <activity android:name=".activity.Info"
         		  android:theme="@style/Theme.Roadrunner"
                   android:label="@string/app_name">

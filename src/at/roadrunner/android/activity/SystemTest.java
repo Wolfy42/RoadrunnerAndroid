@@ -36,7 +36,7 @@ public class SystemTest extends Activity {
 		_progressBar = (ProgressBar) findViewById(R.id.systemstate_progressbar);
 		
         _testList = new ArrayList<HashMap<String, String>>();
-        _mSchedule = new SimpleAdapter(this, _testList, R.layout.item_systemtest,
+        _mSchedule = new SimpleAdapter(this, _testList, R.layout.row_item_systemtest,
 	                    new String[] {RESULT, TESTCASE}, new int[] {R.id.RESULT, R.id.TESTCASE});
         _testCaseList.setAdapter(_mSchedule);
         
