@@ -25,7 +25,7 @@ public class RequestFactory {
 		return put;
 	}
 	
-	public static HttpPost createHttpPost(String path)  {
+	public static HttpPost createLocalHttpPost(String path)  {
 		StringBuilder sb = new StringBuilder(Config.HOST);
 		if (path != null)  {
 			sb.append(path);
