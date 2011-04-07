@@ -41,7 +41,6 @@ public class RequestWorker {
 	        put.setEntity(body);
 			
 	        HttpExecutor.getInstance().executeForResponse(put);
-				        
 		} catch (CouchDBNotReachableException e) {
 			e.printStackTrace();
 		} catch (JSONException e) {
@@ -53,25 +52,51 @@ public class RequestWorker {
 	
 	/*
 	 * get local stored items
-	 * TODO: FIX Return Statement
+	 * TODO: FIX Return Statement maybe?
+	 * TODO: use user authentiaction maybe?
 	 */
-	public void getLocalItems() {
-		
-		
-		
-	}
-	
-	/*
-	 * replicate the DB with the server
-	 */
-	public void replicate() {
+	public String getLocalItems() {
+		String result = null;
 		String IPandPort;
 		String dbName;
+		String user;
+		String password;
 		
 		// get the ip and name of the database
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
 		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":" + Config.ROADRUNNER_SERVER_PORT);
 		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
+		user = prefs.getString("user", Config.ROADRUNNER_AUTHENTICATION_USER);
+		password = prefs.getString("password", Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
+		
+		try {
+			HttpPost post = RequestFactory.createLocalHttpPost(dbName + "/_design/roadrunnermobile/_view/loaded");
+			result = HttpExecutor.getInstance().executeForResponse(post);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (CouchDBNotReachableException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * replicate the DB with the server
+	 * TODO: add use/password authentication
+	 */
+	public void replicate() {
+		String IPandPort;
+		String dbName;
+		String user;
+		String password;
+		
+		// get the ip and name of the database
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
+		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":" + Config.ROADRUNNER_SERVER_PORT);
+		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
+		user = prefs.getString("user", Config.ROADRUNNER_AUTHENTICATION_USER);
+		password = prefs.getString("password", Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
 
 		JSONObject repl = new JSONObject();
 		try {
@@ -80,13 +105,12 @@ public class RequestWorker {
 			repl.put("target", "http://" + IPandPort + "/" + dbName);
 			repl.put("filter", "roadrunnermobile/logfilter");
 			
-			HttpPost post = RequestFactory.createHttpPost("_replicate");
+			HttpPost post = RequestFactory.createLocalHttpPost("_replicate");
 			StringEntity body = new StringEntity(repl.toString());
 			post.setEntity(body);
 			
 	        String result = HttpExecutor.getInstance().executeForResponse(post);
 	        result.toString();
-			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {

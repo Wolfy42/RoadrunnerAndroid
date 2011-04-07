@@ -67,6 +67,15 @@ public class Roadrunner extends Activity {
 	}
 
 	/*
+	 * Event onItemsClick
+	 */
+	public void onItemsClick(View view) {
+		String items = new RequestWorker(this).getLocalItems();
+		
+		// create the array of all stored items
+	}
+	
+	/*
 	 * onActivityResult
 	 */
 	@Override
