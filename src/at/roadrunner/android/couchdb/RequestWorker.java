@@ -1,6 +1,7 @@
 package at.roadrunner.android.couchdb;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -35,6 +36,7 @@ public class RequestWorker {
 			log.put(Log.TYPE_KEY, Log.TYPE_VALUE);
 			log.put(Log.LOG_TYPE_KEY, logType.name());
 			log.put(Log.ITEM_KEY, itemId);
+			log.put(Log.TIMESTAMP_KEY, new Date().getTime());
 			
 			HttpPut put = RequestFactory.createHttpPut(getNextId());
 	        StringEntity body = new StringEntity(log.toString());
@@ -105,6 +107,45 @@ public class RequestWorker {
 			repl.put("target", "http://" + IPandPort + "/" + dbName);
 			repl.put("filter", "roadrunnermobile/logfilter");
 			
+			HttpPost post = RequestFactory.createLocalHttpPost("_replicate");
+			StringEntity body = new StringEntity(repl.toString());
+			post.setEntity(body);
+			
+	        String result = HttpExecutor.getInstance().executeForResponse(post);
+	        result.toString();
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (CouchDBNotReachableException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * replicate the DB with the server
+	 */
+	public void replicateFromServer(JSONArray itemIdArray) {
+		String IPandPort;
+		String dbName;
+		
+		// get the ip and name of the database
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
+		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":" + Config.ROADRUNNER_SERVER_PORT);
+		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
+
+		JSONObject repl = new JSONObject();
+		try {
+			
+			JSONObject items = new JSONObject();
+			items.put("items", itemIdArray);
+
+			repl.put("source", "http://" + IPandPort + "/" + dbName);
+			repl.put("target", dbName);
+			repl.put("filter", "roadrunner/itemfilter");
+			repl.put("query_params", items);
+
 			HttpPost post = RequestFactory.createLocalHttpPost("_replicate");
 			StringEntity body = new StringEntity(repl.toString());
 			post.setEntity(body);
