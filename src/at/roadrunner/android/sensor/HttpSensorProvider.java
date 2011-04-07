@@ -74,7 +74,7 @@ public class HttpSensorProvider {
 			throws CouchDBNotReachableException, JSONException {
 	
 		String[] sensorUris =  new String[1];
-		String requestURI = Config.DB_HOST; // FIXME: create correct URL  Config.URI???
+		String requestURI = Config.AUTH_HOST + cId; // FIXME: create correct URL  Config.URI???
 		String json = HttpExecutor.getInstance().executeForResponse(
 				RequestFactory.createHttpGet(requestURI));
 		
