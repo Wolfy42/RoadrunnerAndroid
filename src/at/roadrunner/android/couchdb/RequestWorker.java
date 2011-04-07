@@ -1,6 +1,7 @@
 package at.roadrunner.android.couchdb;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -35,6 +36,7 @@ public class RequestWorker {
 			log.put(Log.TYPE_KEY, Log.TYPE_VALUE);
 			log.put(Log.LOG_TYPE_KEY, logType.name());
 			log.put(Log.ITEM_KEY, itemId);
+			log.put(Log.TIMESTAMP_KEY, new Date().getTime());
 			
 			HttpPut put = RequestFactory.createHttpPut(getNextId());
 	        StringEntity body = new StringEntity(log.toString());
