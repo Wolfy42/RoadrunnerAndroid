@@ -53,11 +53,12 @@ public class RequestWorker {
 	
 	/*
 	 * get local stored items
+	 * TODO: FIX Return Statement
 	 */
-	public String[] getLocalItems() {
+	public void getLocalItems() {
 		
 		
-		return null;
+		
 	}
 	
 	/*
