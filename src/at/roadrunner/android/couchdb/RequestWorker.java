@@ -70,8 +70,8 @@ public class RequestWorker {
 		password = prefs.getString("password", Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
 		
 		try {
-			HttpPost post = RequestFactory.createLocalHttpPost(dbName + "/_design/roadrunnermobile/_view/loaded");
-			result = HttpExecutor.getInstance().executeForResponse(post);
+			HttpGet get = RequestFactory.createHttpGet(dbName + "/_design/roadrunnermobile/_view/loaded");
+			result = HttpExecutor.getInstance().executeForResponse(get);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (CouchDBNotReachableException e) {
@@ -123,7 +123,7 @@ public class RequestWorker {
 	/*
 	 * returns the next ID
 	 */
-	public static String getNextId()  {
+	public String getNextId()  {
 		try {
 			HttpGet get = RequestFactory.createHttpGet("_uuids");		
 			JSONObject content = new JSONObject(HttpExecutor.getInstance().executeForResponse(get)); 
