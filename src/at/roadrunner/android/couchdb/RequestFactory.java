@@ -40,5 +40,4 @@ public class RequestFactory {
 		request.setHeader("Accept", "application/json");
 		request.setHeader("Content-type", "application/json");
 	}
-	
 }

@@ -8,8 +8,7 @@ public class Log {
 	
 	public static String TYPE_VALUE = "log";
 	
-	public enum LogType {
-		
+	public enum LogType {		
 		REGISTER,
 		UNREGISTER,
 		LOAD,

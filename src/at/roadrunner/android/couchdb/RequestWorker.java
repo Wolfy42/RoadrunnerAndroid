@@ -52,6 +52,15 @@ public class RequestWorker {
 	}
 	
 	/*
+	 * get local stored items
+	 */
+	public String[] getLocalItems() {
+		
+		
+		return null;
+	}
+	
+	/*
 	 * replicate the DB with the server
 	 */
 	public void replicate() {
