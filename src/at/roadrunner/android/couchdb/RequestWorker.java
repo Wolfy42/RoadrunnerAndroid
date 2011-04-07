@@ -85,6 +85,45 @@ public class RequestWorker {
 			e.printStackTrace();
 		}
 	}
+	
+	/*
+	 * replicate the DB with the server
+	 */
+	public void replicateFromServer(JSONArray itemIdArray) {
+		String IPandPort;
+		String dbName;
+		
+		// get the ip and name of the database
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
+		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":" + Config.ROADRUNNER_SERVER_PORT);
+		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
+
+		JSONObject repl = new JSONObject();
+		try {
+			
+			JSONObject items = new JSONObject();
+			items.put("items", itemIdArray);
+
+			repl.put("source", "http://" + IPandPort + "/" + dbName);
+			repl.put("target", dbName);
+			repl.put("filter", "roadrunner/itemfilter");
+			repl.put("query_params", items);
+
+			HttpPost post = RequestFactory.createHttpPost("_replicate");
+			StringEntity body = new StringEntity(repl.toString());
+			post.setEntity(body);
+			
+	        String result = HttpExecutor.getInstance().executeForResponse(post);
+	        result.toString();
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (CouchDBNotReachableException e) {
+			e.printStackTrace();
+		}
+	}
 		
 	/*
 	 * returns the next ID
