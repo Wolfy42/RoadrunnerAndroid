@@ -12,4 +12,17 @@
 			android:defaultValue="roadrunner"
 		/>
 	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/pref_authentication"> 
+		<EditTextPreference
+			android:key="user"
+			android:title="@string/pref_authentication_user"
+			android:defaultValue="roadrunner"
+		/>
+		<EditTextPreference
+			android:key="password"
+			android:title="@string/pref_authentication_password"
+			android:password="true"
+			android:defaultValue="roadrunner"
+		/>
+	</PreferenceCategory>
 </PreferenceScreen>

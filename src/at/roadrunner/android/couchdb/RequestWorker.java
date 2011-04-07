@@ -52,6 +52,16 @@ public class RequestWorker {
 	}
 	
 	/*
+	 * get local stored items
+	 * TODO: FIX Return Statement
+	 */
+	public void getLocalItems() {
+		
+		
+		
+	}
+	
+	/*
 	 * replicate the DB with the server
 	 */
 	public void replicate() {

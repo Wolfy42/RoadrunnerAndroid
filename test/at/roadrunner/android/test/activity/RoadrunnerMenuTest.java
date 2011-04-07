@@ -44,9 +44,10 @@ public class RoadrunnerMenuTest {
 	}
 	
 	@Test
-	public void menuItemSelectionShouldWork()  {
-		TestMenuItem menuItem = (TestMenuItem) _menu.getItem(0);
-		assertTrue(_activity.onOptionsItemSelected(menuItem));
+	public void allMenuItemSelectionsShouldWork()  {
+		for (int i=0; i < _menu.size(); i++)  {
+			assertTrue(_activity.onOptionsItemSelected(_menu.getItem(i)));
+		}
 	}
 	
 	@Test
