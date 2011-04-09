@@ -41,7 +41,7 @@
     <string name="systemtest_test_local_db_exists">Local Database exists</string>
     
     <string name="items_noItems">no items currently loaded...</string>
-    <string name="items_txt_item">Item</string>
+    <string name="items_txt_key">Item</string>
     <string name="items_txt_timestamp">Timestamp</string>
     
     

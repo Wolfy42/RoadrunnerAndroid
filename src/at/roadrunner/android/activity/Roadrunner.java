@@ -1,18 +1,11 @@
 package at.roadrunner.android.activity;
 
-import java.util.Iterator;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Paint.Join;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -77,24 +70,7 @@ public class Roadrunner extends Activity {
 	 * Event onItemsClick
 	 */
 	public void onItemsClick(View view) {
-		String items = new RequestWorker(this).getLocalItems();
-		
-		// create JSON Object and add the items to the array list
-		if (items != null) {
-			try {
-				JSONObject jsonItems = new JSONObject(items);
-				Iterator iterator = jsonItems.keys();
-				while (iterator.hasNext()) {
-					String key = iterator.next().toString();
-					//Log.v("item", key);
-					Log.v("item", jsonItems.get(key).toString());
-				}
-				
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			
-		}
+		startActivity(new Intent(this, Items.class));
 	}
 	
 	/*
