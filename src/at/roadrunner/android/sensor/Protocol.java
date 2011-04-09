@@ -7,8 +7,8 @@ public enum Protocol {
 	ZIGBEE;
 	
 	public String[] listAll() {
-		String[] res = new String[this.values().length];
-		for (Protocol p : this.values()) {
+		String[] res = new String[values().length];
+		for (Protocol p : values()) {
 			res[p.ordinal()] = p.toString();
 		}
 		return res;

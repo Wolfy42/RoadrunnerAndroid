@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.json.JSONException;
 
-import at.roadrunner.android.Config;
 import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
 
 
