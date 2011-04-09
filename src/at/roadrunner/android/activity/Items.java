@@ -2,6 +2,7 @@ package at.roadrunner.android.activity;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,27 +34,49 @@ public class Items extends ListActivity{
 		m_items = new ArrayList<Item>();
 		m_adapter = new ItemAdapter(this, R.layout.row_item_items, m_items);
 		setListAdapter(m_adapter);
-		
+
+		// Runnable
 		viewItems = new Runnable() {
 			@Override
 			public void run() {
 				getItems();
 			}
 		};
+		
+		Thread thread = new Thread(null, viewItems, "doitbaby");
+		thread.start();
+		
+	    m_ProgressDialog = ProgressDialog.show(this, "Please wait...", "Retrieving data ...", true);
 	}
 	
 	private void getItems() {
+		m_items = new ArrayList<Item>();
+		String items = new RequestWorker(this).getLocalItems();
 		
+		if (items != null) {
+			try {
+				JSONObject obj = new JSONObject(items);
+				JSONArray arr = obj.getJSONArray("rows").getJSONObject(0).getJSONArray("value");
+				
+				for (int i = 0; i < arr.length(); i++) {
+					m_items.add(new Item(arr.getJSONObject(i).getString("item"),  arr.getJSONObject(i).getString("timestamp")));
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} 
+		}
+		
+		runOnUiThread(updateActivity);
 	}
 	
 	/*
 	 * runnable to communicate between the UI thread
 	 */
-	private Runnable returnRunnable = new Runnable() {
+	private Runnable updateActivity = new Runnable() {
 		
         @Override
         public void run() {
-            if(m_items != null && m_items.size() > 0){
+            if(m_items != null && m_items.size() > 0) {
                 m_adapter.notifyDataSetChanged();
                 for(int i = 0; i < m_items.size(); i++) {
                 	m_adapter.add(m_items.get(i));
@@ -64,7 +87,7 @@ public class Items extends ListActivity{
             m_adapter.notifyDataSetChanged();
         }
     };
-	
+    
 	/*
 	 * ArrayAdapter
 	 */
@@ -87,11 +110,11 @@ public class Items extends ListActivity{
 			
 			Item item = m_items.get(position);
 			if (item != null) {
-				TextView txtId = (TextView) view.findViewById(R.id.items_id);
+				TextView txtId = (TextView) view.findViewById(R.id.items_key);
 				TextView txtTimestamp = (TextView) view.findViewById(R.id.items_timestamp);
 				
-				txtId.setText(R.string.items_txt_item + ": " + item.getKey());
-				txtTimestamp.setText(R.string.items_txt_timestamp + ": " + item.getTimestamp());
+				txtId.setText(getString(R.string.items_txt_key) + ": " + item.getKey());
+				txtTimestamp.setText(getString(R.string.items_txt_timestamp) + ": " + item.getTimestamp());
 			}
 
 			return view;

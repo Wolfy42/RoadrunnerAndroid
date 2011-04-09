@@ -10,7 +10,7 @@
         android:layout_weight="1"
         android:layout_height="fill_parent">
         <TextView
-            android:id="@+id/items_id"
+            android:id="@+id/items_key"
             android:layout_width="fill_parent"
             android:layout_height="0dip"
             android:layout_weight="1"
