@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import at.roadrunner.android.Config;
 import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
@@ -24,20 +25,15 @@ import at.roadrunner.android.couchdb.RequestFactory;
  */
 public class HttpSensorProvider {
 
-	
-	/**
-	 * The Container Id
-	 */
-	protected Integer _container_id;
-	
 	protected SensorConnectionFactory _connection_fact;
+	
+	protected final static String _request_URI = Config.DB_HOST + "/_design/views/sensor";
 	
 	/**
 	 * Constructor
 	 * @param cId Integer Container Id
 	 */
-	public HttpSensorProvider(Integer cId) {
-		_container_id = cId;
+	public HttpSensorProvider() {
 		_connection_fact = new SensorConnectionFactory();
 	}
 	
@@ -53,7 +49,7 @@ public class HttpSensorProvider {
 	public List<Sensor> discover() throws IOException, 
 			CouchDBNotReachableException, JSONException {
 		
-		String[] uris = getSensorUris(_container_id);
+		String[] uris = getSensorUris();
 		List<Sensor> sensors = new ArrayList<Sensor>();
 		for (String s : uris) {
 			URL url = new URL(s);
@@ -65,20 +61,22 @@ public class HttpSensorProvider {
 	/**
 	 * Gets the URIs of all Sensors in Container _container_id 
 	 * 
-	 * @param cId
 	 * @return String[] 
 	 * @throws JSONException 
 	 * @throws CouchDBNotReachableException 
 	 */
-	private String[] getSensorUris(Integer cId) 
+	private String[] getSensorUris() 
 			throws CouchDBNotReachableException, JSONException {
 	
 		String[] sensorUris =  new String[1];
-		String requestURI = Config.AUTH_HOST + cId; // FIXME: create correct URL  Config.URI???
-		String json = HttpExecutor.getInstance().executeForResponse(
-				RequestFactory.createHttpGet(requestURI));
+		 
+		String res = HttpExecutor.getInstance().executeForResponse(
+				RequestFactory.createHttpGet(HttpSensorProvider._request_URI));
 		
+
 		// FIXME: Parse Json answer into sensorURIs[] Array
+		JSONObject json = new JSONObject(res); 
+		json.
 		
 		// FIXME: delete this line if request factory works
 		sensorUris[0] = "http://roadrunner.server:4711";
