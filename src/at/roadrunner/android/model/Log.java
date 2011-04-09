@@ -16,6 +16,7 @@ public class Log {
 		UNLOAD,
 		TRACK,
 		TEMPSENSOR,
-		POSSENSOR;
+		POSSENSOR,
+		SENSOR_NOT_ACCESSIBLE_ERROR;
 	}
 }
