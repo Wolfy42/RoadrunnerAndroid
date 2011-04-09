@@ -59,7 +59,7 @@ public class SensorProvider {
 				break;
 			case BLUETOOTH:
 			case ZIGBEE:
-				throw new UnknownServiceException("The Protocol is " + 
+				throw new UnknownServiceException("The Protocol " + 
 						s.getProtocol() + " is not supported at the moment.");	
 			}
 		}
