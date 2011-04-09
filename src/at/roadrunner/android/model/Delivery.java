@@ -22,4 +22,24 @@ public class Delivery {
 		//TODO: create the Object
 		
 	}
+
+	public long getTrackingNumber() {
+		return _trackingNumber;
+	}
+
+	public Address getDestination() {
+		return _destination;
+	}
+
+	public String getConstituent() {
+		return _constituent;
+	}
+
+	public ArrayList<Item> getItems() {
+		return _items;
+	}
+
+	public ArrayList<Sensor> getSensor() {
+		return _sensor;
+	}
 }

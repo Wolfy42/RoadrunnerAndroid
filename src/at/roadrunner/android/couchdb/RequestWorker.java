@@ -59,9 +59,12 @@ public class RequestWorker {
 	 */
 	public String getLocalItems() {
 		String result = null;
+		@SuppressWarnings("unused")
 		String IPandPort;
 		String dbName;
+		@SuppressWarnings("unused")
 		String user;
+		@SuppressWarnings("unused")
 		String password;
 		
 		// get the ip and name of the database
@@ -90,7 +93,9 @@ public class RequestWorker {
 	public void replicate() {
 		String IPandPort;
 		String dbName;
+		@SuppressWarnings("unused")
 		String user;
+		@SuppressWarnings("unused")
 		String password;
 		
 		// get the ip and name of the database
