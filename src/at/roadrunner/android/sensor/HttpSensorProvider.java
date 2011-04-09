@@ -76,10 +76,8 @@ public class HttpSensorProvider {
 
 		// FIXME: Parse Json answer into sensorURIs[] Array
 		JSONObject json = new JSONObject(res); 
-		json.
 		
-		// FIXME: delete this line if request factory works
-		sensorUris[0] = "http://roadrunner.server:4711";
+		
 		
 		return sensorUris;
 	}
