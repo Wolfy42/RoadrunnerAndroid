@@ -64,4 +64,5 @@ public class HttpSensorProvider {
 		sensorUris[0] = "http://roadrunner.server:4711";
 		return sensorUris;
 	}
+
 }
