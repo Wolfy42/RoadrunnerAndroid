@@ -27,7 +27,7 @@ public class RequestWorker {
 	}
 	
 	/**
-	 * Logs a Message of Type logType
+	 * Logs a Message of Type logType. This is a generic function for logging. 
 	 * 
 	 * @param logType the Type of Log Message
 	 * @param context the key of the logMsg value. Log entries with context 
@@ -35,6 +35,7 @@ public class RequestWorker {
 	 * @param entry the content of this log entry. The Object entry will call the 
 	 * toString() Method.
 	 */
+	// Also ItemLogs could be created with this logging function.
 	public void log(LogType logType, String context, Object entry) {
 		
 		if (context != Log.ERROR || (context == Log.ERROR && true == Config.ERROR_LOG)) {
