@@ -27,33 +27,38 @@ public class RequestWorker {
 	}
 	
 	/**
-	 * Logs a Message of Type logType 
+	 * Logs a Message of Type logType
 	 * 
 	 * @param logType the Type of Log Message
-	 * @param msgKey the key of the log entry
-	 * @param logMsg the Log Message
+	 * @param context the key of the logMsg value. Log entries with context 
+	 * Log.ERROR will only be logged if Config.ERROR_LOG is set to true. 
+	 * @param entry the content of this log entry. The Object entry will call the 
+	 * toString() Method.
 	 */
-	public void log(LogType logType, String msgKey, String logMsg) {
+	public void log(LogType logType, String context, Object entry) {
 		
-		JSONObject log = new JSONObject();
-		try {
-			log.put(Log.TYPE_KEY, Log.TYPE_VALUE);
-			log.put(Log.LOG_TYPE_KEY, logType.name());
-			log.put(Log.ERROR, logMsg);
-			log.put(Log.TIMESTAMP_KEY, new Date().getTime());
-			
-			HttpPut put = RequestFactory.createHttpPut(getNextId());
-	        StringEntity body = new StringEntity(log.toString());
-	        put.setEntity(body);
-			
-	        HttpExecutor.getInstance().executeForResponse(put);
-		} catch (CouchDBNotReachableException e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}	
+		if (context != Log.ERROR || (context == Log.ERROR && true == Config.ERROR_LOG)) {
+		
+			JSONObject log = new JSONObject();
+			try {
+				log.put(Log.TYPE_KEY, Log.TYPE_VALUE);
+				log.put(Log.LOG_TYPE_KEY, logType.name());
+				log.put(context, entry.toString());
+				log.put(Log.TIMESTAMP_KEY, new Date().getTime());
+				
+				HttpPut put = RequestFactory.createHttpPut(getNextId());
+		        StringEntity body = new StringEntity(log.toString());
+		        put.setEntity(body);
+				
+		        HttpExecutor.getInstance().executeForResponse(put);
+			} catch (CouchDBNotReachableException e) {
+				e.printStackTrace();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/*

@@ -24,4 +24,6 @@ public class Config {
 	public static final String AUTH_HOST = PROTOCOL + USERNAME + ":" + PASSWORD + "@" + URL + ":" + PORT + "/";
 	
 	public static final String DB_HOST = PROTOCOL + URL + ":" + PORT + "/" + DATABASE + "/";
+	
+	public static boolean ERROR_LOG = true;
 }
