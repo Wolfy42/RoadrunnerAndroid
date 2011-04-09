@@ -14,8 +14,8 @@ public class TemperatureSensor extends Sensor {
 		_type = SensorType.Temperature;
 	}
 	
-	public TemperatureSensor(String url, double minTemperature, double maxTemperature) {
-		super(url);
+	public TemperatureSensor(String url, Protocol protocol, double minTemperature, double maxTemperature) {
+		super(url, protocol);
 		_type = SensorType.Temperature;
 		_minTemperature = minTemperature;
 		_maxTemperature = maxTemperature;
