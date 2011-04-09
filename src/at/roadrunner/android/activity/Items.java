@@ -9,48 +9,56 @@ import org.json.JSONObject;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Item;
 
-public class Items extends ListActivity{
+public class Items extends ListActivity {
 
-	private ProgressDialog m_ProgressDialog = null; 
-    private ArrayList<Item> m_items = null;
-    private ItemAdapter m_adapter;
-    private Runnable viewItems;
+	private ProgressDialog _progressDialog = null; 
+    private ArrayList<Item> _items = null;
+    private ItemAdapter _adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_items);
 		
-		m_items = new ArrayList<Item>();
-		m_adapter = new ItemAdapter(this, R.layout.row_item_items, m_items);
-		setListAdapter(m_adapter);
+		_adapter = new ItemAdapter(this, R.layout.row_item_items);
+		setListAdapter(_adapter);
 
-		// Runnable
-		viewItems = new Runnable() {
+		// Runnable to fill the items in a Thread
+		Runnable getItems = new Runnable() {
 			@Override
 			public void run() {
 				getItems();
 			}
 		};
 		
-		Thread thread = new Thread(null, viewItems, "doitbaby");
-		thread.start();
+		// start a new Thread to get the items
+		new Thread(null, getItems, "getItemsOfCouchDB").start();
 		
-	    m_ProgressDialog = ProgressDialog.show(this, "Please wait...", "Retrieving data ...", true);
+		// show the Progressbar
+	    _progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait), getString(R.string.app_progress_retdata), true);
 	}
 	
+	/*
+	 * retrieves the items of the couchdb
+	 */
 	private void getItems() {
-		m_items = new ArrayList<Item>();
+		_items = new ArrayList<Item>();
 		String items = new RequestWorker(this).getLocalItems();
 		
 		if (items != null) {
@@ -59,7 +67,7 @@ public class Items extends ListActivity{
 				JSONArray arr = obj.getJSONArray("rows").getJSONObject(0).getJSONArray("value");
 				
 				for (int i = 0; i < arr.length(); i++) {
-					m_items.add(new Item(arr.getJSONObject(i).getString("item"),  arr.getJSONObject(i).getString("timestamp")));
+					_items.add(new Item(arr.getJSONObject(i).getString("item"),  arr.getJSONObject(i).getString("timestamp")));
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -70,36 +78,33 @@ public class Items extends ListActivity{
 	}
 	
 	/*
-	 * runnable to communicate between the UI thread
+	 * fill the adapter with the items of the list
 	 */
 	private Runnable updateActivity = new Runnable() {
 		
         @Override
         public void run() {
-            if(m_items != null && m_items.size() > 0) {
-                m_adapter.notifyDataSetChanged();
-                for(int i = 0; i < m_items.size(); i++) {
-                	m_adapter.add(m_items.get(i));
+            if(_items != null && _items.size() > 0) {
+                _adapter.notifyDataSetChanged();
+                for(int i = 0; i < _items.size(); i++) {
+                	_adapter.add(_items.get(i));
                 }
             }
             
-            m_ProgressDialog.dismiss();
-            m_adapter.notifyDataSetChanged();
+            _progressDialog.dismiss();
+            _adapter.notifyDataSetChanged();
         }
     };
     
 	/*
-	 * ArrayAdapter
+	 * ItemAdapter
 	 */
 	private class ItemAdapter extends ArrayAdapter<Item> {
 		
-		private ArrayList<Item> m_items;
-		
-		public ItemAdapter(Context context, int textViewRessourceId, ArrayList<Item> items) {
-			super(context, textViewRessourceId, items);
-			m_items = items;
+		public ItemAdapter(Context context, int textViewResourceId) {
+			super(context, textViewResourceId);
 		}
-		
+
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View view = convertView;
@@ -108,7 +113,7 @@ public class Items extends ListActivity{
 				view = layInf.inflate(R.layout.row_item_items, null);
 			}
 			
-			Item item = m_items.get(position);
+			Item item = _items.get(position);
 			if (item != null) {
 				TextView txtId = (TextView) view.findViewById(R.id.items_key);
 				TextView txtTimestamp = (TextView) view.findViewById(R.id.items_timestamp);
@@ -118,7 +123,58 @@ public class Items extends ListActivity{
 			}
 
 			return view;
-			
 		}
 	}
+	
+	/*
+	 * synchronizes the items with the server
+	 */
+	private void synchronize() {
+//		int length = _items.size();
+//		StringBuilder sbItems = new StringBuilder("[");
+//		JSONArray jsonItems = null;
+//		
+//		for (int i = 0; i < length; i++) {
+//			sbItems.append(_items.get(i).getKey());
+//			if (i != length-1) {
+//				sbItems.append(",");
+//			}
+//		}
+//		sbItems.append("]");
+//		
+//		try {
+//			jsonItems = new JSONArray(sbItems.toString());
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		new RequestWorker(this).replicateFromServer(jsonItems);
+		
+		Toast toast = Toast.makeText(this, "To be implemented", 3);
+		toast.show();
+	}
+	
+	/*
+	 * inflate menu
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.items_menu, menu);
+		return true;
+	}
+	
+	 /*
+     * Event OptionsMenuItemSelected
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.items_menu_synchronize:
+        	synchronize();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
 }

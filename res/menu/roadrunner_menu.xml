@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item android:id="@+id/roadrunner_menu_settings"
-          android:icon="@drawable/ic_menu_settings"
+          android:icon="@drawable/ic_roadrunner_menu_settings"
           android:title="@string/roadrunner_menu_settings" />
     <item android:id="@+id/roadrunner_menu_info"
-          android:icon="@drawable/ic_menu_info"
+          android:icon="@drawable/ic_roadrunner_menu_info"
           android:title="@string/roadrunner_menu_info" />
 	<item android:id="@+id/roadrunner_menu_systemtest"
-          android:icon="@drawable/ic_menu_info"
+          android:icon="@drawable/ic_roadrunner_menu_info"
           android:title="@string/roadrunner_menu_systemtest" />
 </menu>
