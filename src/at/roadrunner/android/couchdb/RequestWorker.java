@@ -36,7 +36,7 @@ public class RequestWorker {
 	 * toString() Method.
 	 */
 	// Also ItemLogs could be created with this logging function.
-	public void log(LogType logType, String context, Object entry) {
+	static public void log(LogType logType, String context, Object entry) {
 		
 		if (context != Log.ERROR || (context == Log.ERROR && true == Config.ERROR_LOG)) {
 		
@@ -65,7 +65,7 @@ public class RequestWorker {
 	/*
 	 * save the log of an item
 	 */
-	public void saveLog(String itemId, LogType logType)  {
+	static public void saveLog(String itemId, LogType logType)  {
 		
 		JSONObject log = new JSONObject();
 		try {
@@ -205,7 +205,7 @@ public class RequestWorker {
 	/*
 	 * returns the next ID
 	 */
-	public String getNextId()  {
+	static public String getNextId()  {
 		try {
 			HttpGet get = RequestFactory.createHttpGet("_uuids");		
 			JSONObject content = new JSONObject(HttpExecutor.getInstance().executeForResponse(get)); 
