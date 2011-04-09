@@ -1,10 +1,11 @@
 /*
- * HttpSensorProvider.java
+ * SensorProvider.java
  */
 package at.roadrunner.android.sensor;
 
 import java.io.IOException;
 import java.net.URL;
+import java.net.UnknownServiceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,22 +16,25 @@ import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableExcepti
 
 
 /**
- * Class HttpSensorProvider
+ * Class SensorProvider
  * 
  * @author matthias schmid
  * @date 25.03.2011
+ * 
+ * 
  */
-public class HttpSensorProvider {
+public class SensorProvider {
 
+	/**
+	 * The SensorConnectionFactory for opening connections to the specific 
+	 * Sensors and it's Protocols
+	 */
 	protected SensorConnectionFactory _connection_fact;
-	
-	protected final static String _request_URI = Config.DB_HOST + "/_design/views/sensor";
 	
 	/**
 	 * Constructor
-	 * @param cId Integer Container Id
 	 */
-	public HttpSensorProvider() {
+	public SensorProvider() {
 		_connection_fact = new SensorConnectionFactory();
 	}
 	
@@ -44,12 +48,21 @@ public class HttpSensorProvider {
 	 * @throws JSONException 
 	 * @throws CouchDBNotReachableException 
 	 */
-	public List<Sensor> discover(List<at.roadrunner.android.model.Sensor> sensorModelList) throws IOException, 
-			CouchDBNotReachableException, JSONException {
+	public List<Sensor> discover(
+			List<at.roadrunner.android.model.Sensor> sensorModelList) 
+			throws IOException, CouchDBNotReachableException, JSONException {
 		
 		List<Sensor> sensors = new ArrayList<Sensor>();
 		for (at.roadrunner.android.model.Sensor s : sensorModelList) {
-			sensors.add(new HttpSensor(new URL(s.getUri()), _connection_fact));
+			switch(s.getProtocol()){
+			case HTTP:
+				sensors.add(new HttpSensor(new URL(s.getUri()), _connection_fact));
+				break;
+			case BLUETOOTH:
+			case ZIGBEE:
+				throw new UnknownServiceException("The Protocol is " + 
+						s.getProtocol() + " is not supported at the moment.");	
+			}
 		}
 		return sensors;
 	}
