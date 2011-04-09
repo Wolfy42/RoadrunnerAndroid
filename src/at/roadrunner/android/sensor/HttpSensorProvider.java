@@ -9,12 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import at.roadrunner.android.Config;
 import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
-import at.roadrunner.android.couchdb.HttpExecutor;
-import at.roadrunner.android.couchdb.RequestFactory;
 
 
 /**
@@ -40,46 +37,21 @@ public class HttpSensorProvider {
 	
 	/**
 	 * Discovers all available sensors 
-	 * 
+	 *
+	 * @param sensorModelList the Sensor Model received from CouchDB 
 	 * @return List<Sensor> the registered sensors of container
 	 * @throws IOException 
 	 * @throws JSONException 
 	 * @throws CouchDBNotReachableException 
 	 */
-	public List<Sensor> discover() throws IOException, 
+	public List<Sensor> discover(List<at.roadrunner.android.model.Sensor> sensorModelList) throws IOException, 
 			CouchDBNotReachableException, JSONException {
 		
-		String[] uris = getSensorUris();
 		List<Sensor> sensors = new ArrayList<Sensor>();
-		for (String s : uris) {
-			URL url = new URL(s);
-			sensors.add(new HttpSensor(url, _connection_fact));
+		for (at.roadrunner.android.model.Sensor s : sensorModelList) {
+			sensors.add(new HttpSensor(new URL(s.getUri()), _connection_fact));
 		}
 		return sensors;
-	}
-	
-	/**
-	 * Gets the URIs of all Sensors in Container _container_id 
-	 * 
-	 * @return String[] 
-	 * @throws JSONException 
-	 * @throws CouchDBNotReachableException 
-	 */
-	private String[] getSensorUris() 
-			throws CouchDBNotReachableException, JSONException {
-	
-		String[] sensorUris =  new String[1];
-		 
-		String res = HttpExecutor.getInstance().executeForResponse(
-				RequestFactory.createHttpGet(HttpSensorProvider._request_URI));
-		
-
-		// FIXME: Parse Json answer into sensorURIs[] Array
-		JSONObject json = new JSONObject(res); 
-		
-		
-		
-		return sensorUris;
 	}
 
 }
