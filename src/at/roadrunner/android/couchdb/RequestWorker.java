@@ -26,19 +26,20 @@ public class RequestWorker {
 		m_context = context;
 	}
 	
-	
 	/**
 	 * Logs a Message of Type logType 
 	 * 
-	 * @param logType the Type of Log Message 
+	 * @param logType the Type of Log Message
+	 * @param msgKey the key of the log entry
 	 * @param logMsg the Log Message
 	 */
-	public void log(LogType logType, String logMsg) {
+	public void log(LogType logType, String msgKey, String logMsg) {
 		
 		JSONObject log = new JSONObject();
 		try {
 			log.put(Log.TYPE_KEY, Log.TYPE_VALUE);
 			log.put(Log.LOG_TYPE_KEY, logType.name());
+			log.put(Log.ERROR, logMsg);
 			log.put(Log.TIMESTAMP_KEY, new Date().getTime());
 			
 			HttpPut put = RequestFactory.createHttpPut(getNextId());

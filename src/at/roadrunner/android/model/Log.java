@@ -6,6 +6,7 @@ public class Log {
 	public static String LOG_TYPE_KEY = "logType";
 	public static String ITEM_KEY = "item";
 	public static String TIMESTAMP_KEY = "timestamp";
+	public static String ERROR = "error";
 	
 	public static String TYPE_VALUE = "log";
 	
@@ -17,6 +18,6 @@ public class Log {
 		TRACK,
 		TEMPSENSOR,
 		POSSENSOR,
-		SENSOR_NOT_ACCESSIBLE_ERROR;
+		SENSOR_NOT_ACCESSIBLE;
 	}
 }
