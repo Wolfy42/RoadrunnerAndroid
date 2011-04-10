@@ -21,4 +21,8 @@ public abstract class Sensor {
 		return _protocol;
 	}
 
+	public SensorType getType() {
+		return _type;
+	}
+
 }

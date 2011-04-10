@@ -22,12 +22,15 @@ import java.net.URL;
 public class HttpSensor implements Sensor {
 
 	protected URL _url;
+	
+	protected SensorType _type;
 
 	protected SensorConnectionFactory _factory;
 	
-	public HttpSensor(URL url, SensorConnectionFactory f) {
+	public HttpSensor(URL url, SensorType type, SensorConnectionFactory f) {
 		_url = url;
 		_factory = f;
+		_type = type;
 	}
 
 	/*
@@ -44,5 +47,9 @@ public class HttpSensor implements Sensor {
 			string.append((char) b);
 		}
 		return string.toString();
+	}
+	
+	public SensorType getType() {
+		return _type;
 	}
 }

@@ -53,9 +53,10 @@ public class SensorProvider {
 		
 		List<Sensor> sensors = new ArrayList<Sensor>();
 		for (at.roadrunner.android.model.Sensor s : sensorModelList) {
+			
 			switch(s.getProtocol()){
 			case HTTP:
-				sensors.add(new HttpSensor(new URL(s.getUri()), _connection_fact));
+				sensors.add(new HttpSensor(new URL(s.getUri()), s.getType(), _connection_fact));
 				break;
 			case BLUETOOTH:
 			case ZIGBEE:
