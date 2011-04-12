@@ -1,6 +1,8 @@
 package at.roadrunner.android.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,15 +13,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 import at.roadrunner.android.R;
+import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Item;
 
@@ -28,6 +27,8 @@ public class Items extends ListActivity {
 	private ProgressDialog _progressDialog = null; 
     private ArrayList<Item> _items = null;
     private ItemAdapter _adapter;
+    private String _statusText = "Synchronizing with Server...";
+    private TextView _txtStatus;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +38,19 @@ public class Items extends ListActivity {
 		_adapter = new ItemAdapter(this, R.layout.row_item_items);
 		setListAdapter(_adapter);
 
+		_txtStatus = (TextView) findViewById(R.id.items_status);
+		_txtStatus.setText(_statusText);
+		
 		// Runnable to fill the items in a Thread
-		Runnable getItems = new Runnable() {
+		Runnable showItems = new Runnable() {
 			@Override
 			public void run() {
-				getItems();
+				synchronizeAndShowItems();
 			}
 		};
 		
 		// start a new Thread to get the items
-		new Thread(null, getItems, "getItemsOfCouchDB").start();
+		new Thread(null, showItems, "getItemsOfCouchDB").start();
 		
 		// show the Progressbar
 	    _progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait), getString(R.string.app_progress_retdata), true);
@@ -55,24 +59,65 @@ public class Items extends ListActivity {
 	/*
 	 * retrieves the items of the couchdb
 	 */
-	private void getItems() {
+	private void synchronizeAndShowItems() {
 		_items = new ArrayList<Item>();
-		String items = new RequestWorker(this).getLocalItems();
+		String loadedItems = new RequestWorker(this).getLoadedItems();
 		
-		if (items != null) {
+		if (loadedItems != null) {
 			try {
-				JSONObject obj = new JSONObject(items);
+				JSONObject obj = new JSONObject(loadedItems);
 				JSONArray arr = obj.getJSONArray("rows").getJSONObject(0).getJSONArray("value");
 				
 				for (int i = 0; i < arr.length(); i++) {
-					_items.add(new Item(arr.getJSONObject(i).getString("item"),  arr.getJSONObject(i).getString("timestamp")));
+					_items.add(new Item(arr.getJSONObject(i).getString("item"),  arr.getJSONObject(i).getLong("timestamp")));
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			} 
 		}
 		
+		// synchronize
+		synchronize();
+		
+		// addItemInformation
+		String localItems = new RequestWorker(this).getReplicatedItems();
+		if (localItems != null) {
+			try {
+				JSONObject obj = new JSONObject(localItems);
+				JSONArray arr = obj.getJSONArray("rows");
+				
+				for (int i = 0; i < arr.length(); i++) {
+					for (int j = 0; j < _items.size(); j++) {
+						if (_items.get(j).getKey().equals(arr.getJSONObject(i).getString("id")) ) {
+							_items.get(j).setName(arr.getJSONObject(i).getString("value"));
+							break;
+						}
+					}
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
 		runOnUiThread(updateActivity);
+	}
+	
+	/*
+	 * synchronizes the items with the server
+	 */
+	private void synchronize() {
+		JSONArray jsonItems = new JSONArray();
+		
+		for (Item item : _items) {
+			jsonItems.put(item.getKey());
+		}
+		
+		try {
+			new RequestWorker(this).replicateFromServer(jsonItems);
+		} catch (CouchDBNotReachableException e) {
+			_statusText = "CouchDB not reachable";
+		}
 	}
 	
 	/*
@@ -91,6 +136,7 @@ public class Items extends ListActivity {
             
             _progressDialog.dismiss();
             _adapter.notifyDataSetChanged();
+            _txtStatus.setText(_statusText);
         }
     };
     
@@ -115,64 +161,19 @@ public class Items extends ListActivity {
 			if (item != null) {
 				TextView txtId = (TextView) view.findViewById(R.id.items_key);
 				TextView txtTimestamp = (TextView) view.findViewById(R.id.items_timestamp);
+				TextView txtName = (TextView) view.findViewById(R.id.items_name);
 				
 				txtId.setText(getString(R.string.items_txt_key) + ": " + item.getKey());
-				txtTimestamp.setText(getString(R.string.items_txt_timestamp) + ": " + item.getTimestamp());
+				
+				// convert the timestamp into a date
+				SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+				Date date = new Date(item.getTimestamp());
+				txtTimestamp.setText(getString(R.string.items_txt_date) + ": " + sdf.format(date));
+				
+				txtName.setText(item.getName());
 			}
 
 			return view;
 		}
 	}
-	
-	/*
-	 * synchronizes the items with the server
-	 */
-	private void synchronize() {
-//		int length = _items.size();
-//		StringBuilder sbItems = new StringBuilder("[");
-//		JSONArray jsonItems = null;
-//		
-//		for (int i = 0; i < length; i++) {
-//			sbItems.append(_items.get(i).getKey());
-//			if (i != length-1) {
-//				sbItems.append(",");
-//			}
-//		}
-//		sbItems.append("]");
-//		
-//		try {
-//			jsonItems = new JSONArray(sbItems.toString());
-//		} catch (JSONException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		new RequestWorker(this).replicateFromServer(jsonItems);
-		
-		Toast toast = Toast.makeText(this, "To be implemented", 3);
-		toast.show();
-	}
-	
-	/*
-	 * inflate menu
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.items_menu, menu);
-		return true;
-	}
-	
-	 /*
-     * Event OptionsMenuItemSelected
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.items_menu_synchronize:
-        	synchronize();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
 }

@@ -90,10 +90,8 @@ public class RequestWorker {
 	
 	/*
 	 * get local stored items
-	 * TODO: FIX Return Statement maybe?
-	 * TODO: use user authentiaction maybe?
 	 */
-	public String getLocalItems() {
+	public String getLoadedItems() {
 		String result = null;
 		@SuppressWarnings("unused")
 		String IPandPort;
@@ -112,6 +110,38 @@ public class RequestWorker {
 		
 		try {
 			HttpGet get = RequestFactory.createHttpGet(dbName + "/_design/roadrunnermobile/_view/loaded");
+			result = HttpExecutor.getInstance().executeForResponse(get);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (CouchDBNotReachableException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * get local stored items
+	 */
+	public String getReplicatedItems() {
+		String result = null;
+		@SuppressWarnings("unused")
+		String IPandPort;
+		String dbName;
+		@SuppressWarnings("unused")
+		String user;
+		@SuppressWarnings("unused")
+		String password;
+		
+		// get the ip and name of the database
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
+		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":" + Config.ROADRUNNER_SERVER_PORT);
+		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
+		user = prefs.getString("user", Config.ROADRUNNER_AUTHENTICATION_USER);
+		password = prefs.getString("password", Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
+		
+		try {
+			HttpGet get = RequestFactory.createHttpGet(dbName + "/_design/roadrunnermobile/_view/items");
 			result = HttpExecutor.getInstance().executeForResponse(get);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -167,7 +197,7 @@ public class RequestWorker {
 	/*
 	 * replicate the DB with the server
 	 */
-	public void replicateFromServer(JSONArray itemIdArray) {
+	public void replicateFromServer(JSONArray itemIdArray) throws CouchDBNotReachableException {
 		String IPandPort;
 		String dbName;
 		
@@ -191,15 +221,12 @@ public class RequestWorker {
 			StringEntity body = new StringEntity(repl.toString());
 			post.setEntity(body);
 			
-	        String result = HttpExecutor.getInstance().executeForResponse(post);
-	        result.toString();
+	        HttpExecutor.getInstance().executeForResponse(post);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-		} catch (CouchDBNotReachableException e) {
-			e.printStackTrace();
-		}
+		} 
 	}
 		
 	/*

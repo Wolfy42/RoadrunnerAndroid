@@ -3,14 +3,18 @@
     <string name="app_name">Roadrunner</string>
     <string name="app_dialog_yes">Yes</string>
     <string name="app_dialog_no">No</string><string name="app_progress_pleasewait">Please Wait...</string>
-    <string name="app_progress_retdata">Retrieving Data...</string><string name="roadrunner_scan">Scan Item</string>
+    <string name="app_progress_retdata">Retrieving Data...</string><string name="app_progress_systemState">Checking System...</string><string name="roadrunner_scan">Scan Item</string>
     <string name="roadrunner_replicate">Replicate</string>
     <string name="roadrunner_items">Items</string><string name="roadrunner_menu_settings">Settings</string>
     <string name="roadrunner_menu_info">Info</string>
     <string name="roadrunner_menu_systemtest">System Test</string>
-    <string name="roadrunner_dialog_missingApp">In order to use the Roadrunner App you need to install a
+    <string name="roadrunner_dialog_missingScanner">In order to use the Roadrunner App you need to install a
      	QR-barcode scanner.\n\nWould you like to download a barcode scanner now?
     </string>
+    <string name="roadrunner_dialog_missingCouchDB">In order to use the Roadrunner App you need to install 
+    	CouchDB.\n\nWould you like to download CouchDB now?
+    </string>
+    <string name="roadrunner_dialog_startCouchDB">In order to use Roadrunner you have to start your CouchDB.</string>
     <string name="info_text">
     	Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den sueßen Fruehlingsmorgen, 
     	die ich mit ganzem Herzen geniesse. Ich bin allein und freue mich meines Lebens in dieser Gegend, 
@@ -40,9 +44,14 @@
     <string name="systemtest_test_local_couch_db_reachable">Local CouchDB reachable</string>
     <string name="systemtest_test_local_db_exists">Local Database exists</string>
     
-    <string name="items_noItems">no items currently loaded...</string>
-    <string name="items_txt_key">Item</string>
-    <string name="items_txt_timestamp">Timestamp</string><string name="items_menu_synchronize">Synchronize with Server</string>
+    <string name="items_title">Roadrunner &gt; Items</string><string name="items_noItems">no items currently loaded...</string>
+    <string name="items_txt_key">Key</string>
+    <string name="items_txt_date">Date of Scan</string><string name="items_menu_synchronize">Synchronize with Server</string>
+    
+    
+    
+    <string name="items_txt_status"></string>
+    
     
     
     
