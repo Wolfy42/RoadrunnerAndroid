@@ -10,55 +10,143 @@ import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.HttpExecutor;
 import at.roadrunner.android.couchdb.RequestFactory;
+import at.roadrunner.android.util.AppInfo;
 
 public class SystemTestCases {
 
+	private CouchDB _couchDB;
 	private Context _context;
 	private String _ok;
 	private String _fail;
+	
+	// CouchDB
+	private static final String COUCHDB_PACKAGE = "com.couchone.couchdb";
+	private static final String COUCHDB_SERVICE = "com.couchone.couchdb.CouchService";
+	
 	public SystemTestCases(Context context) {
 		_context = context;
-		_ok = _context.getString(R.string.systemtest_test_ok);
-		_fail = _context.getString(R.string.systemtest_test_fail);
+		_couchDB = new CouchDB();
+		_ok = _context.getString(R.string.systemtest_ok);
+		_fail = _context.getString(R.string.systemtest_fail);
 	}
 	
-	public TestCase iniFileExists()  {
-		String test = _context.getString(R.string.systemtest_test_ini_file_exists);
+	/*
+	 * local CouchDB installed?
+	 */
+	public TestCase localCouchDBInstalled() {
+		String msg = _context.getString(R.string.systemtest_local_couch_db_installed);
 		
-		File file = new File(Config.LOCAL_INI);
-		if (file.exists())  {
-			return new TestCase(_ok, test);
-		}  else  {
-			return new TestCase(_fail, test);
+		if ( AppInfo.isAppInstalled(_context, COUCHDB_PACKAGE) ) {
+			return new TestCase(_ok, msg);
+		} else {
+			return new TestCase(_fail, msg);
 		}
 	}
 	
-	public TestCase localCouchDBReachable()  {
-		String test = _context.getString(R.string.systemtest_test_local_couch_db_reachable);
-			
-		try {
-			JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(RequestFactory.createHttpGet(null)));
-			if (response.getString("couchdb") != null)  {
-				return new TestCase(_ok,test);
-			}
-		} catch (Exception e) {  }
-		return new TestCase(_fail,test);
+	/*
+	 * local.ini configuration file exists?
+	 */
+	public TestCase localIniFileExists()  {
+		String msg = _context.getString(R.string.systemtest_local_ini_file_exists);
+		
+		if ( new File(Config.LOCAL_INI).exists() )  {
+			return new TestCase(_ok, msg);
+		}  else  {
+			return new TestCase(_fail, msg);
+		}
 	}
 	
-	public TestCase localDatabaseExists()  {
-		String test = _context.getString(R.string.systemtest_test_local_db_exists);
+	/*
+	 * local CouchDB running?
+	 */
+	public TestCase localCouchDBRunning() {
+		String msg = _context.getString(R.string.systemtest_local_couch_db_running);
+		
+		if ( AppInfo.isAppRunning(_context, COUCHDB_SERVICE) ) {
+			return new TestCase(_ok, msg);
+		} else {
+			return new TestCase(_fail, msg);
+		}
+	}
+	
+	/*
+	 * local CouchDB reachable?
+	 */
+	public TestCase localCouchDBReachable()  {
+		String msg = _context.getString(R.string.systemtest_local_couch_db_reachable);
 			
 		try {
-			JSONArray content = new JSONArray(HttpExecutor.getInstance().executeForResponse(RequestFactory.createHttpGet("_all_dbs"))); 
-			for (int i=0; i<content.length(); i++)  {
+			JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(RequestFactory.createLocalHttpGet(null)));
+			if (response.getString("couchdb") != null)  {
+				return new TestCase(_ok, msg);
+			}
+		} catch (Exception e) {  }
+		return new TestCase(_fail, msg);
+	}
+	
+	/*
+	 * local Admin User exists?
+	 */
+	public TestCase localAdminUserExists() {
+		String msg = _context.getString(R.string.systemtest_local_admin_exists);
+		
+		if (_couchDB.existsRoadrunnerUser()) {
+			return new TestCase(_ok, msg);
+		} else {
+			return new TestCase(_fail, msg);
+		}
+	}
+	
+	/*
+	 * local Database exists?
+	 */
+	public TestCase localDatabaseExists()  {
+		String msg = _context.getString(R.string.systemtest_local_db_exists);
+			
+		try {
+			JSONArray content = new JSONArray(HttpExecutor.getInstance().executeForResponse(RequestFactory.createLocalHttpGet("_all_dbs"))); 
+			for (int i = 0; i < content.length(); i++)  {
 				if (content.getString(i).equals(Config.DATABASE))  {
-					return new TestCase(_ok,test);
+					return new TestCase(_ok, msg);
 				}
 			}
 		} catch (Exception e) {  }
-		return new TestCase(_fail,test);
+		return new TestCase(_fail, msg);
 	}
 	
+	/*
+	 * initial Replication exists?
+	 */
+	public TestCase localInitialReplicationExists() {
+		String msg = _context.getString(R.string.systemtest_local_initial_replication);
+		
+		try {
+			JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(RequestFactory.createLocalHttpGet("_design/Roadrunnermobile"))); 
+			if (response.getString("ok") != null)  {
+				return new TestCase(_ok, msg);
+			}
+		} catch (Exception e) {  }
+		return new TestCase(_fail, msg);
+	}
+	
+	/*
+	 * remote CouchDB reachable?
+	 */
+	public TestCase remoteCouchDBReachable() {
+		String msg = _context.getString(R.string.systemtest_remote_couch_db_reachable);
+		
+		try {
+			JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(RequestFactory.createRemoteHttpGet(null)));
+			if (response.getString("couchdb") != null)  {
+				return new TestCase(_ok, msg);
+			}
+		} catch (Exception e) {  }
+		return new TestCase(_fail, msg);
+	}
+	
+	/*
+	 * TestCase Class
+	 */
 	public static class TestCase  {
 		private String _result;
 		private String _testCase;
@@ -67,9 +155,11 @@ public class SystemTestCases {
 			_result = result;
 			_testCase = testCase;
 		}
+		
 		public String getResult()  {
 			return _result;
 		}
+		
 		public String getTestCase()  {
 			return _testCase;
 		}

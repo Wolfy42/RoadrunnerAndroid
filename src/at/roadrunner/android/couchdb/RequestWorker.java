@@ -109,7 +109,7 @@ public class RequestWorker {
 		password = prefs.getString("password", Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
 		
 		try {
-			HttpGet get = RequestFactory.createHttpGet(dbName + "/_design/roadrunnermobile/_view/loaded");
+			HttpGet get = RequestFactory.createLocalHttpGet(dbName + "/_design/roadrunnermobile/_view/loaded");
 			result = HttpExecutor.getInstance().executeForResponse(get);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -141,7 +141,7 @@ public class RequestWorker {
 		password = prefs.getString("password", Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
 		
 		try {
-			HttpGet get = RequestFactory.createHttpGet(dbName + "/_design/roadrunnermobile/_view/items");
+			HttpGet get = RequestFactory.createLocalHttpGet(dbName + "/_design/roadrunnermobile/_view/items");
 			result = HttpExecutor.getInstance().executeForResponse(get);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -271,7 +271,7 @@ public class RequestWorker {
 	 */
 	static public String getNextId()  {
 		try {
-			HttpGet get = RequestFactory.createHttpGet("_uuids");		
+			HttpGet get = RequestFactory.createLocalHttpGet("_uuids");		
 			JSONObject content = new JSONObject(HttpExecutor.getInstance().executeForResponse(get)); 
 			JSONArray array = new JSONArray(content.getString("uuids"));
 			return array.getString(0);

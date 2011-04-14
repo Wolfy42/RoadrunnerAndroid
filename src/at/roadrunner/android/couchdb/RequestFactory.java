@@ -9,8 +9,17 @@ import at.roadrunner.android.Config;
 
 public class RequestFactory {
 
-	public static HttpGet createHttpGet(String path)  {
+	public static HttpGet createLocalHttpGet(String path)  {
 		StringBuilder sb = new StringBuilder(Config.HOST);
+		if (path != null)  {
+			sb.append(path);
+		}
+		HttpGet get = new HttpGet(sb.toString());
+		return get;
+	}
+	
+	public static HttpGet createRemoteHttpGet(String path)  {
+		StringBuilder sb = new StringBuilder(Config.REMOTE_HOST);
 		if (path != null)  {
 			sb.append(path);
 		}

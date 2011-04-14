@@ -22,6 +22,7 @@ public class Config {
 	
 	public static final String HOST = PROTOCOL + URL + ":" + PORT + "/";
 	public static final String AUTH_HOST = PROTOCOL + USERNAME + ":" + PASSWORD + "@" + URL + ":" + PORT + "/";
+	public static final String REMOTE_HOST = PROTOCOL + ROADRUNNER_SERVER_IP + ":" + ROADRUNNER_SERVER_PORT + "/";
 	
 	public static final String DB_HOST = PROTOCOL + URL + ":" + PORT + "/" + DATABASE + "/";
 	

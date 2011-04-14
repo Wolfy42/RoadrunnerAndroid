@@ -47,12 +47,16 @@ public class SystemTest extends Activity {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			
 			SystemTestCases testCases = new SystemTestCases(_context);
 			
-			publishProgress(testCases.iniFileExists());
+			publishProgress(testCases.localCouchDBInstalled());
+			publishProgress(testCases.localIniFileExists());
+			publishProgress(testCases.localCouchDBRunning());
 			publishProgress(testCases.localCouchDBReachable());
+			publishProgress(testCases.localAdminUserExists());
 			publishProgress(testCases.localDatabaseExists());
+			publishProgress(testCases.localInitialReplicationExists());
+			publishProgress(testCases.remoteCouchDBReachable());
 			
 			return null;
 		}
@@ -62,6 +66,7 @@ public class SystemTest extends Activity {
 			super.onPostExecute(result);
 			_progressBar.setVisibility(View.INVISIBLE);
 		}
+		
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
