@@ -11,11 +11,13 @@ import java.net.URLConnection;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
 import at.roadrunner.android.couchdb.HttpExecutor;
 import at.roadrunner.android.couchdb.RequestFactory;
+import at.roadrunner.android.couchdb.RequestWorker;
 
 public class CouchDB {
 	private File _iniFile = null;
@@ -152,9 +154,7 @@ public class CouchDB {
 	/*
 	 * replicates initial documents from the server
 	 */
-	public boolean replicateInitialDocuments() {
-		
-		
-		return false;
+	public boolean replicateInitialDocuments(Context context) {
+		return new RequestWorker(context).replicateInitialDocuments();
 	}
 }

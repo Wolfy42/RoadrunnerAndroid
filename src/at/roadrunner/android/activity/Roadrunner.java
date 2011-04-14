@@ -57,13 +57,10 @@ public class Roadrunner extends Activity {
 				CouchDB couch = new CouchDB();
 				// check if admin user "roadrunner" exists or create it
 				if (couch.existsRoadrunnerUser()) {
-					// create the database roadrunner and replicate initial documents
-					if (couch.createRoadrunnerDB()) {
-						couch.replicateInitialDocuments();
-						Log.v("user", "database created");
-					} else {
-						Log.v("user", "database not created");
-					}
+					// create database and replicate initial documents
+					couch.createRoadrunnerDB();
+					couch.replicateInitialDocuments(_context);
+					Log.v("user", "database created and documents replicated");
 				} else {
 					couch.insertRoadrunnerUser();
 					AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);

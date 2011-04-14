@@ -212,7 +212,7 @@ public class RequestWorker {
 			items.put("items", itemIdArray);
 
 			repl.put("source", "http://" + IPandPort + "/" + dbName);
-			repl.put("target", dbName);
+			repl.put("target", Config.DATABASE);
 			repl.put("filter", "roadrunner/itemfilter");
 			repl.put("query_params", items);
 
@@ -228,9 +228,13 @@ public class RequestWorker {
 		} 
 	}
 	
-	public void replicateInitialDocuments() {
+	public boolean replicateInitialDocuments() {
 		String IPandPort;
 		String dbName;
+		
+		// create the list of initial documents to be replicated
+		JSONArray docIds = new JSONArray();
+		docIds.put("_design/roadrunnermobile");
 		
 		// get the ip and name of the database
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
@@ -239,17 +243,18 @@ public class RequestWorker {
 		
 		JSONObject repl = new JSONObject();
 		try {
-			repl.put("source", Config.DATABASE);
-			repl.put("target", "http://" + IPandPort + "/" + dbName);
-			repl.put("filter", "roadrunnermobile/logfilter");
+			repl.put("source", "http://" + IPandPort + "/" + dbName);
+			repl.put("target", Config.DATABASE);
+			repl.put("doc_ids", docIds);
 			
-			HttpPost post = RequestFactory.createLocalHttpPost("_replicate");
+			HttpPost post = RequestFactory.createLocalHttpPostAuth("_replicate");
 			StringEntity body = new StringEntity(repl.toString());
 			post.setEntity(body);
 			
-	        String result = HttpExecutor.getInstance().executeForResponse(post);
-	        result.toString();
-			
+	        JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(post));
+	        android.util.Log.v("replicate design", response.toString());
+
+	        return response.isNull("error");			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
@@ -257,6 +262,8 @@ public class RequestWorker {
 		} catch (CouchDBNotReachableException e) {
 			e.printStackTrace();
 		}
+		
+		return false;
 	}
 		
 	/*

@@ -44,6 +44,18 @@ public class RequestFactory {
 		return post;
 	}
 	
+	public static HttpPost createLocalHttpPostAuth(String path)  {
+		StringBuilder sb = new StringBuilder(Config.HOST);
+		if (path != null)  {
+			sb.append(path);
+		}
+		HttpPost post = new HttpPost(sb.toString());
+		setHeader(post);
+		setAdminAuthentication(post);
+		
+		return post;
+	}
+	
 	private static void setHeader(HttpRequestBase request)  {
 		request.setHeader("Accept", "application/json");
 		request.setHeader("Content-type", "application/json");
