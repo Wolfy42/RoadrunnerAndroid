@@ -3,11 +3,9 @@ package at.roadrunner.android.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ComponentInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +31,9 @@ public class Roadrunner extends Activity {
 	private static final String COUCHDB_SERVICE = "com.couchone.couchdb.CouchService";
 	
 	private Context _context = null;
-
+	private ProgressDialog _progressDialog = null; 
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,15 +49,37 @@ public class Roadrunner extends Activity {
 	 * checks if couchdb is running and starts it if not
 	 */
 	private void checkSystemState() {
+		boolean isValid = true;
+		
 		// is CouchDB installed and running?
 		if (AppInfo.isAppInstalled(_context, COUCHDB_PACKAGE) ) {
 			if (AppInfo.isAppRunning(_context, COUCHDB_SERVICE) ) {
-				// check if roadrunner db exists or create it
-				new CouchDB().insertRoadrunnerUser();
-				Log.v("test", "running");
+				CouchDB couch = new CouchDB();
+				// check if admin user "roadrunner" exists or create it
+				if (couch.existsRoadrunnerUser()) {
+					// create the database roadrunner and replicate initial documents
+					if (couch.createRoadrunnerDB()) {
+						couch.replicateInitialDocuments();
+						Log.v("user", "database created");
+					} else {
+						Log.v("user", "database not created");
+					}
+				} else {
+					couch.insertRoadrunnerUser();
+					AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+					alertBuilder.setMessage(R.string.roadrunner_dialog_restartCouchDB);
+					AlertDialog alert = alertBuilder.create();
+					
+					alert.show();
+					Log.v("user", "not existsing");
+				}
 			} else {
 				//TODO: start the activity
-				Log.v("test", "not running");
+				AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+				alertBuilder.setMessage(R.string.roadrunner_dialog_closedCouchDB);
+				AlertDialog alert = alertBuilder.create();
+				
+				alert.show();
 			}
 		} else {
 			// show dialog

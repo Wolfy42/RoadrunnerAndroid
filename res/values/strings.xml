@@ -52,6 +52,8 @@
     
     <string name="items_txt_status"></string>
     
+    <string name="roadrunner_dialog_closedCouchDB">Please start CouchDB to use Roadrunner!</string>
+    <string name="roadrunner_dialog_restartCouchDB">A new user has been created - please restart CouchDB! </string>
     
     
     

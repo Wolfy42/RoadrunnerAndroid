@@ -173,8 +173,7 @@ public class RequestWorker {
 
 		JSONObject repl = new JSONObject();
 		try {
-			//repl.put("source", Config.DATABASE);
-			repl.put("source", dbName);
+			repl.put("source", Config.DATABASE);
 			repl.put("target", "http://" + IPandPort + "/" + dbName);
 			repl.put("filter", "roadrunnermobile/logfilter");
 			
@@ -227,6 +226,37 @@ public class RequestWorker {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} 
+	}
+	
+	public void replicateInitialDocuments() {
+		String IPandPort;
+		String dbName;
+		
+		// get the ip and name of the database
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
+		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":" + Config.ROADRUNNER_SERVER_PORT);
+		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
+		
+		JSONObject repl = new JSONObject();
+		try {
+			repl.put("source", Config.DATABASE);
+			repl.put("target", "http://" + IPandPort + "/" + dbName);
+			repl.put("filter", "roadrunnermobile/logfilter");
+			
+			HttpPost post = RequestFactory.createLocalHttpPost("_replicate");
+			StringEntity body = new StringEntity(repl.toString());
+			post.setEntity(body);
+			
+	        String result = HttpExecutor.getInstance().executeForResponse(post);
+	        result.toString();
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (CouchDBNotReachableException e) {
+			e.printStackTrace();
+		}
 	}
 		
 	/*

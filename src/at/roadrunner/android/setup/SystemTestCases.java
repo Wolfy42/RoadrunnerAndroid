@@ -25,7 +25,7 @@ public class SystemTestCases {
 	public TestCase iniFileExists()  {
 		String test = _context.getString(R.string.systemtest_test_ini_file_exists);
 		
-		File file = CouchDB.getIniFile();
+		File file = new File(Config.LOCAL_INI);
 		if (file.exists())  {
 			return new TestCase(_ok, test);
 		}  else  {
