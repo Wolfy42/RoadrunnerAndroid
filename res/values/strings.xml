@@ -38,7 +38,21 @@
     <string name="pref_server_ip">Server IP</string>
     <string name="pref_server_database">Databasename</string>
     
-    <string name="pref_authentication">User Settings</string><string name="pref_authentication_user">User Name</string><string name="pref_authentication_password">User Password</string><string name="systemtest_test_ok">OK</string>
+    <string name="pref_authentication">User Settings</string><string name="pref_authentication_user">User Name</string><string name="pref_authentication_password">User Password</string><string name="pref_transportation">Transportation Settings</string><string name="pref_transportation_name">Transportation</string><string-array name="pref_transportation_array">
+        <item>LKW 1</item>
+        <item>LKW 2</item>
+        <item>LKW 3</item>
+        <item>Van 1</item>
+        <item>Van 2</item>
+        <item>PKW 1</item>
+    </string-array><string-array name="pref_transportation_values">
+        <item>lkw1</item>
+        <item>lkw2</item>
+        <item>lkw3</item>
+        <item>van1</item>
+        <item>van2</item>
+        <item>pkw1</item>
+    </string-array><string name="systemtest_test_ok">OK</string>
     <string name="systemtest_test_fail">FAIL</string>
     <string name="systemtest_test_ini_file_exists">Existence of local.ini of CouchDB</string>
     <string name="systemtest_test_local_couch_db_reachable">Local CouchDB reachable</string>
@@ -54,6 +68,11 @@
     
     <string name="roadrunner_dialog_closedCouchDB">Please start CouchDB to use Roadrunner!</string>
     <string name="roadrunner_dialog_restartCouchDB">A new user has been created - please restart CouchDB! </string>
+    
+    <string name="pref_transportation_summary">Select your actual transportation which you are using to deliver the goods</string>
+    
+    
+    
     
     
     

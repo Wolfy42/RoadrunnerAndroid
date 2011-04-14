@@ -14,6 +14,7 @@
 			android:enabled="false"
 		/>
 	</PreferenceCategory>
+	
 	<PreferenceCategory android:title="@string/pref_authentication"> 
 		<EditTextPreference
 			android:key="user"
@@ -25,6 +26,16 @@
 			android:title="@string/pref_authentication_password"
 			android:password="true"
 			android:defaultValue="roadrunner"
+		/>
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/pref_transportation"> 
+		<ListPreference
+			android:key="transportation"
+			android:summary="@string/pref_transportation_summary"
+			android:title="@string/pref_transportation_name"
+			android:entries="@array/pref_transportation_array"
+			android:entryValues="@array/pref_transportation_values"
 		/>
 	</PreferenceCategory>
 </PreferenceScreen>
