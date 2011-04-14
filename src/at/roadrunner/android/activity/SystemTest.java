@@ -7,6 +7,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ProgressBar;
@@ -84,4 +88,85 @@ public class SystemTest extends Activity {
 	        _testCaseList.setAdapter(_mSchedule);
 		};
 	}
+	
+	/*
+	 * fix up the problems
+	 */
+	private void fixUpProblems() {
+		boolean isValid = true;
+		
+//		// is CouchDB installed and running?
+//		if (AppInfo.isAppInstalled(_context, COUCHDB_PACKAGE) ) {
+//			if (AppInfo.isAppRunning(_context, COUCHDB_SERVICE) ) {
+//				CouchDB couch = new CouchDB();
+//				// check if admin user "roadrunner" exists or create it
+//				if (couch.existsRoadrunnerUser()) {
+//					// create database and replicate initial documents
+//					couch.createRoadrunnerDB();
+//					couch.replicateInitialDocuments(_context);
+//					Log.v("user", "database created and documents replicated");
+//				} else {
+//					couch.insertRoadrunnerUser();
+//					AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+//					alertBuilder.setMessage(R.string.roadrunner_dialog_restartCouchDB);
+//					AlertDialog alert = alertBuilder.create();
+//					
+//					alert.show();
+//					Log.v("user", "not existsing");
+//				}
+//			} else {
+//				//TODO: start the activity
+//				AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+//				alertBuilder.setMessage(R.string.roadrunner_dialog_closedCouchDB);
+//				AlertDialog alert = alertBuilder.create();
+//				
+//				alert.show();
+//			}
+//		} else {
+//			// show dialog
+//			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+//			alertBuilder.setMessage(R.string.roadrunner_dialog_missingCouchDB);
+//			alertBuilder.setCancelable(false);
+//			alertBuilder.setPositiveButton(R.string.app_dialog_yes, new DialogInterface.OnClickListener() {
+//				public void onClick(DialogInterface dialog, int id) {
+//					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + COUCHDB_PACKAGE));
+//					startActivity(intent);
+//				}
+//			});
+//			alertBuilder.setNegativeButton(R.string.app_dialog_no, new DialogInterface.OnClickListener() {
+//				public void onClick(DialogInterface dialog, int id) {
+//					dialog.cancel();
+//				}
+//			});
+//			AlertDialog alert = alertBuilder.create();
+//			
+//			alert.show();
+//			Log.v("test", "not installed");
+//		}
+	}
+	
+	/*
+	 * inflate menu
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.systemtest_menu, menu);
+		return true;
+	}
+	
+	/*
+     * Event OptionsMenuItemSelected
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.systemtest_menu_fixitup:
+        	fixUpProblems();
+        	Log.v("test", "clicked");
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
 }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/systemtest_menu_fixitup"
+          android:icon="@drawable/ic_systemtest_menu_fixitup"
+          android:title="@string/systemtest_menu_fixitup" />
+</menu>

@@ -55,7 +55,7 @@
     </string-array><string name="systemtest_title">Roadrunner &gt; System Test</string><string name="systemtest_ok">OK</string>
     <string name="systemtest_fail">FAIL</string>
     <string name="systemtest_local_couch_db_installed">CouchDB is installed on this device</string><string name="systemtest_local_ini_file_exists">CouchDB configuration file is available</string><string name="systemtest_local_couch_db_running">CouchDB is running on this device</string>
-    <string name="systemtest_local_couch_db_reachable">CouchDB (local) is reachable</string><string name="systemtest_local_admin_exists">Admin User exists</string><string name="systemtest_local_db_exists">Local Database exists</string><string name="systemtest_local_initial_replication">Local Database is initial replicated</string><string name="systemtest_remote_couch_db_reachable">CouchDB (remote) is reachable</string>
+    <string name="systemtest_local_couch_db_reachable">CouchDB (local) is reachable</string><string name="systemtest_local_admin_exists">Admin User exists</string><string name="systemtest_local_db_exists">Local Database exists</string><string name="systemtest_local_initial_replication">Local Database is initial replicated</string><string name="systemtest_remote_couch_db_reachable">CouchDB (remote) is reachable</string><string name="systemtest_menu_fixitup">Fix Problems</string>
     
     
     <string name="items_title">Roadrunner &gt; Items</string><string name="items_noItems">no items currently loaded...</string>
@@ -65,6 +65,7 @@
     
     
     <string name="items_txt_status"></string>
+    
     
     
     
