@@ -22,6 +22,9 @@ import at.roadrunner.android.model.Log.LogType;
 public class RequestWorker {
 	private Context m_context;
 	
+	@SuppressWarnings("unused")
+	private static final String TAG = "RequestWorker";
+	
 	public RequestWorker(Context context) {
 		m_context = context;
 	}
@@ -91,7 +94,7 @@ public class RequestWorker {
 	/*
 	 * get local stored items
 	 */
-	public String getLoadedItems() {
+	public String getLoadedItems() throws CouchDBNotReachableException {
 		String result = null;
 		@SuppressWarnings("unused")
 		String IPandPort;
@@ -113,9 +116,7 @@ public class RequestWorker {
 			result = HttpExecutor.getInstance().executeForResponse(get);
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} catch (CouchDBNotReachableException e) {
-			e.printStackTrace();
-		}
+		} 
 		
 		return result;
 	}
@@ -181,9 +182,7 @@ public class RequestWorker {
 			StringEntity body = new StringEntity(repl.toString());
 			post.setEntity(body);
 			
-	        String result = HttpExecutor.getInstance().executeForResponse(post);
-	        result.toString();
-			
+	        HttpExecutor.getInstance().executeForResponse(post);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {

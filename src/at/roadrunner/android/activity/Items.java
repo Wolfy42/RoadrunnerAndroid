@@ -1,6 +1,5 @@
 package at.roadrunner.android.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,7 +11,6 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +30,8 @@ public class Items extends ListActivity {
     private String _statusText;
     private TextView _txtStatus;
     
-    private static final String TAG = "Items";
+    @SuppressWarnings("unused")
+	private static final String TAG = "Items";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +65,15 @@ public class Items extends ListActivity {
 	 */
 	private void synchronizeAndShowItems() {
 		_items = new ArrayList<Item>();
-		String loadedItems = new RequestWorker(this).getLoadedItems();
+		String loadedItems = null;
+		
+		try {
+			loadedItems = new RequestWorker(this).getLoadedItems();
+		} catch (CouchDBNotReachableException e) {
+			_statusText = getString(R.string.items_status_local_db_not_reachable);
+			runOnUiThread(updateActivity);
+			return;
+		}
 		
 		if (loadedItems != null) {
 			try {
@@ -82,8 +89,13 @@ public class Items extends ListActivity {
 		}
 		
 		// synchronize
-		synchronize();
-		
+		try {
+			synchronize();
+			_statusText =  getString(R.string.items_status_last_synchronized) + ": " + Config.DATE_FORMAT.format(new Date().getTime());
+		} catch (CouchDBNotReachableException e1) {
+			_statusText = getString(R.string.items_status_remote_db_not_reachable);
+		}
+			
 		// addItemInformation
 		String localItems = new RequestWorker(this).getReplicatedItems();
 		if (localItems != null) {
@@ -102,28 +114,22 @@ public class Items extends ListActivity {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
 		}
 		
-		_statusText =  getString(R.string.items_status_last_synchronized) + ": " + Config.DATE_FORMAT.format(new Date().getTime());
 		runOnUiThread(updateActivity);
 	}
 	
 	/*
 	 * synchronizes the items with the server
 	 */
-	private void synchronize() {
+	private void synchronize() throws CouchDBNotReachableException {
 		JSONArray jsonItems = new JSONArray();
 		
 		for (Item item : _items) {
 			jsonItems.put(item.getKey());
 		}
 		
-		try {
-			new RequestWorker(this).replicateFromServer(jsonItems);
-		} catch (CouchDBNotReachableException e) {
-			_statusText = "CouchDB not reachable";
-		}
+		new RequestWorker(this).replicateFromServer(jsonItems);
 	}
 	
 	/*

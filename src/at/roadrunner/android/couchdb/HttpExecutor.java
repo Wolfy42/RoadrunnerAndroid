@@ -33,7 +33,6 @@ public class HttpExecutor {
 				HttpResponse response = _client.execute(request);
 				return HttpHelper.contentToString(response); 
 			} catch (IOException e) {
-				e.printStackTrace();
 				throw new CouchDBException.CouchDBNotReachableException();
 			}
 		}
