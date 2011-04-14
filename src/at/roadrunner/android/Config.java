@@ -5,6 +5,10 @@ public class Config {
 	// local database
 	public static final String LOCAL_INI = "/sdcard/couch/etc/couchdb/local.ini";
 	
+	// CouchDB Packages
+	public static final String COUCHDB_PACKAGE = "com.couchone.couchdb";
+	public static final String COUCHDB_SERVICE = "com.couchone.couchdb.CouchService";
+	
 	// Default preferences settings
 	public static final String ROADRUNNER_SERVER_NAME = "roadrunner";
 	public static final String ROADRUNNER_SERVER_IP = "172.16.102.224";

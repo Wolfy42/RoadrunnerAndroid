@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.HttpExecutor;
@@ -19,9 +20,7 @@ public class SystemTestCases {
 	private String _ok;
 	private String _fail;
 	
-	// CouchDB
-	private static final String COUCHDB_PACKAGE = "com.couchone.couchdb";
-	private static final String COUCHDB_SERVICE = "com.couchone.couchdb.CouchService";
+	private static final String TAG = "SystemTestCases";
 	
 	public SystemTestCases(Context context) {
 		_context = context;
@@ -36,7 +35,7 @@ public class SystemTestCases {
 	public TestCase localCouchDBInstalled() {
 		String msg = _context.getString(R.string.systemtest_local_couch_db_installed);
 		
-		if ( AppInfo.isAppInstalled(_context, COUCHDB_PACKAGE) ) {
+		if ( AppInfo.isAppInstalled(_context, Config.COUCHDB_PACKAGE) ) {
 			return new TestCase(_ok, msg);
 		} else {
 			return new TestCase(_fail, msg);
@@ -62,7 +61,7 @@ public class SystemTestCases {
 	public TestCase localCouchDBRunning() {
 		String msg = _context.getString(R.string.systemtest_local_couch_db_running);
 		
-		if ( AppInfo.isAppRunning(_context, COUCHDB_SERVICE) ) {
+		if ( AppInfo.isAppRunning(_context, Config.COUCHDB_SERVICE) ) {
 			return new TestCase(_ok, msg);
 		} else {
 			return new TestCase(_fail, msg);
@@ -115,21 +114,6 @@ public class SystemTestCases {
 	}
 	
 	/*
-	 * initial Replication exists?
-	 */
-	public TestCase localInitialReplicationExists() {
-		String msg = _context.getString(R.string.systemtest_local_initial_replication);
-		
-		try {
-			JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(RequestFactory.createLocalHttpGet("_design/Roadrunnermobile"))); 
-			if (response.getString("ok") != null)  {
-				return new TestCase(_ok, msg);
-			}
-		} catch (Exception e) {  }
-		return new TestCase(_fail, msg);
-	}
-	
-	/*
 	 * remote CouchDB reachable?
 	 */
 	public TestCase remoteCouchDBReachable() {
@@ -138,6 +122,23 @@ public class SystemTestCases {
 		try {
 			JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(RequestFactory.createRemoteHttpGet(null)));
 			if (response.getString("couchdb") != null)  {
+				return new TestCase(_ok, msg);
+			}
+		} catch (Exception e) {  }
+		return new TestCase(_fail, msg);
+	}
+	
+	/*
+	 * initial Replication exists?
+	 */
+	public TestCase localInitialReplicationExists() {
+		String msg = _context.getString(R.string.systemtest_local_initial_replication);
+		String document = "roadrunner/_design/roadrunnermobile";
+		
+		try {
+			JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(RequestFactory.createLocalHttpGet(document)));
+			Log.v(TAG, response.toString());
+			if (response.getString("_rev") != null)  {
 				return new TestCase(_ok, msg);
 			}
 		} catch (Exception e) {  }

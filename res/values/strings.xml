@@ -13,9 +13,9 @@
     </string>
     <string name="roadrunner_dialog_missingCouchDB">In order to use the Roadrunner App you need to install 
     	CouchDB.\n\nWould you like to download CouchDB now?
-    </string>
+    </string><string name="roadrunner_dialog_firstStartCouchDB">You have to start the installed CouchDB App for the first time to finish the installation process.</string>
     <string name="roadrunner_dialog_startCouchDB">In order to use Roadrunner you have to start your CouchDB.</string>
-    <string name="roadrunner_dialog_closedCouchDB">Please start CouchDB to use Roadrunner!</string><string name="roadrunner_dialog_restartCouchDB">A new user has been created - please restart CouchDB! </string><string name="info_title">Roadrunner &gt; Information</string><string name="info_text">
+    <string name="roadrunner_dialog_closedCouchDB">Please start CouchDB to use Roadrunner!</string><string name="roadrunner_dialog_restartCouchDB">A new user has been created - please restart CouchDB! </string><string name="roadrunner_dialog_checkConnection">Please check your Server IP/Port in your settings and make sure you have established a connection (WiFi).</string><string name="info_title">Roadrunner &gt; Information</string><string name="info_text">
     	Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den sueßen Fruehlingsmorgen, 
     	die ich mit ganzem Herzen geniesse. Ich bin allein und freue mich meines Lebens in dieser Gegend, 
     	die fuer solche Seelen geschaffen ist wie die meine. Ich bin so gluecklich, mein Bester, so ganz 
@@ -55,7 +55,7 @@
     </string-array><string name="systemtest_title">Roadrunner &gt; System Test</string><string name="systemtest_ok">OK</string>
     <string name="systemtest_fail">FAIL</string>
     <string name="systemtest_local_couch_db_installed">CouchDB is installed on this device</string><string name="systemtest_local_ini_file_exists">CouchDB configuration file is available</string><string name="systemtest_local_couch_db_running">CouchDB is running on this device</string>
-    <string name="systemtest_local_couch_db_reachable">CouchDB (local) is reachable</string><string name="systemtest_local_admin_exists">Admin User exists</string><string name="systemtest_local_db_exists">Local Database exists</string><string name="systemtest_local_initial_replication">Local Database is initial replicated</string><string name="systemtest_remote_couch_db_reachable">CouchDB (remote) is reachable</string><string name="systemtest_menu_fixitup">Fix Problems</string>
+    <string name="systemtest_local_couch_db_reachable">CouchDB (local) is reachable</string><string name="systemtest_local_admin_exists">Admin User exists</string><string name="systemtest_local_db_exists">Local Database exists</string><string name="systemtest_local_initial_replication">Local Database is initial replicated</string><string name="systemtest_remote_couch_db_reachable">CouchDB (remote) is reachable</string><string name="systemtest_menu_refresh">Refresh</string><string name="systemtest_menu_fixitup">Fix Problems</string>
     
     
     <string name="items_title">Roadrunner &gt; Items</string><string name="items_noItems">no items currently loaded...</string>
@@ -65,6 +65,9 @@
     
     
     <string name="items_txt_status"></string>
+    
+    
+    
     
     
     
