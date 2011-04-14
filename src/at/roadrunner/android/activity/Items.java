@@ -12,11 +12,13 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
 import at.roadrunner.android.couchdb.RequestWorker;
@@ -27,8 +29,10 @@ public class Items extends ListActivity {
 	private ProgressDialog _progressDialog = null; 
     private ArrayList<Item> _items = null;
     private ItemAdapter _adapter;
-    private String _statusText = "Synchronizing with Server...";
+    private String _statusText;
     private TextView _txtStatus;
+    
+    private static final String TAG = "Items";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class Items extends ListActivity {
 		_adapter = new ItemAdapter(this, R.layout.row_item_items);
 		setListAdapter(_adapter);
 
+		_statusText = getString(R.string.items_status_synchronize);
 		_txtStatus = (TextView) findViewById(R.id.items_status);
 		_txtStatus.setText(_statusText);
 		
@@ -100,6 +105,7 @@ public class Items extends ListActivity {
 			
 		}
 		
+		_statusText =  getString(R.string.items_status_last_synchronized) + ": " + Config.DATE_FORMAT.format(new Date().getTime());
 		runOnUiThread(updateActivity);
 	}
 	
@@ -166,10 +172,8 @@ public class Items extends ListActivity {
 				txtId.setText(getString(R.string.items_txt_key) + ": " + item.getKey());
 				
 				// convert the timestamp into a date
-				SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 				Date date = new Date(item.getTimestamp());
-				txtTimestamp.setText(getString(R.string.items_txt_date) + ": " + sdf.format(date));
-				
+				txtTimestamp.setText(getString(R.string.items_txt_date) + ": " + Config.DATE_FORMAT.format(date));
 				txtName.setText(item.getName());
 			}
 

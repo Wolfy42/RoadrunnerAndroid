@@ -65,7 +65,7 @@ public class RequestWorker {
 	/*
 	 * save the log of an item
 	 */
-	static public void saveLog(String itemId, LogType logType)  {
+	public void saveLog(String itemId, LogType logType)  {
 		
 		JSONObject log = new JSONObject();
 		try {

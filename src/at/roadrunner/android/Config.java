@@ -1,5 +1,7 @@
 package at.roadrunner.android;
 
+import java.text.SimpleDateFormat;
+
 public class Config {
 
 	// local database
@@ -31,4 +33,7 @@ public class Config {
 	public static final String DB_HOST = PROTOCOL + URL + ":" + PORT + "/" + DATABASE + "/";
 	
 	public static boolean ERROR_LOG = true;
+	
+	// dateformat (german)
+	public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 }

@@ -60,11 +60,12 @@
     
     <string name="items_title">Roadrunner &gt; Items</string><string name="items_noItems">no items currently loaded...</string>
     <string name="items_txt_key">Key</string>
-    <string name="items_txt_date">Date of Scan</string><string name="items_menu_synchronize">Synchronize with Server</string>
+    <string name="items_txt_date">Scanned</string><string name="items_status_synchronize">Synchronize with Server...</string>
     
     
     
-    <string name="items_txt_status"></string>
+    <string name="items_status_last_synchronized">Last Synchronization with Server</string><string name="items_txt_status"></string>
+    
     
     
     
