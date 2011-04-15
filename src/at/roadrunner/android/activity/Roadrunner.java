@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import at.roadrunner.android.R;
+import at.roadrunner.android.couchdb.CouchDBService;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Log.LogType;
 import at.roadrunner.android.util.AppInfo;
@@ -25,8 +26,16 @@ public class Roadrunner extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_roadrunner);
+		
+		CouchDBService.startCouchDB(this);
 	}
-
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		CouchDBService.stopCouchDB(this);
+	}
+	
 	/*
 	 * Event onScanClick
 	 */
