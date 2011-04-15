@@ -36,4 +36,7 @@ public class Config {
 	
 	// dateformat (german)
 	public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+	
+	// CouchDB - Service
+	public static final String COUCH_SERVICE = "com.couchone.libcouch.ICouchService";
 }
