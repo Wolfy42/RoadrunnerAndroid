@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,8 +39,7 @@ public class Items extends ListActivity {
     private static final int DETAILS_ID = 1;
     private static final int DELETE_ID = 2;
     
-    @SuppressWarnings("unused")
-	private static final String TAG = "Items";
+    private static final String TAG = "Items";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
