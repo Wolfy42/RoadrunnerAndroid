@@ -63,6 +63,8 @@
     
     <string name="items_status_remote_db_not_reachable">Remote Database is not reachable</string>
     <string name="items_status_local_db_not_reachable">Local Database is not reachable</string>
+    <string name="items_context_details_item">Show Details</string><string name="items_context_delete_item">Delete Item</string>
+    
     
     
     
