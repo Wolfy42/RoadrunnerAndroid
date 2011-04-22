@@ -13,11 +13,18 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
@@ -26,20 +33,24 @@ import at.roadrunner.android.model.Item;
 import at.roadrunner.android.model.Log.LogType;
 
 public class Items extends ListActivity {
-
 	private ProgressDialog _progressDialog = null; 
     private ArrayList<Item> _items = null;
     private ItemAdapter _adapter;
     private String _statusText;
     private TextView _txtStatus;
+   
+    private static final int DETAILS_ID = 1;
+    private static final int DELETE_ID = 2;
     
-    @SuppressWarnings("unused")
-	private static final String TAG = "Items";
+    private static final String TAG = "Items";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_items);
+	
+		// Kontextmenu
+		getListView().setOnCreateContextMenuListener(this);
 		
 		_adapter = new ItemAdapter(this, R.layout.row_item_items);
 		setListAdapter(_adapter);
@@ -113,7 +124,7 @@ public class Items extends ListActivity {
 		} catch (CouchDBNotReachableException e1) {
 			_statusText = getString(R.string.items_status_remote_db_not_reachable);
 		}
-			
+
 		// addItemInformation
 		String localItems = new RequestWorker(this).getReplicatedItems();
 		if (localItems != null) {
@@ -169,6 +180,73 @@ public class Items extends ListActivity {
             _txtStatus.setText(_statusText);
         }
     };
+    
+    /*
+     * (non-Javadoc)
+     * @see android.app.ListActivity#onListItemClick(android.widget.ListView, android.view.View, int, long)
+     */
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		Log.v(TAG, String.valueOf(position));
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
+	 */
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterView.AdapterContextMenuInfo info = null;
+		
+		try {
+			info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+		} catch (ClassCastException e) {
+        	e.printStackTrace();
+        }
+		
+		switch (item.getItemId()) {
+		case DETAILS_ID:
+			Log.v(TAG, String.valueOf(info.id));
+			showDetails();
+			return true;
+		case DELETE_ID:
+			Log.v(TAG, String.valueOf(info.id));
+			deleteItem();
+			return true;
+		default:
+			return super.onContextItemSelected(item);
+		}
+	}
+
+	private void showDetails() {
+		Toast toast = Toast.makeText(getApplicationContext(), "details", 3);
+		toast.show();
+	}
+	
+	private void deleteItem() {
+		Toast toast = Toast.makeText(getApplicationContext(), "delete", 3);
+		toast.show();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
+	 */
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		AdapterView.AdapterContextMenuInfo info;
+        try {
+        	info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        } catch (ClassCastException e) {
+        	e.printStackTrace();
+            return;
+        }
+        
+        Item item = (Item) getListAdapter().getItem(info.position);
+		menu.setHeaderTitle(item.getKey());
+		menu.add(0, DETAILS_ID, 0, R.string.items_context_details_item);
+		menu.add(0, DELETE_ID, 0, R.string.items_context_delete_item);
+	}
     
 	/*
 	 * ItemAdapter

@@ -1,6 +1,5 @@
 package at.roadrunner.android.model;
 
-import android.util.Log;
 
 public class Item {
 	private String _key;
@@ -28,9 +27,5 @@ public class Item {
 		return _timestamp;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		Log.v("item", ( (Item) o)._key);
-		return ( (Item) o)._key.equals(this._key);
-	}
+	
 }
