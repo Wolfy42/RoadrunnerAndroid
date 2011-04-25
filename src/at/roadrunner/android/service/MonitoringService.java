@@ -6,15 +6,19 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
+import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
 import at.roadrunner.android.activity.MonitoringController;
 
 public class MonitoringService extends Service {
 
 	private NotificationManager _nM;
+	private volatile Thread _thread;
+	private Handler _handler;
 	private int NOTIFICATION = R.string.local_service_started;
 	private static final String TAG = "MonitoringService";
 	
@@ -29,6 +33,8 @@ public class MonitoringService extends Service {
 		_nM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
         showNotification();
+        
+        startThread();
     }
 
 	@Override
@@ -47,9 +53,11 @@ public class MonitoringService extends Service {
 
         // Tell the user we stopped.
         Toast.makeText(this, R.string.local_service_stopped, Toast.LENGTH_SHORT).show();
+        
+        stopThread();
     }
 
-    // This is the object that receives interactions from clients.  See
+	// This is the object that receives interactions from clients.  See
     // RemoteService for a more complete example.
     private final IBinder _binder = new LocalBinder();
 
@@ -76,5 +84,32 @@ public class MonitoringService extends Service {
 
         // Send the notification.
         _nM.notify(NOTIFICATION, notification);	
+	}
+	
+	private synchronized void startThread() {
+		_handler = new Handler();
+		if (_thread == null) {
+			_thread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					logData();
+					_handler.postDelayed(this, Config.MONITORING_SERVICE_INTERVAL);
+				}
+			});
+			_thread.start();
+		}
+	}
+	
+	private synchronized void stopThread() {
+		if (_thread != null) {
+			Thread moribund = _thread;
+			_thread = null;
+			moribund.interrupt();
+		}
+	}
+
+	// log the data (gps pos, sensor values, ...)
+	private void logData() {
+		Log.v(TAG, "fick dich");
 	}
 }
