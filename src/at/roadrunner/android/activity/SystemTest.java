@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
+import at.roadrunner.android.couchdb.CouchDBService;
 import at.roadrunner.android.setup.CouchDB;
 import at.roadrunner.android.setup.SystemTestCases;
 import at.roadrunner.android.setup.SystemTestCases.TestCase;
@@ -112,13 +113,10 @@ public class SystemTest extends Activity {
 				case 2:
 				case 3:
 					runCouchDB();
-					break;
 				case 4:
 					insertAdminUser();
-					break;
 				case 5:
 					createDatabase();
-					break;
 				case 6:
 					remoteDB();
 					break;
@@ -164,24 +162,12 @@ public class SystemTest extends Activity {
 	}
 	
 	private void runCouchDB() {
-		//TODO: start CouchDB automatically
-		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-		alertBuilder.setMessage(R.string.roadrunner_dialog_startCouchDB);
-		alertBuilder.setCancelable(true);
-		
-		AlertDialog alert = alertBuilder.create();
-		alert.show();
+		CouchDBService.startCouchDB(this);
 	}
 
 	private void insertAdminUser() {
-		//TODO: restart CouchDB automatically
 		new CouchDB().insertRoadrunnerUser();
-		
-		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-		alertBuilder.setMessage(R.string.roadrunner_dialog_restartCouchDB);
-		AlertDialog alert = alertBuilder.create();
-		
-		alert.show();
+		CouchDBService.restartCouchDB(this);
 	}
 	
 	private void createDatabase() {
