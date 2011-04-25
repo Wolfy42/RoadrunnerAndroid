@@ -112,7 +112,7 @@ public class RequestWorker {
 		password = prefs.getString("password", Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
 		
 		try {
-			HttpGet get = RequestFactory.createLocalHttpGet(dbName + "/_design/roadrunnermobile/_view/loaded");
+			HttpGet get = RequestFactory.createLocalHttpGet(dbName + "/_design/roadrunnermobile/_view/loaded?group=true");
 			result = HttpExecutor.getInstance().executeForResponse(get);
 		} catch (JSONException e) {
 			e.printStackTrace();

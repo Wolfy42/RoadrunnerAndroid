@@ -1,6 +1,8 @@
 package at.roadrunner.android.activity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import org.json.JSONArray;
@@ -28,6 +30,7 @@ import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Item;
+import at.roadrunner.android.model.Log.LogType;
 
 public class Items extends ListActivity {
 	private ProgressDialog _progressDialog = null; 
@@ -88,12 +91,27 @@ public class Items extends ListActivity {
 		
 		if (loadedItems != null) {
 			try {
-				JSONObject obj = new JSONObject(loadedItems);
-				JSONArray arr = obj.getJSONArray("rows").getJSONObject(0).getJSONArray("value");
+				JSONObject result = new JSONObject(loadedItems);
 				
-				for (int i = 0; i < arr.length(); i++) {
-					_items.add(new Item(arr.getJSONObject(i).getString("item"),  arr.getJSONObject(i).getLong("timestamp")));
+				JSONArray rows = result.getJSONArray("rows");
+				JSONObject row;
+				JSONArray value;
+				String loadedState = LogType.LOAD.name();
+				
+				for (int i=0; i < rows.length(); i++)  {
+					row = rows.getJSONObject(i);
+					value = row.getJSONArray("value");
+					if (loadedState.equals(value.getString(0)))  {
+						_items.add(new Item(row.getString("key"), value.getLong(1)));
+					}
 				}
+				Collections.sort(_items, new Comparator<Item>()  {
+					@Override
+					public int compare(Item item1, Item item2) {
+						return new Long(item1.getTimestamp()).compareTo(item2.getTimestamp());
+					}
+				});
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 			} 
