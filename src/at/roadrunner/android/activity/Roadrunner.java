@@ -15,6 +15,7 @@ import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBService;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Log.LogType;
+import at.roadrunner.android.service.MonitoringService;
 import at.roadrunner.android.util.AppInfo;
 
 public class Roadrunner extends Activity {
@@ -27,7 +28,10 @@ public class Roadrunner extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_roadrunner);
 		
+		// start CouchDB Service
 		CouchDBService.startCouchDB(this);
+		// start Monitoring Service
+		startService(new Intent(Roadrunner.this, MonitoringService.class));
 	}
 	
 	@Override
