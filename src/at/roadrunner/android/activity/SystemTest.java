@@ -113,10 +113,13 @@ public class SystemTest extends Activity {
 				case 2:
 				case 3:
 					runCouchDB();
+					break;
 				case 4:
 					insertAdminUser();
+					break;
 				case 5:
 					createDatabase();
+					break;
 				case 6:
 					remoteDB();
 					break;
