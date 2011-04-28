@@ -111,12 +111,8 @@ public class RequestWorker {
 		user = prefs.getString("user", Config.ROADRUNNER_AUTHENTICATION_USER);
 		password = prefs.getString("password", Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
 		
-		try {
-			HttpGet get = RequestFactory.createLocalHttpGet(dbName + "/_design/roadrunnermobile/_view/loaded?group=true");
-			result = HttpExecutor.getInstance().executeForResponse(get);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} 
+		HttpGet get = RequestFactory.createLocalHttpGet(dbName + "/_design/roadrunnermobile/_view/loaded?group=true");
+		result = HttpExecutor.getInstance().executeForResponse(get);
 		
 		return result;
 	}
@@ -144,8 +140,6 @@ public class RequestWorker {
 		try {
 			HttpGet get = RequestFactory.createLocalHttpGet(dbName + "/_design/roadrunnermobile/_view/items");
 			result = HttpExecutor.getInstance().executeForResponse(get);
-		} catch (JSONException e) {
-			e.printStackTrace();
 		} catch (CouchDBNotReachableException e) {
 			e.printStackTrace();
 		}

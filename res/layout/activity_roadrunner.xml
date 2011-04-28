@@ -16,6 +16,28 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
+            <Button android:id="@+id/roadrunner_btn_load"
+                style="@style/NavigationButton"
+                android:onClick="onLoadClick"
+                android:text="@string/roadrunner_load"
+                android:drawableTop="@drawable/ic_roadrunner_btn_load"/>
+            <Button android:id="@+id/roadrunner_btn_unload"
+                style="@style/NavigationButton"
+                android:onClick="onUnloadClick"
+                android:text="@string/roadrunner_unload"
+                android:drawableTop="@drawable/ic_roadrunner_btn_unload"/>
+            <Button android:id="@+id/roadrunner_btn_items"
+                style="@style/NavigationButton"
+                android:onClick="onItemsClick"
+                android:text="@string/roadrunner_items"
+                android:drawableTop="@drawable/ic_roadrunner_btn_items"/>
+        </LinearLayout>
+        
+       <!-- <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
             <Button android:id="@+id/roadrunner_btn_scan"
                 style="@style/NavigationButton"
                 android:onClick="onScanClick"
@@ -28,7 +50,7 @@
                 android:drawableTop="@drawable/ic_roadrunner_btn_replicate"/>
         </LinearLayout>
         
-        <LinearLayout
+       <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -38,6 +60,6 @@
                 android:onClick="onItemsClick"
                 android:text="@string/roadrunner_items"
                 android:drawableTop="@drawable/ic_roadrunner_btn_items"/>
-        </LinearLayout>
+        </LinearLayout> -->
     </LinearLayout>
 </LinearLayout>

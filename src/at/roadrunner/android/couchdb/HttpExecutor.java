@@ -6,7 +6,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
 
 import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
 import at.roadrunner.android.util.HttpHelper;
@@ -27,14 +26,22 @@ public class HttpExecutor {
 		return _instance;
 	}
 	
-	public String executeForResponse(HttpRequestBase request) throws CouchDBNotReachableException, JSONException  {
+	public String executeForResponse(HttpRequestBase request) throws CouchDBNotReachableException  {
 		synchronized (this) {
 			try {
 				HttpResponse response = _client.execute(request);
-				return HttpHelper.contentToString(response); 
+
+				if (response.getStatusLine() != null) {
+					if (response.getStatusLine().getStatusCode() != 200) {
+						throw new CouchDBException.CouchDBNotReachableException();
+					} else {
+						return HttpHelper.contentToString(response); 
+					}
+				}
 			} catch (IOException e) {
-				throw new CouchDBException.CouchDBNotReachableException();
+				e.printStackTrace();
 			}
 		}
+		return null;
 	}
 }

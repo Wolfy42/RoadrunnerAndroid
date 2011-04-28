@@ -23,6 +23,8 @@ public class Roadrunner extends Activity {
 	private static final String SCAN_INTENT = "com.google.zxing.client.android.SCAN";
 	private static final String SCAN_PACKAGE = "com.google.zxing.client.android";
 	
+	private LogType _status;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,15 +42,22 @@ public class Roadrunner extends Activity {
 		CouchDBService.stopCouchDB(this);
 	}
 	
-	/*
-	 * Event onScanClick
-	 */
-	public void onScanClick(View view) {
+	public void onLoadClick(View view) {
+		scanItem(LogType.LOAD);
+	}
+	
+	public void onUnloadClick(View view) {
+		scanItem(LogType.UNLOAD);
+	}
+	
+	private void scanItem(LogType status) {
 		if (AppInfo.isIntentAvailable(this, SCAN_INTENT)) {
 			Intent intent = new Intent(SCAN_INTENT);
 			intent.setPackage(SCAN_PACKAGE);
 			intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-
+			
+			_status = status;
+			
 			startActivityForResult(intent, 0);
 		} else {
 			// show dialog
@@ -71,7 +80,7 @@ public class Roadrunner extends Activity {
 			alert.show();
 		}
 	}
-	
+
 	/*
 	 * Event onReplicateClick
 	 */
@@ -93,18 +102,20 @@ public class Roadrunner extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		if (requestCode == 0) {
 			if (resultCode == RESULT_OK) {
-				String contents = intent.getStringExtra("SCAN_RESULT");
-				@SuppressWarnings("unused")
-				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-
-				Toast toast = Toast.makeText(getApplicationContext(), contents, 3);
+				String item = intent.getStringExtra("SCAN_RESULT");
+				String msg = "The item: '" + item + "' was successfully ";
+				
+				if (_status == LogType.LOAD) {
+					msg += "loaded.";
+					new RequestWorker(this).saveLog(item, LogType.LOAD);
+				} else {
+					msg += "unloaded.";
+					new RequestWorker(this).saveLog(item, LogType.UNLOAD);
+				}
+				
+				Toast toast = Toast.makeText(getApplicationContext(), msg, 3);
 				toast.show();
-				
-				new RequestWorker(this).saveLog(contents, LogType.LOAD);
-				
-			} else if (resultCode == RESULT_CANCELED) {
-
-			}
+			} 
 		}
 	}
 

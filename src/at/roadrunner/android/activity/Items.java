@@ -119,46 +119,40 @@ public class Items extends ListActivity {
 		
 		// synchronize
 		try {
-			synchronize();
+			JSONArray jsonItems = new JSONArray();
+			
+			for (Item item : _items) {
+				jsonItems.put(item.getKey());
+			}
+			
+			new RequestWorker(this).replicateFromServer(jsonItems);
+			
+			// addItemInformation
+			String localItems = new RequestWorker(this).getReplicatedItems();
+			if (localItems != null) {
+				try {
+					JSONObject obj = new JSONObject(localItems);
+					JSONArray arr = obj.getJSONArray("rows");
+					
+					for (int i = 0; i < arr.length(); i++) {
+						for (int j = 0; j < _items.size(); j++) {
+							if (_items.get(j).getKey().equals(arr.getJSONObject(i).getString("id")) ) {
+								_items.get(j).setName(arr.getJSONObject(i).getString("value"));
+								break;
+							}
+						}
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			_statusText =  getString(R.string.items_status_last_synchronized) + ": " + Config.DATE_FORMAT.format(new Date().getTime());
 		} catch (CouchDBNotReachableException e1) {
 			_statusText = getString(R.string.items_status_remote_db_not_reachable);
 		}
 
-		// addItemInformation
-		String localItems = new RequestWorker(this).getReplicatedItems();
-		if (localItems != null) {
-			try {
-				JSONObject obj = new JSONObject(localItems);
-				JSONArray arr = obj.getJSONArray("rows");
-				
-				for (int i = 0; i < arr.length(); i++) {
-					for (int j = 0; j < _items.size(); j++) {
-						if (_items.get(j).getKey().equals(arr.getJSONObject(i).getString("id")) ) {
-							_items.get(j).setName(arr.getJSONObject(i).getString("value"));
-							break;
-						}
-					}
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-		
 		runOnUiThread(updateActivity);
-	}
-	
-	/*
-	 * synchronizes the items with the server
-	 */
-	private void synchronize() throws CouchDBNotReachableException {
-		JSONArray jsonItems = new JSONArray();
-		
-		for (Item item : _items) {
-			jsonItems.put(item.getKey());
-		}
-		
-		new RequestWorker(this).replicateFromServer(jsonItems);
 	}
 	
 	/*

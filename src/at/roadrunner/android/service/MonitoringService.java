@@ -34,7 +34,7 @@ public class MonitoringService extends Service {
 
         showNotification();
         
-        startThread();
+        //startThread();
     }
 
 	@Override
@@ -67,7 +67,7 @@ public class MonitoringService extends Service {
 	}
 	
 	private void showNotification() {
-		 // In this sample, we'll use the same text for the ticker and the expanded notification
+		// In this sample, we'll use the same text for the ticker and the expanded notification
         CharSequence text = getText(R.string.local_service_started);
 
         // Set the icon, scrolling text and timestamp
@@ -77,7 +77,7 @@ public class MonitoringService extends Service {
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, MonitoringController.class), 0);
-
+        
         // Set the info for the views that show in the notification panel.
         notification.setLatestEventInfo(this, getText(R.string.local_service_label),
                        text, contentIntent);
@@ -86,6 +86,7 @@ public class MonitoringService extends Service {
         _nM.notify(NOTIFICATION, notification);	
 	}
 	
+	@SuppressWarnings("unused")
 	private synchronized void startThread() {
 		_handler = new Handler();
 		if (_thread == null) {
