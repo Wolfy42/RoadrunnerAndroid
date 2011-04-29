@@ -1,6 +1,9 @@
 package at.roadrunner.android.model;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String _recipient;
 	private String _company;
 	private String _street;
@@ -9,6 +12,15 @@ public class Address {
 	private String _country;
 	
 	public Address() {
+	}
+	
+	public Address(String recipient, String company, String street, String zip, String city, String country) {
+		_recipient = recipient;
+		_company = company;
+		_street = street;
+		_zip = zip;
+		_city = city;
+		_country = country;
 	}
 
 	public String getRecipient() {
@@ -58,4 +70,11 @@ public class Address {
 	public void setCountry(String country) {
 		_country = country;
 	}
+
+	@Override
+	public String toString() {
+		return _recipient + " (" + _company + ") - " + _street + ", " + _zip + " " + _city + " - " + _country;
+	}
+	
+	
 }

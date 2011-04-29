@@ -1,5 +1,7 @@
 package at.roadrunner.android.service;
 
+import java.io.IOException;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
 import at.roadrunner.android.activity.MonitoringController;
+import at.roadrunner.android.model.Delivery;
 
 public class MonitoringService extends Service {
 
@@ -20,27 +23,43 @@ public class MonitoringService extends Service {
 	private volatile Thread _thread;
 	private Handler _handler;
 	private int NOTIFICATION = R.string.local_service_started;
+	private Delivery _delivery = null;
 	private static final String TAG = "MonitoringService";
+	
 	
 	public class LocalBinder extends Binder {
 		MonitoringService getService() {
 			return MonitoringService.this;
 		}
 	}
-	
+
 	@Override
     public void onCreate() {
 		_nM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
         showNotification();
-        
-        //startThread();
     }
 
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
-        Log.v(TAG, "onStartCommand");
+        
+        // receive the Delivery Object
+        _delivery =  (Delivery) intent.getSerializableExtra("delivery");
+        
+        // start tracking
+        if (_delivery != null) {
+        	for (int i = 0; i < 10; i++) {
+        		for (at.roadrunner.android.sensor.Sensor sensor : _delivery.getSensor()) {
+        			try {
+						Log.v(TAG, sensor.getData());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+        		}
+        	}
+        }
+        
         // We want this service to continue running until it is explicitly
         // stopped, so return sticky.
         return START_STICKY;

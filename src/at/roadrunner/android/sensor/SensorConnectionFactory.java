@@ -1,6 +1,7 @@
 package at.roadrunner.android.sensor;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -17,7 +18,9 @@ import at.roadrunner.android.model.Log.LogType;
  * This Class opens Connections for all Types of Sensors. 
  * Uses Class RequestWorker to log Errors
  */
-public class SensorConnectionFactory {
+public class SensorConnectionFactory implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Opens a HttpURLConnection to the specified URL

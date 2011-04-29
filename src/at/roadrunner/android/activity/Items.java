@@ -125,10 +125,12 @@ public class Items extends ListActivity {
 				jsonItems.put(item.getKey());
 			}
 			
+			// replicate
 			new RequestWorker(this).replicateFromServer(jsonItems);
+			// get replicated items
+			String localItems = new RequestWorker(this).getReplicatedItems();
 			
 			// addItemInformation
-			String localItems = new RequestWorker(this).getReplicatedItems();
 			if (localItems != null) {
 				try {
 					JSONObject obj = new JSONObject(localItems);

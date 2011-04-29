@@ -42,4 +42,7 @@ public class Config {
 	
 	// Monitoring Service Settings
 	public static final long MONITORING_SERVICE_INTERVAL = 10000;
+	
+	// TemperatureSensor
+	public static final String TEMPERATUR_SENSOR_URL_1 = PROTOCOL + ROADRUNNER_SERVER_IP + ":" + "10001"; 
 }

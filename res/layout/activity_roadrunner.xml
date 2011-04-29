@@ -33,6 +33,18 @@
                 android:drawableTop="@drawable/ic_roadrunner_btn_items"/>
         </LinearLayout>
         
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <Button android:id="@+id/roadrunner_btn_start"
+                style="@style/NavigationButton"
+                android:onClick="onStartClick"
+                android:text="@string/roadrunner_start"
+                android:drawableTop="@drawable/ic_roadrunner_btn_start"/>
+        </LinearLayout>
+        
        <!-- <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"

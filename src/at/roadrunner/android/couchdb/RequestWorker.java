@@ -120,7 +120,7 @@ public class RequestWorker {
 	/*
 	 * get local stored items
 	 */
-	public String getReplicatedItems() {
+	public String getReplicatedItems() throws CouchDBNotReachableException {
 		String result = null;
 		@SuppressWarnings("unused")
 		String IPandPort;
@@ -137,12 +137,9 @@ public class RequestWorker {
 		user = prefs.getString("user", Config.ROADRUNNER_AUTHENTICATION_USER);
 		password = prefs.getString("password", Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
 		
-		try {
-			HttpGet get = RequestFactory.createLocalHttpGet(dbName + "/_design/roadrunnermobile/_view/items");
-			result = HttpExecutor.getInstance().executeForResponse(get);
-		} catch (CouchDBNotReachableException e) {
-			e.printStackTrace();
-		}
+		HttpGet get = RequestFactory.createLocalHttpGet(dbName + "/_design/roadrunnermobile/_view/items");
+		result = HttpExecutor.getInstance().executeForResponse(get);
+
 		
 		return result;
 	}

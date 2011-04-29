@@ -3,7 +3,7 @@
     <string name="app_name">Roadrunner</string>
     <string name="app_dialog_yes">Yes</string>
     <string name="app_dialog_no">No</string><string name="app_progress_pleasewait">Please Wait...</string>
-    <string name="app_progress_retdata">Retrieving Data...</string><string name="app_progress_systemState">Checking System...</string><string name="app_progress_fixingProblem">Fixing Problem...</string><string name="roadrunner_load">Load Item</string><string name="roadrunner_unload">Unload Item</string><string name="roadrunner_scan">Scan Item</string>
+    <string name="app_progress_retdata">Retrieving Data...</string><string name="app_progress_systemState">Checking System...</string><string name="app_progress_fixingProblem">Fixing Problem...</string><string name="roadrunner_start">Start Monitoring</string><string name="roadrunner_load">Load Item</string><string name="roadrunner_unload">Unload Item</string><string name="roadrunner_scan">Scan Item</string>
     <string name="roadrunner_replicate">Replicate</string>
     <string name="roadrunner_items">Items</string><string name="roadrunner_menu_settings">Settings</string>
     <string name="roadrunner_menu_info">Info</string>
@@ -65,11 +65,14 @@
     <string name="items_status_local_db_not_reachable">Local Database is not reachable</string>
     <string name="items_context_details_item">Show Details</string><string name="items_context_delete_item">Delete Item</string>
     <string name="local_service_started">Monitoring Started</string>
-    <string name="local_service_stopped">Monitoring Stopped</string><string name="local_service_label">Roadrunner Monitoring Service</string>
+    <string name="local_service_stopped">Monitoring Stopped</string><string name="local_service_label">Roadrunner Monitoring Service</string><string name="monitoring_title">Roadrunner &gt; Monitoring</string><string name="monitoring_txt_status">Roadrunner is now tracking GPS/Temperature!</string>
     <string name="monitoring_controller_start">Start Service</string>
     <string name="monitoring_controller_stop">Stop Service</string>
     
     <string name="monitoring_controller_title">Roadrunner &gt; Monitor  Service Controller </string>
+    
+    
+    
     
     
     

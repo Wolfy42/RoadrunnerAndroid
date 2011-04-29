@@ -8,18 +8,25 @@
  * @author Franziskus Domig
  * @date 10.03.2011
  */
-package at.roadrunner.android.sensor;
+package at.roadrunner.android.model;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.URL;
+
+import at.roadrunner.android.sensor.Sensor;
+import at.roadrunner.android.sensor.SensorConnectionFactory;
+import at.roadrunner.android.sensor.SensorType;
 
 /**
  * Class HttpSensor
  * 
  * @author Matthias Schmid
  */
-public class HttpSensor implements Sensor {
+public class HttpSensor implements Sensor, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	protected URL _url;
 	

@@ -49,6 +49,12 @@
                   android:label="@string/systemtest_title">
         </activity>
         
+         <!-- Monitoring Activity -->
+        <activity android:name=".activity.Monitoring"
+        		  android:theme="@style/Theme.Roadrunner"
+                  android:label="@string/monitoring_title">
+        </activity>
+        
         <!-- MonitoringServiceController Activity -->
         <activity android:name=".activity.MonitoringController"
         		  android:theme="@style/Theme.Roadrunner"
