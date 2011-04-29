@@ -16,6 +16,7 @@ import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
 import at.roadrunner.android.activity.MonitoringController;
 import at.roadrunner.android.model.Delivery;
+import at.roadrunner.android.sensor.Sensor;
 
 public class MonitoringService extends Service {
 
@@ -49,15 +50,7 @@ public class MonitoringService extends Service {
         
         // start tracking
         if (_delivery != null) {
-        	for (int i = 0; i < 10; i++) {
-        		for (at.roadrunner.android.sensor.Sensor sensor : _delivery.getSensor()) {
-        			try {
-						Log.v(TAG, sensor.getData());
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-        		}
-        	}
+        	startThread();
         }
         
         // We want this service to continue running until it is explicitly
@@ -105,7 +98,6 @@ public class MonitoringService extends Service {
         _nM.notify(NOTIFICATION, notification);	
 	}
 	
-	@SuppressWarnings("unused")
 	private synchronized void startThread() {
 		_handler = new Handler();
 		if (_thread == null) {
@@ -130,6 +122,12 @@ public class MonitoringService extends Service {
 
 	// log the data (gps pos, sensor values, ...)
 	private void logData() {
-		Log.v(TAG, "fick dich");
+		for (Sensor sensor : _delivery.getSensor()) {
+			try {
+				Log.v(TAG, sensor.getData());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
