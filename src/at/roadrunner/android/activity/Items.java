@@ -27,38 +27,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
-import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
+import at.roadrunner.android.couchdb.CouchDBException;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Item;
 import at.roadrunner.android.model.Log.LogType;
 
 public class Items extends ListActivity {
-	private ProgressDialog _progressDialog = null; 
-    private ArrayList<Item> _items = null;
-    private ItemAdapter _adapter;
-    private String _statusText;
-    private TextView _txtStatus;
-   
-    private static final int DETAILS_ID = 1;
-    private static final int DELETE_ID = 2;
-    
-    private static final String TAG = "Items";
-	
+	private ProgressDialog _progressDialog = null;
+	private ArrayList<Item> _items = null;
+	private ItemAdapter _adapter;
+	private String _statusText;
+	private TextView _txtStatus;
+
+	private static final int DETAILS_ID = 1;
+	private static final int DELETE_ID = 2;
+
+	private static final String TAG = "Items";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_items);
-	
+
 		// Kontextmenu
 		getListView().setOnCreateContextMenuListener(this);
-		
+
 		_adapter = new ItemAdapter(this, R.layout.row_item_items);
 		setListAdapter(_adapter);
 
 		_statusText = getString(R.string.items_status_synchronize);
 		_txtStatus = (TextView) findViewById(R.id.items_status);
 		_txtStatus.setText(_statusText);
-		
+
 		// Runnable to fill the items in a Thread
 		Runnable showItems = new Runnable() {
 			@Override
@@ -66,80 +66,91 @@ public class Items extends ListActivity {
 				synchronizeAndShowItems();
 			}
 		};
-		
+
 		// start a new Thread to get the items
 		new Thread(null, showItems, "getItemsOfCouchDB").start();
-		
+
 		// show the Progressbar
-	    _progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait), getString(R.string.app_progress_retdata), true);
+		_progressDialog = ProgressDialog.show(this,
+				getString(R.string.app_progress_pleasewait),
+				getString(R.string.app_progress_retdata), true);
 	}
-	
+
 	/*
 	 * retrieves the items of the couchdb
 	 */
 	private void synchronizeAndShowItems() {
 		_items = new ArrayList<Item>();
 		String loadedItems = null;
-		
+
 		try {
 			loadedItems = new RequestWorker(this).getLoadedItems();
-		} catch (CouchDBNotReachableException e) {
+		} catch (CouchDBException e) {
 			_statusText = getString(R.string.items_status_local_db_not_reachable);
 			runOnUiThread(updateActivity);
 			return;
 		}
-		
+
 		if (loadedItems != null) {
 			try {
 				JSONObject result = new JSONObject(loadedItems);
-				
+
 				JSONArray rows = result.getJSONArray("rows");
 				JSONObject row;
 				JSONArray value;
 				String loadedState = LogType.LOAD.name();
-				
-				for (int i=0; i < rows.length(); i++)  {
+
+				for (int i = 0; i < rows.length(); i++) {
 					row = rows.getJSONObject(i);
 					value = row.getJSONArray("value");
-					if (loadedState.equals(value.getString(0)))  {
-						_items.add(new Item(row.getString("key"), value.getLong(1)));
+					if (loadedState.equals(value.getString(0))) {
+						_items.add(new Item(row.getString("key"), value
+								.getLong(1)));
 					}
 				}
-				Collections.sort(_items, new Comparator<Item>()  {
+				Collections.sort(_items, new Comparator<Item>() {
 					@Override
 					public int compare(Item item1, Item item2) {
-						return new Long(item1.getTimestamp()).compareTo(item2.getTimestamp());
+						return new Long(item1.getTimestamp()).compareTo(item2
+								.getTimestamp());
 					}
 				});
 
 			} catch (JSONException e) {
 				e.printStackTrace();
-			} 
+			}
 		}
-		
+
 		// synchronize
 		try {
 			JSONArray jsonItems = new JSONArray();
-			
+
 			for (Item item : _items) {
 				jsonItems.put(item.getKey());
 			}
-			
+
 			// replicate
 			new RequestWorker(this).replicateFromServer(jsonItems);
 			// get replicated items
 			String localItems = new RequestWorker(this).getReplicatedItems();
-			
+
 			// addItemInformation
 			if (localItems != null) {
 				try {
 					JSONObject obj = new JSONObject(localItems);
 					JSONArray arr = obj.getJSONArray("rows");
-					
+
 					for (int i = 0; i < arr.length(); i++) {
 						for (int j = 0; j < _items.size(); j++) {
-							if (_items.get(j).getKey().equals(arr.getJSONObject(i).getString("id")) ) {
-								_items.get(j).setName(arr.getJSONObject(i).getString("value"));
+							if (_items
+									.get(j)
+									.getKey()
+									.equals(arr.getJSONObject(i)
+											.getString("id"))) {
+								_items.get(j)
+										.setName(
+												arr.getJSONObject(i).getString(
+														"value"));
 								break;
 							}
 						}
@@ -148,69 +159,73 @@ public class Items extends ListActivity {
 					e.printStackTrace();
 				}
 			}
-			
-			_statusText =  getString(R.string.items_status_last_synchronized) + ": " + Config.DATE_FORMAT.format(new Date().getTime());
-		} catch (CouchDBNotReachableException e1) {
+
+			_statusText = getString(R.string.items_status_last_synchronized)
+					+ ": " + Config.DATE_FORMAT.format(new Date().getTime());
+		} catch (CouchDBException e1) {
 			_statusText = getString(R.string.items_status_remote_db_not_reachable);
 		}
 
 		runOnUiThread(updateActivity);
 	}
-	
+
 	/*
 	 * fill the adapter with the items of the list
 	 */
-	private Runnable updateActivity = new Runnable() {
-		
-        @Override
-        public void run() {
-            if(_items != null && _items.size() > 0) {
-                _adapter.notifyDataSetChanged();
-                for(int i = 0; i < _items.size(); i++) {
-                	_adapter.add(_items.get(i));
-                }
-            }
-            
-            _progressDialog.dismiss();
-            _adapter.notifyDataSetChanged();
-            _txtStatus.setText(_statusText);
-        }
-    };
-    
-    /*
-     * (non-Javadoc)
-     * @see android.app.ListActivity#onListItemClick(android.widget.ListView, android.view.View, int, long)
-     */
+	private final Runnable updateActivity = new Runnable() {
+
+		@Override
+		public void run() {
+			if (_items != null && _items.size() > 0) {
+				_adapter.notifyDataSetChanged();
+				for (int i = 0; i < _items.size(); i++) {
+					_adapter.add(_items.get(i));
+				}
+			}
+
+			_progressDialog.dismiss();
+			_adapter.notifyDataSetChanged();
+			_txtStatus.setText(_statusText);
+		}
+	};
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.ListActivity#onListItemClick(android.widget.ListView,
+	 * android.view.View, int, long)
+	 */
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		Log.v(TAG, String.valueOf(position));
 	}
-	
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
 	 */
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterView.AdapterContextMenuInfo info = null;
-		
+
 		try {
 			info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 		} catch (ClassCastException e) {
-        	e.printStackTrace();
-        }
-		
+			e.printStackTrace();
+		}
+
 		switch (item.getItemId()) {
-		case DETAILS_ID:
-			Log.v(TAG, String.valueOf(info.id));
-			showDetails();
-			return true;
-		case DELETE_ID:
-			Log.v(TAG, String.valueOf(info.id));
-			deleteItem();
-			return true;
-		default:
-			return super.onContextItemSelected(item);
+			case DETAILS_ID:
+				Log.v(TAG, String.valueOf(info.id));
+				showDetails();
+				return true;
+			case DELETE_ID:
+				Log.v(TAG, String.valueOf(info.id));
+				deleteItem();
+				return true;
+			default:
+				return super.onContextItemSelected(item);
 		}
 	}
 
@@ -218,7 +233,7 @@ public class Items extends ListActivity {
 		Toast toast = Toast.makeText(getApplicationContext(), "details", 3);
 		toast.show();
 	}
-	
+
 	private void deleteItem() {
 		Toast toast = Toast.makeText(getApplicationContext(), "delete", 3);
 		toast.show();
@@ -226,29 +241,32 @@ public class Items extends ListActivity {
 
 	/*
 	 * (non-Javadoc)
-	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
+	 * 
+	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu,
+	 * android.view.View, android.view.ContextMenu.ContextMenuInfo)
 	 */
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
 		AdapterView.AdapterContextMenuInfo info;
-        try {
-        	info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        } catch (ClassCastException e) {
-        	e.printStackTrace();
-            return;
-        }
-        
-        Item item = (Item) getListAdapter().getItem(info.position);
+		try {
+			info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+		} catch (ClassCastException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		Item item = (Item) getListAdapter().getItem(info.position);
 		menu.setHeaderTitle(item.getKey());
 		menu.add(0, DETAILS_ID, 0, R.string.items_context_details_item);
 		menu.add(0, DELETE_ID, 0, R.string.items_context_delete_item);
 	}
-    
+
 	/*
 	 * ItemAdapter
 	 */
 	private class ItemAdapter extends ArrayAdapter<Item> {
-		
+
 		public ItemAdapter(Context context, int textViewResourceId) {
 			super(context, textViewResourceId);
 		}
@@ -257,21 +275,25 @@ public class Items extends ListActivity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View view = convertView;
 			if (view == null) {
-				LayoutInflater layInf = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				LayoutInflater layInf = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				view = layInf.inflate(R.layout.row_item_items, null);
 			}
-			
+
 			Item item = _items.get(position);
 			if (item != null) {
 				TextView txtId = (TextView) view.findViewById(R.id.items_key);
-				TextView txtTimestamp = (TextView) view.findViewById(R.id.items_timestamp);
-				TextView txtName = (TextView) view.findViewById(R.id.items_name);
-				
-				txtId.setText(getString(R.string.items_txt_key) + ": " + item.getKey());
-				
+				TextView txtTimestamp = (TextView) view
+						.findViewById(R.id.items_timestamp);
+				TextView txtName = (TextView) view
+						.findViewById(R.id.items_name);
+
+				txtId.setText(getString(R.string.items_txt_key) + ": "
+						+ item.getKey());
+
 				// convert the timestamp into a date
 				Date date = new Date(item.getTimestamp());
-				txtTimestamp.setText(getString(R.string.items_txt_date) + ": " + Config.DATE_FORMAT.format(date));
+				txtTimestamp.setText(getString(R.string.items_txt_date) + ": "
+						+ Config.DATE_FORMAT.format(date));
 				txtName.setText(item.getName());
 			}
 
