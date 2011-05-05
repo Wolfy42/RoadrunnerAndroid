@@ -55,7 +55,7 @@ public class Items extends ListActivity {
 		_adapter = new ItemAdapter(this, R.layout.row_item_items);
 		setListAdapter(_adapter);
 
-		_statusText = getString(R.string.items_status_synchronize);
+		_statusText = getString(R.string.items_status_loading_local_items);
 		_txtStatus = (TextView) findViewById(R.id.items_status);
 		_txtStatus.setText(_statusText);
 
@@ -121,51 +121,6 @@ public class Items extends ListActivity {
 			}
 		}
 
-		// synchronize
-		try {
-			JSONArray jsonItems = new JSONArray();
-
-			for (Item item : _items) {
-				jsonItems.put(item.getKey());
-			}
-
-			// replicate
-			new RequestWorker(this).replicateFromServer(jsonItems);
-			// get replicated items
-			String localItems = new RequestWorker(this).getReplicatedItems();
-
-			// addItemInformation
-			if (localItems != null) {
-				try {
-					JSONObject obj = new JSONObject(localItems);
-					JSONArray arr = obj.getJSONArray("rows");
-
-					for (int i = 0; i < arr.length(); i++) {
-						for (int j = 0; j < _items.size(); j++) {
-							if (_items
-									.get(j)
-									.getKey()
-									.equals(arr.getJSONObject(i)
-											.getString("id"))) {
-								_items.get(j)
-										.setName(
-												arr.getJSONObject(i).getString(
-														"value"));
-								break;
-							}
-						}
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-
-			_statusText = getString(R.string.items_status_last_synchronized)
-					+ ": " + Config.DATE_FORMAT.format(new Date().getTime());
-		} catch (CouchDBException e1) {
-			_statusText = getString(R.string.items_status_remote_db_not_reachable);
-		}
-
 		runOnUiThread(updateActivity);
 	}
 
@@ -185,7 +140,7 @@ public class Items extends ListActivity {
 
 			_progressDialog.dismiss();
 			_adapter.notifyDataSetChanged();
-			_txtStatus.setText(_statusText);
+			_txtStatus.setText(R.string.items_status_local_items_loaded);
 		}
 	};
 

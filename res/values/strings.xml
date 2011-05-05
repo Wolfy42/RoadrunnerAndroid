@@ -59,7 +59,7 @@
     <string name="items_title">Roadrunner &gt; Items</string><string name="items_noItems">no items currently loaded...</string>
     <string name="items_txt_status"></string><string name="items_txt_key">Key</string>
     <string name="items_txt_date">Scanned</string><string name="items_status_synchronize">Synchronize with Server...</string>
-    <string name="items_status_last_synchronized">Last Synchronization with Server</string>
+    <string name="items_status_loading_local_items">Loading loaded Items...</string><string name="items_status_local_items_loaded">Currently Loaded Items</string><string name="items_status_last_synchronized">Last Synchronization with Server</string>
     
     <string name="items_status_remote_db_not_reachable">Remote Database is not reachable</string>
     <string name="items_status_local_db_not_reachable">Local Database is not reachable</string>
@@ -70,6 +70,8 @@
     <string name="monitoring_controller_stop">Stop Service</string>
     
     <string name="monitoring_controller_title">Roadrunner &gt; Monitor  Service Controller </string>
+    
+    
     
     
     
