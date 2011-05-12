@@ -27,7 +27,6 @@ public class MonitoringService extends Service {
 	private Delivery _delivery = null;
 	private static final String TAG = "MonitoringService";
 	
-	
 	public class LocalBinder extends Binder {
 		MonitoringService getService() {
 			return MonitoringService.this;
@@ -105,7 +104,7 @@ public class MonitoringService extends Service {
 				@Override
 				public void run() {
 					logData();
-					_handler.postDelayed(this, Config.MONITORING_SERVICE_INTERVAL);
+					//_handler.postDelayed(this, Config.MONITORING_SERVICE_INTERVAL);
 				}
 			});
 			_thread.start();

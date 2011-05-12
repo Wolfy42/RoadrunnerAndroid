@@ -12,7 +12,7 @@
 	        style="@style/DialogLogin"
 	        android:text="Username:"/>
 	    <EditText
-	        android:id="@+id/username"
+	        android:id="@+id/roadrunner_dialog_login_username"
 	        android:singleLine="true"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"/>
@@ -22,7 +22,7 @@
 	        style="@style/DialogLogin"
 	        android:text="Password:" />
 	    <EditText
-	        android:id="@+id/password"
+	        android:id="@+id/roadrunner_dialog_login_password"
 	        android:password="true"
 	        android:singleLine="true"
 	        android:layout_width="fill_parent"

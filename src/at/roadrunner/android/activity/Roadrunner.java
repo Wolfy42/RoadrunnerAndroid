@@ -4,21 +4,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable.Orientation;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Layout;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Button;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBService;
 import at.roadrunner.android.couchdb.RequestWorker;
@@ -30,8 +24,7 @@ public class Roadrunner extends Activity {
 	// Intent for scanning
 	private static final String SCAN_INTENT = "com.google.zxing.client.android.SCAN";
 	private static final String SCAN_PACKAGE = "com.google.zxing.client.android";
-	
-	private LogType _status;
+
 	private Intent _replicateServer;
 	
 	@Override
@@ -58,16 +51,21 @@ public class Roadrunner extends Activity {
 	
 	
 	private void showLoginDialog() {
-		AlertDialog.Builder ld = new AlertDialog.Builder(this);
-		ld.setTitle("Login");
+		//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		AlertDialog.Builder ld = new AlertDialog.Builder(this).setTitle("Login");
 	
 		View loginView = getLayoutInflater().inflate(R.layout.dialog_login, (ViewGroup)findViewById(R.id.dialog_login_root));
+		//EditText username = (EditText)findViewById(R.id.roadrunner_dialog_login_username);
+		//username.setText(prefs.getString("user", Config.ROADRUNNER_AUTHENTICATION_USER));
+		//EditText password = (EditText)findViewById(R.id.roadrunner_dialog_login_password);
+		//password.setText(prefs.getString("password", Config.ROADRUNNER_AUTHENTICATION_PASSWORD));
+		
 		ld.setView(loginView);
 		
 		// add buttons
 		ld.setPositiveButton(R.string.app_dialog_login, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
-				dialog.cancel();
+				dialog.dismiss();
 			}
 		});
 		ld.setNegativeButton(R.string.app_dialog_cancel, new DialogInterface.OnClickListener() {
@@ -81,20 +79,19 @@ public class Roadrunner extends Activity {
 	}
 	
 	public void onScanClick(View view) {
-		//scanItem(LogType.LOAD);
+		scan();
+		openContextMenu(view);
 	}
 	
 	public void onDeliveriesClick(View view) {
 		//scanItem(LogType.UNLOAD);
 	}
 	
-	private void scanItem(LogType status) {
+	private void scan() {
 		if (AppInfo.isIntentAvailable(this, SCAN_INTENT)) {
 			Intent intent = new Intent(SCAN_INTENT);
 			intent.setPackage(SCAN_PACKAGE);
 			intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-			
-			_status = status;
 			
 			startActivityForResult(intent, 0);
 		} else {
@@ -124,19 +121,54 @@ public class Roadrunner extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		if (requestCode == 0) {
 			if (resultCode == RESULT_OK) {
-				String item = intent.getStringExtra("SCAN_RESULT");
-				String msg = "The item: '" + item + "' was successfully ";
+				final String item = intent.getStringExtra("SCAN_RESULT");
+				final RequestWorker reqWorker = new RequestWorker(this);
 				
-				if (_status == LogType.LOAD) {
-					msg += "loaded.";
-					new RequestWorker(this).saveLog(item, LogType.LOAD);
+				// get layout
+				AlertDialog.Builder sd = new AlertDialog.Builder(this).setTitle("Perform Action");
+				View scanView = getLayoutInflater().inflate(R.layout.dialog_scan, (ViewGroup)findViewById(R.id.dialog_scan_root));
+				Button btnLoad = (Button) scanView.findViewById(R.id.roadrunner_dialog_scan_load);
+				Button btnUnload = (Button) scanView.findViewById(R.id.roadrunner_dialog_scan_unload);
+				Button btnView = (Button) scanView.findViewById(R.id.roadrunner_dialog_scan_view);
+				sd.setView(scanView);
+				
+				// create AlertDialog
+				final AlertDialog dialog = sd.create();
+				
+				btnLoad.setOnClickListener(new OnClickListener() {
+	                @Override
+	                    public void onClick(View v) {
+		                	// save the log
+		    				reqWorker.saveLog(item, LogType.LOAD);
+		    				dialog.dismiss();
+	                    }
+	                });
+				
+				btnUnload.setOnClickListener(new OnClickListener() {
+	                @Override
+	                    public void onClick(View v) {
+		                	// save the log
+		                	reqWorker.saveLog(item, LogType.LOAD);
+		                	dialog.dismiss();
+	                    }
+	                });
+				
+				btnView.setOnClickListener(new OnClickListener() {
+	                @Override
+	                    public void onClick(View v) {
+	                		dialog.dismiss();
+	                    }
+	                });
+				
+				// check if item is already loaded and modify the menu
+				if (new RequestWorker(this).isLocalDocumentExisting(item)) {
+					btnLoad.setEnabled(false);
 				} else {
-					msg += "unloaded.";
-					new RequestWorker(this).saveLog(item, LogType.UNLOAD);
+					btnUnload.setEnabled(false);
+					btnView.setEnabled(false);
 				}
 				
-				Toast toast = Toast.makeText(getApplicationContext(), msg, 3);
-				toast.show();
+				dialog.show();
 			} 
 		}
 	}

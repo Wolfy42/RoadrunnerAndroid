@@ -30,6 +30,7 @@ import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBException;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Item;
+import at.roadrunner.android.model.ItemController;
 import at.roadrunner.android.model.Log.LogType;
 
 public class Items extends ListActivity {
@@ -38,6 +39,7 @@ public class Items extends ListActivity {
 	private ItemAdapter _adapter;
 	private String _statusText;
 	private TextView _txtStatus;
+	private ItemController _controller;
 
 	private static final int DETAILS_ID = 1;
 	private static final int DELETE_ID = 2;
@@ -49,7 +51,10 @@ public class Items extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_items);
 
-		// Kontextmenu
+		// ItemController
+		_controller = new ItemController(this);
+		
+		// Contextmenu
 		getListView().setOnCreateContextMenuListener(this);
 
 		_adapter = new ItemAdapter(this, R.layout.row_item_items);
@@ -63,7 +68,7 @@ public class Items extends ListActivity {
 		Runnable showItems = new Runnable() {
 			@Override
 			public void run() {
-				synchronizeAndShowItems();
+				showItems();
 			}
 		};
 
@@ -79,46 +84,11 @@ public class Items extends ListActivity {
 	/*
 	 * retrieves the items of the couchdb
 	 */
-	private void synchronizeAndShowItems() {
+	private void showItems() {
 		_items = new ArrayList<Item>();
-		String loadedItems = null;
-
-		try {
-			loadedItems = new RequestWorker(this).getLoadedItems();
-		} catch (CouchDBException e) {
-			_statusText = getString(R.string.items_status_local_db_not_reachable);
-			runOnUiThread(updateActivity);
-			return;
-		}
-
-		if (loadedItems != null) {
-			try {
-				JSONObject result = new JSONObject(loadedItems);
-
-				JSONArray rows = result.getJSONArray("rows");
-				JSONObject row;
-				JSONArray value;
-				String loadedState = LogType.LOAD.name();
-
-				for (int i = 0; i < rows.length(); i++) {
-					row = rows.getJSONObject(i);
-					value = row.getJSONArray("value");
-					if (loadedState.equals(value.getString(0))) {
-						_items.add(new Item(row.getString("key"), value
-								.getLong(1)));
-					}
-				}
-				Collections.sort(_items, new Comparator<Item>() {
-					@Override
-					public int compare(Item item1, Item item2) {
-						return new Long(item1.getTimestamp()).compareTo(item2
-								.getTimestamp());
-					}
-				});
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
+		
+		for (Item item : _controller.getLocalItems()) {
+			_items.add(item);
 		}
 
 		runOnUiThread(updateActivity);

@@ -275,6 +275,28 @@ public class RequestWorker {
 
 		return false;
 	}
+	
+	public boolean isLocalDocumentExisting(String id) {
+		String result = null;
+		JSONObject response = null;
+		String dbName;
+	
+		// get name of database
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
+		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
+
+		HttpGet get = RequestFactory.createLocalHttpGet(dbName + "/" + id);
+		try {
+			result = HttpExecutor.getInstance().executeForResponse(get);
+			response = new JSONObject(result);
+			return (!response.has("error"));
+		} catch (CouchDBException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	/*
 	 * returns the next ID
