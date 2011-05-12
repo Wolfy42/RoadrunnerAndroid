@@ -2,10 +2,9 @@
 <resources>
     <string name="app_name">Roadrunner</string>
     <string name="app_dialog_yes">Yes</string>
-    <string name="app_dialog_no">No</string><string name="app_progress_pleasewait">Please Wait...</string>
-    <string name="app_progress_retdata">Retrieving Data...</string><string name="app_progress_systemState">Checking System...</string><string name="app_progress_fixingProblem">Fixing Problem...</string><string name="roadrunner_start">Start Monitoring</string><string name="roadrunner_load">Load Item</string><string name="roadrunner_unload">Unload Item</string><string name="roadrunner_scan">Scan Item</string>
-    <string name="roadrunner_replicate">Replicate</string>
-    <string name="roadrunner_items">Items</string><string name="roadrunner_menu_settings">Settings</string>
+    <string name="app_dialog_no">No</string><string name="app_dialog_login">Login</string><string name="app_dialog_cancel">Cancel</string><string name="app_progress_pleasewait">Please Wait...</string>
+    <string name="app_progress_retdata">Retrieving Data...</string><string name="app_progress_systemState">Checking System...</string><string name="app_progress_fixingProblem">Fixing Problem...</string><string name="roadrunner_scan">Scan Item</string>
+    <string name="roadrunner_deliveries">Deliveries</string><string name="roadrunner_menu_settings">Settings</string>
     <string name="roadrunner_menu_info">Info</string>
     <string name="roadrunner_menu_systemtest">System Test</string>
     <string name="roadrunner_dialog_missingScanner">In order to use the Roadrunner App you need to install a
@@ -70,6 +69,8 @@
     <string name="monitoring_controller_stop">Stop Service</string>
     
     <string name="monitoring_controller_title">Roadrunner &gt; Monitor  Service Controller </string>
+    
+    
     
     
     

@@ -4,17 +4,26 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable.Orientation;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBService;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Log.LogType;
+import at.roadrunner.android.service.ReplicationService;
 import at.roadrunner.android.util.AppInfo;
 
 public class Roadrunner extends Activity {
@@ -23,32 +32,60 @@ public class Roadrunner extends Activity {
 	private static final String SCAN_PACKAGE = "com.google.zxing.client.android";
 	
 	private LogType _status;
+	private Intent _replicateServer;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_roadrunner);
 		
+		showLoginDialog();
+		
 		// start CouchDB Service
-		CouchDBService.startCouchDB(this);	
+		CouchDBService.startCouchDB(this);
+		
+		// start Monitoring Service
+		_replicateServer = new Intent(this, ReplicationService.class);
+		startService(_replicateServer);
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		CouchDBService.stopCouchDB(this);
+		stopService(_replicateServer);
 	}
 	
-	public void onStartClick(View view) {
-		startActivity(new Intent(this, Monitoring.class));
+	
+	private void showLoginDialog() {
+		AlertDialog.Builder ld = new AlertDialog.Builder(this);
+		ld.setTitle("Login");
+	
+		View loginView = getLayoutInflater().inflate(R.layout.dialog_login, (ViewGroup)findViewById(R.id.dialog_login_root));
+		ld.setView(loginView);
+		
+		// add buttons
+		ld.setPositiveButton(R.string.app_dialog_login, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		ld.setNegativeButton(R.string.app_dialog_cancel, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.dismiss();
+			}
+		});
+		
+		ld.show();
+		
 	}
 	
-	public void onLoadClick(View view) {
-		scanItem(LogType.LOAD);
+	public void onScanClick(View view) {
+		//scanItem(LogType.LOAD);
 	}
 	
-	public void onUnloadClick(View view) {
-		scanItem(LogType.UNLOAD);
+	public void onDeliveriesClick(View view) {
+		//scanItem(LogType.UNLOAD);
 	}
 	
 	private void scanItem(LogType status) {
@@ -75,25 +112,9 @@ public class Roadrunner extends Activity {
 				public void onClick(DialogInterface dialog, int id) {
 					dialog.cancel();
 				}
-			});
-			AlertDialog alert = alertBuilder.create();
-			
-			alert.show();
+			});	
+			alertBuilder.show();
 		}
-	}
-
-	/*
-	 * Event onReplicateClick
-	 */
-	public void onReplicateClick(View view)  {
-		new RequestWorker(this).replicate();
-	}
-
-	/*
-	 * Event onItemsClick
-	 */
-	public void onItemsClick(View view) {
-		startActivity(new Intent(this, Items.class));
 	}
 	
 	/*
