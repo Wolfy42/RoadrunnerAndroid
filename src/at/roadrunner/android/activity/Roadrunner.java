@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBService;
 import at.roadrunner.android.couchdb.RequestWorker;
@@ -71,17 +72,11 @@ public class Roadrunner extends Activity {
 		// add buttons
 		ld.setPositiveButton(R.string.app_dialog_login, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
-				dialog.dismiss();
-			}
-		});
-		ld.setNegativeButton(R.string.app_dialog_cancel, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				dialog.dismiss();
+				
 			}
 		});
 		
 		ld.show();
-		
 	}
 	
 	public void onScanClick(View view) {
@@ -90,7 +85,8 @@ public class Roadrunner extends Activity {
 	}
 	
 	public void onDeliveriesClick(View view) {
-		//scanItem(LogType.UNLOAD);
+		Toast toast = Toast.makeText(this, "duuuu elendige puta du! implementiers doch selber!", 5);
+		toast.show();
 	}
 	
 	private void scan() {
