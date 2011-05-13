@@ -41,7 +41,8 @@ public class Config {
 	public static final String COUCH_SERVICE = "com.couchone.libcouch.ICouchService";
 	
 	// Monitoring Service Settings
-	public static final long SERVICE_REPLICATION_INTERVAL = 10000;
+	public static final long SERVICE_REPLICATION_ITEM_INTERVAL = 10000;
+	public static final long SERVICE_REPLICATION_CONTAINER_INTERVAL = 1000;
 	
 	// TemperatureSensor
 	public static final String TEMPERATUR_SENSOR_URL_1 = PROTOCOL + ROADRUNNER_SERVER_IP + ":" + "10001"; 

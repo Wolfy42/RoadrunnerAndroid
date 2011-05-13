@@ -27,10 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
+import at.roadrunner.android.controllers.ItemController;
 import at.roadrunner.android.couchdb.CouchDBException;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Item;
-import at.roadrunner.android.model.ItemController;
 import at.roadrunner.android.model.Log.LogType;
 
 public class Items extends ListActivity {

@@ -1,4 +1,4 @@
-package at.roadrunner.android.model;
+package at.roadrunner.android.controllers;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import at.roadrunner.android.couchdb.CouchDBException;
 import at.roadrunner.android.couchdb.RequestWorker;
+import at.roadrunner.android.model.Item;
 import at.roadrunner.android.model.Log.LogType;
 
 public class ItemController {

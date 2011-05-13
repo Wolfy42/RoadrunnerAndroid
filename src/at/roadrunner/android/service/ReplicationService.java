@@ -16,21 +16,31 @@ import android.util.Log;
 import android.widget.Toast;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
+import at.roadrunner.android.controllers.ContainerController;
+import at.roadrunner.android.controllers.ItemController;
 import at.roadrunner.android.model.Item;
-import at.roadrunner.android.model.ItemController;
 
 public class ReplicationService extends Service {
 
 	private NotificationManager _nM;
 	private int NOTIFICATION = R.string.local_service_started;
 	private static final String TAG = "ReplicationService";
-	private ItemController _controller;
+	private ItemController _itemController;
+	private ContainerController _containerController;
 	
 	// Timer / TimerTask 
-	private Timer _timer;
-	private TimerTask _timerTask = new TimerTask() { 
+	private Timer _timerItems;
+	private TimerTask _timerTaskItems = new TimerTask() { 
         public void run() { 
-        	replicate(); 
+        	replicateItems(); 
+        }
+	}; 
+	
+	// Timer / TimerTask 
+	private Timer _timerContainer;
+	private TimerTask _timerTaskContainer = new TimerTask() { 
+        public void run() { 
+        	replicateContainers(); 
         }
 	}; 
 	
@@ -62,13 +72,18 @@ public class ReplicationService extends Service {
         Log.i(TAG, "Received start id " + startId + ": " + intent);
         
         // set the controller object
-        _controller = new ItemController(this);
+        _itemController = new ItemController(this);
+        _containerController = new ContainerController(this);
         
-        if (_controller != null) {
-	        _timer = new Timer();
-	        _timer.schedule(_timerTask,0,Config.SERVICE_REPLICATION_INTERVAL);
-        }
+        // replicate
+	    _timerItems = new Timer();
+	    _timerItems.schedule(_timerTaskItems,0,Config.SERVICE_REPLICATION_ITEM_INTERVAL);
         
+        // replicate container once at start
+	    _timerContainer = new Timer();
+	    _timerContainer .schedule(_timerTaskContainer,0,Config.SERVICE_REPLICATION_CONTAINER_INTERVAL);
+	    
+	    
         // We want this service to continue running until it is explicitly
         // stopped, so return sticky.
         return START_STICKY;
@@ -79,18 +94,21 @@ public class ReplicationService extends Service {
         // Cancel the persistent notification.
     	_nM.cancel(NOTIFICATION);
 
-    	_timerTask.cancel();
-    	_timer.cancel();
+    	_timerTaskItems.cancel();
+    	_timerItems.cancel();
+    	
+    	_timerTaskContainer.cancel();
+    	_timerContainer.cancel();
     	
         // Tell the user we stopped.
         Toast.makeText(this, R.string.local_service_stopped, Toast.LENGTH_SHORT).show();
     }
     
-	private void replicate() {
-		Log.v(TAG, "replicate ....");
+	private void replicateItems() {
+		Log.v(TAG, "replicate items....");
 		
 		// get local items
-		List<Item> items = _controller.getLocalItems();
+		List<Item> items = _itemController.getLocalItems();
 		
 		// create JSONArray
 		JSONArray jsonItems = new JSONArray();
@@ -99,10 +117,23 @@ public class ReplicationService extends Service {
 		}
 
 		// replicate the items
-		_controller.replicateLocalItems(jsonItems);
+		_itemController.replicateLocalItems(jsonItems);
 		
-		Log.v(TAG, "replicated!");
+		Log.v(TAG, "items replicated!");
 	} 
+	
+	private void replicateContainers() {
+		Log.v(TAG, "replicate transportation....");
+
+		if (_containerController.replicateContainers()) {
+			
+			
+			_timerTaskContainer.cancel();
+	    	_timerContainer.cancel();
+		}
+		
+		Log.v(TAG, "transportation replicated!");
+	}
     
     private void showNotification() {
 		// In this sample, we'll use the same text for the ticker and the expanded notification

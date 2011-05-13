@@ -276,6 +276,39 @@ public class RequestWorker {
 		return false;
 	}
 	
+	public boolean replicateContainers() {
+		String IPandPort;
+		String dbName;
+
+		// get the ip and name of the database
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(m_context);
+		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":"
+				+ Config.ROADRUNNER_SERVER_PORT);
+		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
+
+		JSONObject repl = new JSONObject();
+		try {
+			repl.put("source", "http://" + IPandPort + "/" + dbName);
+			repl.put("target", Config.DATABASE);
+			repl.put("filter", "roadrunner/foruser");
+
+			HttpPost post = RequestFactory.createLocalHttpPost("_replicate");
+			StringEntity body = new StringEntity(repl.toString());
+			post.setEntity(body);
+
+			HttpExecutor.getInstance().executeForResponse(post);
+			return true;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (CouchDBException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	public boolean isLocalDocumentExisting(String id) {
 		String result = null;
 		JSONObject response = null;

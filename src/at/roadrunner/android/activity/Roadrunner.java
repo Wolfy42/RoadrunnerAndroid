@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -34,14 +33,15 @@ public class Roadrunner extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_roadrunner);
 		
-		showLoginDialog();
-		
 		// start CouchDB Service
 		CouchDBService.startCouchDB(this);
 		
-		// start Monitoring Service
+		// start Replication Service
 		_replicateServer = new Intent(this, ReplicationService.class);
 		startService(_replicateServer);
+		
+		// run System-Check
+		startActivity(new Intent(this, SystemTest.class));
 	}
 
 	@Override
@@ -51,33 +51,11 @@ public class Roadrunner extends Activity {
 		stopService(_replicateServer);
 	}
 	
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		//ignore orientation change
-		super.onConfigurationChanged(newConfig);
-	}
-	
-	private void showLoginDialog() {
-		//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		AlertDialog.Builder ld = new AlertDialog.Builder(this).setTitle("Login");
-	
-		View loginView = getLayoutInflater().inflate(R.layout.dialog_login, (ViewGroup)findViewById(R.id.dialog_login_root));
-		//EditText username = (EditText)findViewById(R.id.roadrunner_dialog_login_username);
-		//username.setText(prefs.getString("user", Config.ROADRUNNER_AUTHENTICATION_USER));
-		//EditText password = (EditText)findViewById(R.id.roadrunner_dialog_login_password);
-		//password.setText(prefs.getString("password", Config.ROADRUNNER_AUTHENTICATION_PASSWORD));
-		
-		ld.setView(loginView);
-		
-		// add buttons
-		ld.setPositiveButton(R.string.app_dialog_login, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				
-			}
-		});
-		
-		ld.show();
-	}
+//	@Override
+//	public void onConfigurationChanged(Configuration newConfig) {
+//		//ignore orientation change
+//		super.onConfigurationChanged(newConfig);
+//	}
 	
 	public void onScanClick(View view) {
 		scan();

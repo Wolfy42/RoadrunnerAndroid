@@ -5,26 +5,38 @@
   android:orientation="vertical"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
-
+		
+		<TextView
+		    android:id="@+id/login_status"
+		   	style="@style/StatusBar"
+		    android:text="@string/login_txt_status"/>
 	  	<TextView
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        style="@style/DialogLogin"
-	        android:text="Username:"/>
+	        style="@style/Login"
+	        android:text="@string/login_txt_username"/>
 	    <EditText
-	        android:id="@+id/roadrunner_dialog_login_username"
+	        android:id="@+id/login_username"
 	        android:singleLine="true"
+	        android:text="xxx"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"/>
 	    <TextView
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        style="@style/DialogLogin"
-	        android:text="Password:" />
+	        style="@style/Login"
+	        android:text="@string/login_txt_password" />
 	    <EditText
-	        android:id="@+id/roadrunner_dialog_login_password"
+	        android:id="@+id/login_password"
 	        android:password="true"
 	        android:singleLine="true"
+	        android:text="y"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"/>
+		
+		<Button android:id="@+id/login_btn_login"
+                android:onClick="onLoginClick"
+                android:text="@string/login_btn_login"
+                android:layout_width="fill_parent"
+	        	android:layout_height="wrap_content"/>
 </LinearLayout>

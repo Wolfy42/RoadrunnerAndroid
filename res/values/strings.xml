@@ -69,6 +69,10 @@
     <string name="monitoring_controller_stop">Stop Service</string>
     
     <string name="monitoring_controller_title">Roadrunner &gt; Monitor  Service Controller </string>
+    <string name="login_txt_status">Please enter your Login-Data</string>
+    <string name="login_txt_username">Username:</string>
+    <string name="login_txt_password">Password:</string>
+    <string name="login_btn_login">Login</string>
     
     
     
