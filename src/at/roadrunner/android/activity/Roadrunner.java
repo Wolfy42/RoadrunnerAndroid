@@ -1,20 +1,26 @@
 package at.roadrunner.android.activity;
 
+import org.json.JSONArray;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBService;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Log.LogType;
+import at.roadrunner.android.service.LoggingService;
 import at.roadrunner.android.service.MonitoringService;
 import at.roadrunner.android.util.AppInfo;
 
@@ -32,6 +38,8 @@ public class Roadrunner extends Activity {
 		CouchDBService.startCouchDB(this);
 		// start Monitoring Service
 		startService(new Intent(Roadrunner.this, MonitoringService.class));
+		
+		startService(new Intent(Roadrunner.this, LoggingService.class));
 	}
 	
 	@Override
@@ -99,8 +107,9 @@ public class Roadrunner extends Activity {
 
 				Toast toast = Toast.makeText(getApplicationContext(), contents, 3);
 				toast.show();
-				
-				new RequestWorker(this).saveLog(contents, LogType.LOAD);
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+				String transportation = prefs.getString("transportation", Config.DEFAULT_TRANSPORTATION);
+				new RequestWorker(this).saveLog(new JSONArray().put(contents), LogType.LOAD, transportation);
 				
 			} else if (resultCode == RESULT_CANCELED) {
 

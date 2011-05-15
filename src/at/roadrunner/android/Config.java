@@ -42,4 +42,8 @@ public class Config {
 	
 	// Monitoring Service Settings
 	public static final long MONITORING_SERVICE_INTERVAL = 10000;
+	
+	public static final long LOGGING_SERVICE_INTERAL = 10000;
+	
+	public static final String DEFAULT_TRANSPORTATION = "UNKNOWN";
 }

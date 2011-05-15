@@ -64,14 +64,20 @@
     <string name="items_status_remote_db_not_reachable">Remote Database is not reachable</string>
     <string name="items_status_local_db_not_reachable">Local Database is not reachable</string>
     <string name="items_context_details_item">Show Details</string><string name="items_context_delete_item">Delete Item</string>
+    
     <string name="local_service_started">Monitoring Started</string>
-    <string name="local_service_stopped">Monitoring Stopped</string><string name="local_service_label">Roadrunner Monitoring Service</string>
+    <string name="local_service_stopped">Monitoring Stopped</string>
+    <string name="local_service_label">Roadrunner Monitoring Service</string>
+    
+    <string name="logging_service_running">Logging Running</string>
+    <string name="logging_service_label">Roadrunner Logging Service</string>
+    
     <string name="monitoring_controller_start">Start Service</string>
     <string name="monitoring_controller_stop">Stop Service</string>
     
     <string name="monitoring_controller_title">Roadrunner &gt; Monitor  Service Controller </string>
     
-    
+    <item type="id" name="logging_service_notification_id" />
     
     
     
