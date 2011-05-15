@@ -10,14 +10,15 @@ import at.roadrunner.android.Config;
 
 public class CouchDBService {
 
-	private static ServiceConnection _connection = new CouchDBConnection();
+//	private static ServiceConnection _connection = new CouchDBConnection();
 	
 	public static void startCouchDB(Context context)  {
-		context.bindService(new Intent(Config.COUCH_SERVICE), _connection, Context.BIND_AUTO_CREATE);
+//		context.bindService(new Intent(Config.COUCH_SERVICE), _connection, Context.BIND_AUTO_CREATE);
+		context.startService(new Intent(Config.COUCH_SERVICE));
 	}
 	
 	public static void stopCouchDB(Context context)  {
-		context.unbindService(_connection);
+//		context.unbindService(_connection);
 		context.stopService(new Intent(Config.COUCH_SERVICE));
 	}
 	
@@ -26,14 +27,16 @@ public class CouchDBService {
 		startCouchDB(context);
 	}
 	
-	private static class CouchDBConnection implements ServiceConnection  {
-		
-		@Override
-		public void onServiceConnected(ComponentName name, IBinder service) {
-		}
 
-		@Override
-		public void onServiceDisconnected(ComponentName name) {
-		}
-	}
+	
+//	private static class CouchDBConnection implements ServiceConnection  {
+//		
+//		@Override
+//		public void onServiceConnected(ComponentName name, IBinder service) {
+//		}
+//
+//		@Override
+//		public void onServiceDisconnected(ComponentName name) {
+//		}
+//	}
 }
