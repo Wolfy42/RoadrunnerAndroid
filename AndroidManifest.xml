@@ -49,11 +49,11 @@
         		  android:theme="@style/Theme.Roadrunner"
                   android:label="@string/systemtest_title">
         </activity>
-        
-        <!-- MonitoringServiceController Activity -->
-        <activity android:name=".activity.MonitoringController"
+                
+        <activity android:name=".activity.ServiceController"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/monitoring_controller_title">
+                  android:label="@string/service_controller_title">
         </activity>
+        
     </application>
 </manifest>
