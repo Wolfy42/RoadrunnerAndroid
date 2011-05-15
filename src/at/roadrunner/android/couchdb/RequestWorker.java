@@ -68,14 +68,15 @@ public class RequestWorker {
 	/*
 	 * save the log of an item
 	 */
-	public void saveLog(String itemId, LogType logType)  {
+	public void saveLog(JSONArray itemIds, LogType logType, String value)  {
 		
 		JSONObject log = new JSONObject();
 		try {
 			log.put(Log.TYPE_KEY, Log.TYPE_VALUE);
 			log.put(Log.LOG_TYPE_KEY, logType.name());
-			log.put(Log.ITEM_KEY, itemId);
+			log.put(Log.ITEMS_KEY, itemIds);
 			log.put(Log.TIMESTAMP_KEY, new Date().getTime());
+			log.put(Log.VALUE_KEY, value);
 			
 			HttpPut put = RequestFactory.createHttpPut(getNextId());
 	        StringEntity body = new StringEntity(log.toString());

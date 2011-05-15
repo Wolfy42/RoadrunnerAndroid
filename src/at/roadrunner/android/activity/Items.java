@@ -1,8 +1,6 @@
 package at.roadrunner.android.activity;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 
 import org.json.JSONArray;
@@ -27,10 +25,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
+import at.roadrunner.android.controller.ItemController;
 import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableException;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Item;
-import at.roadrunner.android.model.Log.LogType;
 
 public class Items extends ListActivity {
 	private ProgressDialog _progressDialog = null; 
@@ -78,43 +76,12 @@ public class Items extends ListActivity {
 	 * retrieves the items of the couchdb
 	 */
 	private void synchronizeAndShowItems() {
-		_items = new ArrayList<Item>();
-		String loadedItems = null;
-		
 		try {
-			loadedItems = new RequestWorker(this).getLoadedItems();
-		} catch (CouchDBNotReachableException e) {
+			_items = new ItemController(this).getLoadedItems();
+		} catch (CouchDBNotReachableException e2) {
 			_statusText = getString(R.string.items_status_local_db_not_reachable);
 			runOnUiThread(updateActivity);
-			return;
-		}
-		
-		if (loadedItems != null) {
-			try {
-				JSONObject result = new JSONObject(loadedItems);
-				
-				JSONArray rows = result.getJSONArray("rows");
-				JSONObject row;
-				JSONArray value;
-				String loadedState = LogType.LOAD.name();
-				
-				for (int i=0; i < rows.length(); i++)  {
-					row = rows.getJSONObject(i);
-					value = row.getJSONArray("value");
-					if (loadedState.equals(value.getString(0)))  {
-						_items.add(new Item(row.getString("key"), value.getLong(1)));
-					}
-				}
-				Collections.sort(_items, new Comparator<Item>()  {
-					@Override
-					public int compare(Item item1, Item item2) {
-						return new Long(item1.getTimestamp()).compareTo(item2.getTimestamp());
-					}
-				});
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-			} 
+			_items = new ArrayList<Item>();
 		}
 		
 		// synchronize

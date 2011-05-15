@@ -4,8 +4,10 @@ public class Log {
 
 	public static String TYPE_KEY = "type";
 	public static String LOG_TYPE_KEY = "logType";
-	public static String ITEM_KEY = "item";
+	public static String ITEMS_KEY = "items";
 	public static String TIMESTAMP_KEY = "timestamp";
+	public static String VALUE_KEY = "value";
+	
 	public static String ERROR = "error";
 	
 	public static String TYPE_VALUE = "log";
