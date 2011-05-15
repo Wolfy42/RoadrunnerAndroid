@@ -110,6 +110,6 @@ public class MonitoringService extends Service {
 
 	// log the data (gps pos, sensor values, ...)
 	private void logData() {
-		Log.v(TAG, "fick dich");
+		Log.v(TAG, "should read sensors");
 	}
 }
