@@ -11,6 +11,7 @@ import junit.framework.TestCase;
 
 import at.roadrunner.android.sensor.HttpSensor;
 import at.roadrunner.android.sensor.SensorConnectionFactory;
+import at.roadrunner.android.sensor.SensorType;
 
 
 public class HttpSensorTest extends TestCase {
@@ -59,7 +60,7 @@ public class HttpSensorTest extends TestCase {
 		super.setUp();
 		URL url  = new URL("http://172.16.102.224:4711");
 
-		_httpSensor = new HttpSensor(url, _cf);
+		_httpSensor = new HttpSensor(url, SensorType.Temperature,_cf);
 	}
 	
 	/**
