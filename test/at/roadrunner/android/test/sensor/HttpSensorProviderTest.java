@@ -31,6 +31,7 @@ import at.roadrunner.android.couchdb.CouchDBException.CouchDBNotReachableExcepti
 import at.roadrunner.android.model.Sensor;
 import at.roadrunner.android.model.TemperatureSensor;
 import at.roadrunner.android.sensor.HttpSensor;
+import at.roadrunner.android.sensor.Protocol;
 import at.roadrunner.android.sensor.SensorProvider;
 import at.roadrunner.android.sensor.SensorConnectionFactory;
 import at.roadrunner.android.sensor.SensorType;
@@ -73,7 +74,7 @@ public class HttpSensorProviderTest {
 		_hwSensors.add(_httpSensor);
 		
 		_sensorModelList = new ArrayList<Sensor>();
-		_sensorModelList.add(new TemperatureSensor("http://172.16.102.224:4711"));
+		_sensorModelList.add(new TemperatureSensor("http://172.16.102.224:4711", Protocol.HTTP));
 		_httpSensorProvider = mock(SensorProvider.class);
 		when(_httpSensorProvider.discover(_sensorModelList)).thenReturn(_hwSensors);
 		

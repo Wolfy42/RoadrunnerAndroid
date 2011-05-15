@@ -26,6 +26,7 @@ import org.junit.Test;
 
 import at.roadrunner.android.sensor.HttpSensor;
 import at.roadrunner.android.sensor.SensorConnectionFactory;
+import at.roadrunner.android.sensor.SensorType;
 
 /**
  * Class HttpSensorTest
@@ -63,7 +64,7 @@ public class HttpSensorTest {
 		when(connection.getInputStream()).thenReturn(stream);
 		_sensorConnectionFactory = mock(SensorConnectionFactory.class);
 		when(_sensorConnectionFactory.openHttpConnection(url)).thenReturn(connection);
-		_httpSensor = new HttpSensor(url,_sensorConnectionFactory);
+		_httpSensor = new HttpSensor(url, SensorType.Temperature, _sensorConnectionFactory);
 	}
 
 	/**
