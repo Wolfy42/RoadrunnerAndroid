@@ -15,6 +15,7 @@
     	<!-- Services -->
     	<service android:name=".service.MonitoringService" />
     	<service android:name=".service.LoggingService"/>
+    	<service android:name=".service.ReplicatorService"/>
     	
         <!-- Roadrunner Activity -->
         <activity android:name=".activity.Roadrunner"

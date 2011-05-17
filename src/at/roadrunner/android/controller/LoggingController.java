@@ -42,6 +42,6 @@ public class LoggingController {
 				LogType.TEMPSENSOR, 
 				Float.toString(SensorData.getTemperature()));
 		
-		Log.e("w", items.toString());
+		Log.e("roadrunner", items.toString());
 	}
 }

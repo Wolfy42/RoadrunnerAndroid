@@ -69,8 +69,8 @@ public class Roadrunner extends Activity {
 	/*
 	 * Event onReplicateClick
 	 */
-	public void onReplicateClick(View view)  {
-		new RequestWorker(this).replicate();
+	public void onReplicateClick(View view)  {;
+		Toast.makeText(this, "Replication is running in service", Toast.LENGTH_SHORT).show();
 	}
 
 	/*

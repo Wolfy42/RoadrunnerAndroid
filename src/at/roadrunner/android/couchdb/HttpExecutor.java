@@ -27,7 +27,7 @@ public class HttpExecutor {
 		return _instance;
 	}
 	
-	public String executeForResponse(HttpRequestBase request) throws CouchDBNotReachableException, JSONException  {
+	public synchronized String executeForResponse(HttpRequestBase request) throws CouchDBNotReachableException, JSONException  {
 		synchronized (this) {
 			try {
 				HttpResponse response = _client.execute(request);

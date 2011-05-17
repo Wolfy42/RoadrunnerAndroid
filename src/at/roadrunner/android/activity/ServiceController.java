@@ -17,11 +17,13 @@ import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBService;
 import at.roadrunner.android.service.LoggingService;
 import at.roadrunner.android.service.MonitoringService;
+import at.roadrunner.android.service.ReplicatorService;
 
 public class ServiceController extends Activity implements OnClickListener  {
 	
 	private TextView _loggingStatus;
 	private TextView _monitoringStatus;
+	private TextView _replicatingStatus;
 	private Button _stopAllServices;
 	private Button _startAllServices;
 	private Button _stopRoadrunner;
@@ -33,6 +35,7 @@ public class ServiceController extends Activity implements OnClickListener  {
 		
 		_loggingStatus = (TextView) findViewById(R.id.logging_status);
 		_monitoringStatus = (TextView) findViewById(R.id.monitoring_status);
+		_replicatingStatus = (TextView) findViewById(R.id.replicating_status);
 		
 		_stopAllServices = (Button) findViewById(R.id.stop_all_services);
 		_stopAllServices.setOnClickListener(this);
@@ -49,6 +52,7 @@ public class ServiceController extends Activity implements OnClickListener  {
 	private void refreshStatus()  {
 		_loggingStatus.setText(R.string.service_not_running);
 		_monitoringStatus.setText(R.string.service_not_running);
+		_replicatingStatus.setText(R.string.service_not_running);
 		
 		ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 		for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -56,6 +60,8 @@ public class ServiceController extends Activity implements OnClickListener  {
 				_loggingStatus.setText(R.string.service_running);
 	        }  else if (MonitoringService.class.getName().equals(service.service.getClassName())) {
 	        	_monitoringStatus.setText(R.string.service_running);
+	        }  else if (ReplicatorService.class.getName().equals(service.service.getClassName())) {
+	        	_replicatingStatus.setText(R.string.service_running);
 	        }
 	    }
 	}
@@ -107,6 +113,7 @@ public class ServiceController extends Activity implements OnClickListener  {
 		
 		context.startService(new Intent(context, MonitoringService.class));
 		context.startService(new Intent(context, LoggingService.class));
+		context.startService(new Intent(context, ReplicatorService.class));
 		
 		showRoadrunnerNotification(context);
 	}
@@ -114,6 +121,7 @@ public class ServiceController extends Activity implements OnClickListener  {
 	public static void stopAllServices(Context context)  {
 		context.stopService(new Intent(context, MonitoringService.class));
 		context.stopService(new Intent(context, LoggingService.class));
+		context.stopService(new Intent(context, ReplicatorService.class));
 		
 		CouchDBService.stopCouchDB(context);
 	}

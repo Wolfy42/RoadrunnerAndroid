@@ -37,6 +37,23 @@
 		    android:layout_height="wrap_content"/>
 	   
 	</LinearLayout>
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	   android:orientation="horizontal"
+	   android:layout_width="wrap_content"
+	   android:layout_height="wrap_content">
+	   
+	   <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/replicating"/>
+	   
+	   <TextView
+		    android:id="@+id/replicating_status"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"/>
+	   
+	</LinearLayout>
 	     
 	<Button
 	    android:id="@+id/start_all_services"

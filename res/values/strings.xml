@@ -78,5 +78,6 @@
     
     <string name="logging">Logging</string>
     <string name="monitoring">Monitoring</string>
+    <string name="replicating">Replicating</string>
 
 </resources>

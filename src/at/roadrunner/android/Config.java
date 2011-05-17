@@ -40,10 +40,10 @@ public class Config {
 	// CouchDB - Service
 	public static final String COUCH_SERVICE = "com.couchone.libcouch.ICouchService";
 	
-	// Monitoring Service Settings
+	// Service Settings
 	public static final long MONITORING_SERVICE_INTERVAL = 10000;
-	
 	public static final long LOGGING_SERVICE_INTERAL = 10000;
+	public static final long REPLICATOR_SERVICE_INTERAL = 10000;
 	
 	public static final String DEFAULT_TRANSPORTATION = "UNKNOWN";
 }
