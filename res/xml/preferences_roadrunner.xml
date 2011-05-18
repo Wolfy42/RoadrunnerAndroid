@@ -30,12 +30,10 @@
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/pref_transportation"> 
-		<ListPreference
+		<EditTextPreference
 			android:key="transportation"
 			android:summary="@string/pref_transportation_summary"
 			android:title="@string/pref_transportation_name"
-			android:entries="@array/pref_transportation_array"
-			android:entryValues="@array/pref_transportation_values"
 		/>
 	</PreferenceCategory>
 </PreferenceScreen>
