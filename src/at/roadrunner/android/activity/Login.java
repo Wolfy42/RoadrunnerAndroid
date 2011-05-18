@@ -9,6 +9,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -22,6 +25,7 @@ public class Login extends Activity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "Login";
 	
+	private Runnable _loadContainers;
 	private ProgressDialog _progressDialog = null;
 	private ArrayAdapter<String> _containerAdapter;
 	private ArrayList<String> _containers;
@@ -40,7 +44,7 @@ public class Login extends Activity {
 		_container = (Spinner) findViewById(R.id.login_container);
 		
 		// Runnable to fill the items in a Thread
-		Runnable loadContainers = new Runnable() {
+		_loadContainers = new Runnable() {
 			@Override
 			public void run() {
 				loadTransportations();
@@ -48,7 +52,7 @@ public class Login extends Activity {
 		};
 
 		// start a new Thread to get the items
-		new Thread(null, loadContainers, "getTransportations").start();
+		new Thread(null, _loadContainers, "getTransportations").start();
 
 		// show the Progressbar
 		_progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait), getString(R.string.app_progress_retdata), true);
@@ -83,19 +87,52 @@ public class Login extends Activity {
 
 		String username = _username.getText().toString();
 		String password = _password.getText().toString();
-		String container = _container.getSelectedItem().toString();
+		String container = null;
 		
-		if (new RequestWorker(this).isAuthenticatedAtServer(username, password))  {
-			// save the used form values into the preferences
-			Editor edit = prefs.edit();
-			edit.putString("user", username);
-			edit.putString("password", password);
-			edit.putString("transportation", container);
-			edit.commit();
-			
-			startActivity(new Intent(this, Roadrunner.class));
-		}  else  {
-			Toast.makeText(this, "Not Authenticated", Toast.LENGTH_SHORT).show();
+		// you can't login if there are no transportation loaded
+		if (_container.getCount() > 0) {
+			container = _container.getSelectedItem().toString();
+			if (new RequestWorker(this).isAuthenticatedAtServer(username, password))  {
+				// save the used form values into the preferences
+				Editor edit = prefs.edit();
+				edit.putString("user", username);
+				edit.putString("password", password);
+				edit.putString("transportation", container);
+				edit.commit();
+				
+				startActivity(new Intent(this, Roadrunner.class));
+			}  else  {
+				Toast.makeText(this, "Not Authenticated", Toast.LENGTH_SHORT).show();
+			}
+		} else {
+			Toast.makeText(this, "There are no Transportations available. Select \"Refresh Transportation\" in the Menu.", Toast.LENGTH_LONG).show();
 		}
 	}
+	
+	/*
+	 * inflate menu
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.login_menu, menu);
+		return true;
+	}
+
+    /*
+     * Event OptionsMenuItemSelected
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.login_menu_refresh:
+        	new Thread(null, _loadContainers, "getTransportations").start();
+            return true;
+        case R.id.login_menu_exit:
+        	finish();
+        	return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
 }

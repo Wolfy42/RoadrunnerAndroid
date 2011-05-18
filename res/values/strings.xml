@@ -75,7 +75,7 @@
     <string name="login_txt_username">Username:</string>
     <string name="login_txt_password">Password:</string>
     <string name="login_txt_container">Select Your Transportation:</string><string name="login_btn_login">Login</string>
-    <string name="service_controller_title">Roadrunner &gt; Service Controller </string>
+    <string name="login_menu_refresh">Refresh Transportation</string><string name="login_menu_exit">Exit</string><string name="service_controller_title">Roadrunner &gt; Service Controller </string>
     <string name="start_all_services">Start all Services</string>
     <string name="stop_all_services">Stop all Services</string>
     <string name="service_running">Service Running</string>
@@ -84,6 +84,8 @@
     <string name="logging">Logging</string>
     <string name="monitoring">Monitoring</string>
     <string name="replicating">Replicating</string>
+    
+    
     
 
 </resources>
