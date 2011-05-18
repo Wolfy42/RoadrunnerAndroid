@@ -1,7 +1,6 @@
 package at.roadrunner.android.couchdb;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.http.client.methods.HttpGet;
@@ -248,9 +247,7 @@ public class RequestWorker {
 	
 	public String getContainers() throws CouchDBException {
 		String result = null;
-		@SuppressWarnings("unused")
 		String user;
-		@SuppressWarnings("unused")
 		String password;
 
 		// get the ip and name of the database
@@ -259,9 +256,28 @@ public class RequestWorker {
 		user = prefs.getString("user", Config.ROADRUNNER_AUTHENTICATION_USER);
 		password = prefs.getString("password",
 				Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
-		//HTTPGet get = RequestFactory.createRemoteHttpGet("roadrunner", username, password);
-		result = HttpExecutor.getInstance().executeForResponse(new HttpGet(getAuthenticatedRemoteUrl() + "/_design/roadrunner/_view/container"));
+		
+		HttpGet get = RequestFactory.createRemoteHttpGet("roadrunner/_design/roadrunner/_view/container", user, password);
+		result = HttpExecutor.getInstance().executeForResponse(get);
 		return result;
+	}
+	
+	public boolean isAuthenticatedAtServer(String username, String password)  {
+		String result = null;
+		JSONObject response = null;
+		
+		HttpGet get = RequestFactory.createRemoteHttpGet("roadrunner", username, password);
+		try {
+			result = HttpExecutor.getInstance().executeForResponse(get);
+			response = new JSONObject(result);
+			return (!response.has("error"));
+		} catch (CouchDBException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return false;
+
 	}
 
 	private String getAuthenticatedRemoteUrl()  {

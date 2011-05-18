@@ -29,7 +29,7 @@ public class Log {
 	public static void addDoctrineMetadata(JSONObject log)  {
 		try {
 			JSONObject value = new JSONObject().put("type", "Roadrunner.Model.Log"); 
-			log.put("doctrine_metadata", value.toString());
+			log.put("doctrine_metadata", value);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
