@@ -35,12 +35,13 @@ public class Login extends Activity {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				
 				prefs.edit().putString("transportation", cbxTransportation.getSelectedItem().toString()).commit();
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				
+				prefs.edit().putString("transportation", cbxTransportation.getSelectedItem().toString()).commit();
 			}
 		});
 	}
