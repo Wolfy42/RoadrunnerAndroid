@@ -39,10 +39,10 @@ public class Roadrunner extends Activity {
 		ServiceController.startAllServices(this);
 
 		// run System-Check
-		if (savedInstanceState == null) {
-			startActivity(new Intent(this, SystemTest.class));
-			_systemCheck = true;
-		}
+//		if (savedInstanceState == null) {
+//			startActivity(new Intent(this, SystemTest.class));
+//			_systemCheck = true;
+//		}
 	}
 
 	@Override

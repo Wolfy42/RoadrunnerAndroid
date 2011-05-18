@@ -38,7 +38,11 @@
 	        android:layout_height="wrap_content"
 	        style="@style/Login"
 	        android:text="@string/login_txt_container" />    
-       
+        <Spinner 
+	        android:id="@+id/login_container"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	     />
 		
 		<Button android:id="@+id/login_btn_login"
                 android:onClick="onLoginClick"
