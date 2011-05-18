@@ -11,16 +11,24 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 import at.roadrunner.android.R;
+import at.roadrunner.android.couchdb.RequestWorker;
 
 public class Login extends Activity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "Login";
 	
+	private EditText _username; 
+	private EditText _password;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
+		_username = (EditText) findViewById(R.id.login_username);
+		_password = (EditText) findViewById(R.id.login_password);
 		
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
@@ -47,12 +55,12 @@ public class Login extends Activity {
 	}
 	
 	public void onLoginClick(View view) {
-		EditText txtUsername = (EditText) findViewById(R.id.login_username);
-		EditText txtPassword = (EditText) findViewById(R.id.login_password);
-		
-		// TODO: Authenticate through server -> Wolfy FIX THIS MAN!
-		
-		startActivity(new Intent(this, Roadrunner.class));
-		
+		String username = _username.getText().toString();
+		String password = _password.getText().toString();
+		if (new RequestWorker(this).isAuthenticatedAtServer(username, password))  {
+			startActivity(new Intent(this, Roadrunner.class));
+		}  else  {
+			Toast.makeText(this, "Not Authenticated", Toast.LENGTH_SHORT).show();
+		}
 	}
 }

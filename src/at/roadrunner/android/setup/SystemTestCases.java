@@ -120,7 +120,7 @@ public class SystemTestCases {
 		String msg = _context.getString(R.string.systemtest_remote_couch_db_reachable);
 		
 		try {
-			JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(RequestFactory.createRemoteHttpGet(null)));
+			JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(RequestFactory.createRemoteHttpGet(null, null, null)));
 			if (response.getString("couchdb") != null)  {
 				return new TestCase(_ok, msg);
 			}

@@ -244,6 +244,23 @@ public class RequestWorker {
 		}
 		return false;
 	}
+	
+	public boolean isAuthenticatedAtServer(String username, String password)  {
+		String result = null;
+		JSONObject response = null;
+		
+		HttpGet get = RequestFactory.createRemoteHttpGet("roadrunner", username, password);
+		try {
+			result = HttpExecutor.getInstance().executeForResponse(get);
+			response = new JSONObject(result);
+			return (!response.has("error"));
+		} catch (CouchDBException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	private String getAuthenticatedRemoteUrl()  {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(_context);

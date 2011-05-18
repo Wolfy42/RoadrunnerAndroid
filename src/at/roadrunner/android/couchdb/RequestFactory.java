@@ -5,6 +5,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 
+import android.util.Base64;
 import at.roadrunner.android.Config;
 
 public class RequestFactory {
@@ -18,12 +19,15 @@ public class RequestFactory {
 		return get;
 	}
 	
-	public static HttpGet createRemoteHttpGet(String path)  {
+	public static HttpGet createRemoteHttpGet(String path, String username, String password)  {
 		StringBuilder sb = new StringBuilder(Config.REMOTE_HOST);
 		if (path != null)  {
 			sb.append(path);
 		}
 		HttpGet get = new HttpGet(sb.toString());
+		if (username != null && password != null)  {
+			setRemoteAuthentication(get, username, password);
+		}
 		return get;
 	}
 		
@@ -73,5 +77,11 @@ public class RequestFactory {
 	private static void setAdminAuthentication(HttpRequestBase request)  {
 		// cm9hZHJ1bm5lcjpyb2FkcnVubmVy => BASE64 encoded (roadrunner:roadrunner);
 		request.setHeader("Authorization", "Basic cm9hZHJ1bm5lcjpyb2FkcnVubmVy");
+	}
+	
+	private static void setRemoteAuthentication(HttpRequestBase request, String username, String password)  {
+		byte[] bytes = new StringBuilder(username).append(':').append(password).toString().getBytes();
+		String base64Encoded = Base64.encodeToString(bytes, Base64.DEFAULT);
+		request.setHeader("Authorization", "Basic "+base64Encoded);
 	}
 }
