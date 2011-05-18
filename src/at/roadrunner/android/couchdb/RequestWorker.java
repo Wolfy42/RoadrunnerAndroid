@@ -1,6 +1,7 @@
 package at.roadrunner.android.couchdb;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.http.client.methods.HttpGet;
@@ -243,6 +244,24 @@ public class RequestWorker {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public String getContainers() throws CouchDBException {
+		String result = null;
+		@SuppressWarnings("unused")
+		String user;
+		@SuppressWarnings("unused")
+		String password;
+
+		// get the ip and name of the database
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(_context);
+		user = prefs.getString("user", Config.ROADRUNNER_AUTHENTICATION_USER);
+		password = prefs.getString("password",
+				Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
+		//HTTPGet get = RequestFactory.createRemoteHttpGet("roadrunner", username, password);
+		result = HttpExecutor.getInstance().executeForResponse(new HttpGet(getAuthenticatedRemoteUrl() + "/_design/roadrunner/_view/container"));
+		return result;
 	}
 
 	private String getAuthenticatedRemoteUrl()  {
