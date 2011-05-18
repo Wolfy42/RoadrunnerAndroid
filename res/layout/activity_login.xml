@@ -1,52 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/dialog_login_root"
-  android:orientation="vertical"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-		
-		<TextView
-		    android:id="@+id/login_status"
-		   	style="@style/StatusBar"
-		    android:text="@string/login_txt_status"/>
-	  	<TextView
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        style="@style/Login"
-	        android:text="@string/login_txt_username"/>
-	    <EditText
-	        android:id="@+id/login_username"
-	        android:singleLine="true"
-	        android:text="xxx"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"/>
-	    <TextView
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        style="@style/Login"
-	        android:text="@string/login_txt_password" />
-	    <EditText
-	        android:id="@+id/login_password"
-	        android:password="true"
-	        android:singleLine="true"
-	        android:text="y"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"/>
-	    <TextView
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        style="@style/Login"
-	        android:text="@string/login_txt_container" />    
-        <Spinner 
-	        android:id="@+id/login_container"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	     />
-		
-		<Button android:id="@+id/login_btn_login"
-                android:onClick="onLoginClick"
-                android:text="@string/login_btn_login"
-                android:layout_width="fill_parent"
-	        	android:layout_height="wrap_content"/>
-</LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	 android:id="@+id/sv"
+	 android:layout_width="fill_parent"
+	 android:layout_height="fill_parent"
+	 android:padding="10dp"
+	 android:layout_margin="0dp">
+	 
+	<LinearLayout
+	  xmlns:android="http://schemas.android.com/apk/res/android"
+	  android:id="@+id/dialog_login_root"
+	  android:orientation="vertical"
+	  android:layout_width="fill_parent"
+	  android:layout_height="fill_parent">
+
+		  	<TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        style="@style/Login"
+		        android:text="@string/login_txt_username"/>
+		    <EditText
+		        android:id="@+id/login_username"
+		        android:singleLine="true"
+		        android:text="stefan"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"/>
+		    <TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        style="@style/Login"
+		        android:text="@string/login_txt_password" />
+		    <EditText
+		        android:id="@+id/login_password"
+		        android:password="true"
+		        android:singleLine="true"
+		        android:text="balle"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"/>
+		    <TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        style="@style/Login"
+		        android:text="@string/login_txt_container" />    
+	        <Spinner 
+		        android:id="@+id/login_container"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"/>
+			<Button android:id="@+id/login_btn_login"
+	                android:onClick="onLoginClick"
+	                android:text="@string/login_btn_login"
+	                android:layout_width="fill_parent"
+		        	android:layout_height="wrap_content"/>
+	</LinearLayout>
+</ScrollView>
+

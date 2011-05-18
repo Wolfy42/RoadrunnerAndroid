@@ -157,7 +157,7 @@ public class Roadrunner extends Activity {
 	                @Override
 	                    public void onClick(View v) {
 		                	// save the log
-		                	reqWorker.saveLog(new JSONArray().put(item), LogType.LOAD, container);
+		                	reqWorker.saveLog(new JSONArray().put(item), LogType.UNLOAD, container);
 		                	dialog.dismiss();
 	                    }
 	                });
