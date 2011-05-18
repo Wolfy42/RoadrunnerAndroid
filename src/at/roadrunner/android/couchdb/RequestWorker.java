@@ -28,47 +28,6 @@ public class RequestWorker {
 		_context = context;
 	}
 
-	/**
-	 * Logs a Message of Type logType. This is a generic function for logging.
-	 * 
-	 * @param logType
-	 *            the Type of Log Message
-	 * @param context
-	 *            the key of the logMsg value. Log entries with context
-	 *            Log.ERROR will only be logged if Config.ERROR_LOG is set to
-	 *            true.
-	 * @param entry
-	 *            the content of this log entry. The Object entry will call the
-	 *            toString() Method.
-	 */
-	// Also ItemLogs could be created with this logging function.
-	static public void log(LogType logType, String context, Object entry) {
-
-		if (context != Log.ERROR
-				|| (context == Log.ERROR && true == Config.ERROR_LOG)) {
-
-			JSONObject log = new JSONObject();
-			try {
-				log.put(Log.TYPE_KEY, Log.TYPE_VALUE);
-				log.put(Log.LOG_TYPE_KEY, logType.name());
-				log.put(context, entry.toString());
-				log.put(Log.TIMESTAMP_KEY, new Date().getTime());
-
-				HttpPut put = RequestFactory.createHttpPut(getNextId());
-				StringEntity body = new StringEntity(log.toString());
-				put.setEntity(body);
-
-				HttpExecutor.getInstance().executeForResponse(put);
-			} catch (CouchDBException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	/*
 	 * save the log of an item
 	 */
@@ -80,6 +39,7 @@ public class RequestWorker {
 			log.put(Log.ITEMS_KEY, itemIds);
 			log.put(Log.TIMESTAMP_KEY, new Date().getTime());
 			log.put(Log.VALUE_KEY, value);
+			Log.addDoctrineMetadata(log);
 			
 			HttpPut put = RequestFactory.createHttpPut(getNextId());
 			StringEntity body = new StringEntity(log.toString());

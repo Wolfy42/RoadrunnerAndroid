@@ -35,7 +35,7 @@ public class SensorConnectionFactory implements Serializable {
 		try {
 			connection = (HttpURLConnection)url.openConnection();
 		} catch (IOException e) {
-			RequestWorker.log(LogType.SENSOR_NOT_ACCESSIBLE, Log.ERROR, url.getPath());
+//			RequestWorker.log(LogType.SENSOR_NOT_ACCESSIBLE, Log.ERROR, url.getPath());
 			throw e;
 		}
 		return connection;
