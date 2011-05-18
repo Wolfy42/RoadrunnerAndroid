@@ -184,15 +184,6 @@ public class RequestWorker {
 	 */
 	public void replicateFromServer(JSONArray itemIdArray)
 			throws CouchDBException {
-		String IPandPort;
-		String dbName;
-
-		// get the ip and name of the database
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(_context);
-		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":"
-				+ Config.ROADRUNNER_SERVER_PORT);
-		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
 
 		JSONObject repl = new JSONObject();
 		try {
@@ -200,7 +191,7 @@ public class RequestWorker {
 			JSONObject items = new JSONObject();
 			items.put("items", itemIdArray);
 
-			repl.put("source", "http://" + IPandPort + "/" + dbName);
+			repl.put("source", getAuthenticatedRemoteUrl());
 			repl.put("target", Config.DATABASE);
 			repl.put("filter", "roadrunner/itemfilter");
 			repl.put("query_params", items);
@@ -250,19 +241,9 @@ public class RequestWorker {
 	}
 	
 	public boolean replicateContainers() {
-		String IPandPort;
-		String dbName;
-
-		// get the ip and name of the database
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(_context);
-		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":"
-				+ Config.ROADRUNNER_SERVER_PORT);
-		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
-
 		JSONObject repl = new JSONObject();
 		try {
-			repl.put("source", "http://" + IPandPort + "/" + dbName);
+			repl.put("source", getAuthenticatedRemoteUrl());
 			repl.put("target", Config.DATABASE);
 			repl.put("filter", "roadrunner/foruser");
 
