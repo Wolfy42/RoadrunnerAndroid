@@ -23,8 +23,12 @@ public class Login extends Activity {
 		if (txtUsername.getText().toString().equals("xxx") && txtPassword.getText().toString().equals("y") ) {
 			startActivity(new Intent(this, Roadrunner.class));
 		} else {
-			Toast toast = Toast.makeText(this, "HAHA FALSCH GERATEN! ZONK! -> user: xxx, pwd: y2", Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(this, "HAHA FALSCH GERATEN! ZONK! -> user: xxx, pwd: y", Toast.LENGTH_LONG);
 			toast.show();
 		}
+	}
+	
+	public void onRefreshContainerClick(View view) {
+		
 	}
 }
