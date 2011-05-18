@@ -19,13 +19,13 @@ import at.roadrunner.android.model.Log;
 import at.roadrunner.android.model.Log.LogType;
 
 public class RequestWorker {
-	private final Context m_context;
+	private final Context _context;
 
 	@SuppressWarnings("unused")
 	private static final String TAG = "RequestWorker";
 
 	public RequestWorker(Context context) {
-		m_context = context;
+		_context = context;
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class RequestWorker {
 
 		// get the ip and name of the database
 		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(m_context);
+				.getDefaultSharedPreferences(_context);
 		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":"
 				+ Config.ROADRUNNER_SERVER_PORT);
 		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
@@ -126,7 +126,6 @@ public class RequestWorker {
 	}
 
 	/*
-<<<<<<< HEAD
 	 * get local stored items
 	 */
 	public String getReplicatedItems() throws CouchDBException {
@@ -141,7 +140,7 @@ public class RequestWorker {
 
 		// get the ip and name of the database
 		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(m_context);
+				.getDefaultSharedPreferences(_context);
 		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":"
 				+ Config.ROADRUNNER_SERVER_PORT);
 		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
@@ -190,7 +189,7 @@ public class RequestWorker {
 
 		// get the ip and name of the database
 		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(m_context);
+				.getDefaultSharedPreferences(_context);
 		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":"
 				+ Config.ROADRUNNER_SERVER_PORT);
 		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
@@ -219,23 +218,13 @@ public class RequestWorker {
 	}
 
 	public synchronized boolean replicateInitialDocuments() {
-		String IPandPort;
-		String dbName;
-
 		// create the list of initial documents to be replicated
 		JSONArray docIds = new JSONArray();
 		docIds.put("_design/roadrunnermobile");
 
-		// get the ip and name of the database
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(m_context);
-		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":"
-				+ Config.ROADRUNNER_SERVER_PORT);
-		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
-
 		JSONObject repl = new JSONObject();
 		try {
-			repl.put("source", "http://" + IPandPort + "/" + dbName);
+			repl.put("source", getAuthenticatedRemoteUrl());
 			repl.put("target", Config.DATABASE);
 			repl.put("doc_ids", docIds);
 
@@ -266,7 +255,7 @@ public class RequestWorker {
 
 		// get the ip and name of the database
 		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(m_context);
+				.getDefaultSharedPreferences(_context);
 		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":"
 				+ Config.ROADRUNNER_SERVER_PORT);
 		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
@@ -299,7 +288,7 @@ public class RequestWorker {
 		String dbName;
 	
 		// get name of database
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(_context);
 		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
 
 		HttpGet get = RequestFactory.createLocalHttpGet(dbName + "/" + id);
@@ -316,7 +305,7 @@ public class RequestWorker {
 	}
 
 	private String getAuthenticatedRemoteUrl()  {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(_context);
 		String iPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":" + Config.ROADRUNNER_SERVER_PORT);
 		String dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
 		String user = prefs.getString("user", Config.ROADRUNNER_AUTHENTICATION_USER);
