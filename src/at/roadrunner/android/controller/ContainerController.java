@@ -1,4 +1,4 @@
-package at.roadrunner.android.controllers;
+package at.roadrunner.android.controller;
 
 import android.content.Context;
 import at.roadrunner.android.couchdb.RequestWorker;

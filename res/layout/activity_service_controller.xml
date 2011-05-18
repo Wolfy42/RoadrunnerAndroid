@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:orientation="vertical"
+   android:layout_width="fill_parent"
+   android:layout_height="fill_parent">
+   
+   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	   android:orientation="horizontal"
+	   android:layout_width="wrap_content"
+	   android:layout_height="wrap_content">
+	   
+	   <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/logging"/>
+	   
+	   <TextView
+		    android:id="@+id/logging_status"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"/>
+	   
+	</LinearLayout>
+   
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	   android:orientation="horizontal"
+	   android:layout_width="wrap_content"
+	   android:layout_height="wrap_content">
+	   
+	   <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/monitoring"/>
+	   
+	   <TextView
+		    android:id="@+id/monitoring_status"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"/>
+	   
+	</LinearLayout>
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	   android:orientation="horizontal"
+	   android:layout_width="wrap_content"
+	   android:layout_height="wrap_content">
+	   
+	   <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/replicating"/>
+	   
+	   <TextView
+		    android:id="@+id/replicating_status"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"/>
+	   
+	</LinearLayout>
+	     
+	<Button
+	    android:id="@+id/start_all_services"
+	    android:text="@string/start_all_services"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"/>
+	      
+	<Button
+	    android:id="@+id/stop_all_services"
+	    android:text="@string/stop_all_services"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"/>
+	    
+	<Button
+	    android:id="@+id/stop_roadrunner"
+	    android:text="@string/stop_roadrunner"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"/>
+	        
+</LinearLayout>

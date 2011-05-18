@@ -72,15 +72,15 @@ public class RequestWorker {
 	/*
 	 * save the log of an item
 	 */
-	public void saveLog(String itemId, LogType logType) {
-
+	public void saveLog(JSONArray itemIds, LogType logType, String value)  {
 		JSONObject log = new JSONObject();
 		try {
 			log.put(Log.TYPE_KEY, Log.TYPE_VALUE);
 			log.put(Log.LOG_TYPE_KEY, logType.name());
-			log.put(Log.ITEM_KEY, itemId);
+			log.put(Log.ITEMS_KEY, itemIds);
 			log.put(Log.TIMESTAMP_KEY, new Date().getTime());
-
+			log.put(Log.VALUE_KEY, value);
+			
 			HttpPut put = RequestFactory.createHttpPut(getNextId());
 			StringEntity body = new StringEntity(log.toString());
 			put.setEntity(body);
@@ -126,6 +126,7 @@ public class RequestWorker {
 	}
 
 	/*
+<<<<<<< HEAD
 	 * get local stored items
 	 */
 	public String getReplicatedItems() throws CouchDBException {
@@ -158,28 +159,11 @@ public class RequestWorker {
 	/*
 	 * replicate the DB with the server TODO: add use/password authentication
 	 */
-	public void replicate() {
-		String IPandPort;
-		String dbName;
-		@SuppressWarnings("unused")
-		String user;
-		@SuppressWarnings("unused")
-		String password;
-
-		// get the ip and name of the database
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(m_context);
-		IPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":"
-				+ Config.ROADRUNNER_SERVER_PORT);
-		dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
-		user = prefs.getString("user", Config.ROADRUNNER_AUTHENTICATION_USER);
-		password = prefs.getString("password",
-				Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
-
+	public void replicateLogsToRemoteDatabase() {
 		JSONObject repl = new JSONObject();
 		try {
 			repl.put("source", Config.DATABASE);
-			repl.put("target", "http://" + IPandPort + "/" + dbName);
+			repl.put("target", getAuthenticatedRemoteUrl());
 			repl.put("filter", "roadrunnermobile/logfilter");
 
 			HttpPost post = RequestFactory.createLocalHttpPost("_replicate");
@@ -234,7 +218,7 @@ public class RequestWorker {
 		}
 	}
 
-	public boolean replicateInitialDocuments() {
+	public synchronized boolean replicateInitialDocuments() {
 		String IPandPort;
 		String dbName;
 
@@ -331,6 +315,25 @@ public class RequestWorker {
 		return false;
 	}
 
+	private String getAuthenticatedRemoteUrl()  {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
+		String iPandPort = prefs.getString("ip", Config.ROADRUNNER_SERVER_IP + ":" + Config.ROADRUNNER_SERVER_PORT);
+		String dbName = prefs.getString("database", Config.ROADRUNNER_SERVER_NAME);
+		String user = prefs.getString("user", Config.ROADRUNNER_AUTHENTICATION_USER);
+		String password = prefs.getString("password", Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
+		
+		return new StringBuilder()
+			.append("http://")
+			.append(user)
+			.append(':')
+			.append(password)
+			.append('@')
+			.append(iPandPort)
+			.append('/')
+			.append(dbName)
+			.toString();
+	}
+		
 	/*
 	 * returns the next ID
 	 */

@@ -6,6 +6,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
 
 import at.roadrunner.android.util.HttpHelper;
 
@@ -24,9 +25,8 @@ public class HttpExecutor {
 		}
 		return _instance;
 	}
-
-	public String executeForResponse(HttpRequestBase request)
-			throws CouchDBException {
+	
+	public synchronized String executeForResponse(HttpRequestBase request) throws CouchDBException  {
 		synchronized (this) {
 			try {
 				HttpResponse response = _client.execute(request);

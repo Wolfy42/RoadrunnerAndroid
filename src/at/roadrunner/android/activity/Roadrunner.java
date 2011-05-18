@@ -1,11 +1,15 @@
 package at.roadrunner.android.activity;
 
+import org.json.JSONArray;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,11 +18,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
-import at.roadrunner.android.couchdb.CouchDBService;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Log.LogType;
-import at.roadrunner.android.service.ReplicationService;
 import at.roadrunner.android.util.AppInfo;
 
 public class Roadrunner extends Activity {
@@ -26,7 +29,6 @@ public class Roadrunner extends Activity {
 	private static final String SCAN_INTENT = "com.google.zxing.client.android.SCAN";
 	private static final String SCAN_PACKAGE = "com.google.zxing.client.android";
 
-	private Intent _replicateServer;
 	private boolean _systemCheck = false;
 	
 	@Override
@@ -34,13 +36,8 @@ public class Roadrunner extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_roadrunner);
 		
-		// start CouchDB Service
-		CouchDBService.startCouchDB(this);
-		
-		// start Replication Service
-		_replicateServer = new Intent(this, ReplicationService.class);
-		startService(_replicateServer);
-		
+		ServiceController.startAllServices(this);
+
 		// run System-Check
 		if (savedInstanceState == null) {
 			startActivity(new Intent(this, SystemTest.class));
@@ -51,11 +48,7 @@ public class Roadrunner extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		CouchDBService.stopCouchDB(this);
-		stopService(_replicateServer);
 	}
-	
-	
 	
 //	@Override
 //	public void onConfigurationChanged(Configuration newConfig) {
@@ -113,6 +106,20 @@ public class Roadrunner extends Activity {
 	}
 	
 	/*
+	 * Event onReplicateClick
+	 */
+	public void onReplicateClick(View view)  {;
+		Toast.makeText(this, "Replication is running in service", Toast.LENGTH_SHORT).show();
+	}
+
+	/*
+	 * Event onItemsClick
+	 */
+	public void onItemsClick(View view) {
+		startActivity(new Intent(this, Items.class));
+	}
+	
+	/*
 	 * onActivityResult
 	 */
 	@Override
@@ -130,6 +137,10 @@ public class Roadrunner extends Activity {
 				Button btnView = (Button) scanView.findViewById(R.id.roadrunner_dialog_scan_view);
 				sd.setView(scanView);
 				
+				// get container
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+				final String container = prefs.getString("transportation", Config.DEFAULT_TRANSPORTATION);
+
 				// create AlertDialog
 				final AlertDialog dialog = sd.create();
 				
@@ -137,7 +148,7 @@ public class Roadrunner extends Activity {
 	                @Override
 	                    public void onClick(View v) {
 		                	// save the log
-		    				reqWorker.saveLog(item, LogType.LOAD);
+		    				reqWorker.saveLog(new JSONArray().put(item), LogType.LOAD, container);
 		    				dialog.dismiss();
 	                    }
 	                });
@@ -146,7 +157,7 @@ public class Roadrunner extends Activity {
 	                @Override
 	                    public void onClick(View v) {
 		                	// save the log
-		                	reqWorker.saveLog(item, LogType.LOAD);
+		                	reqWorker.saveLog(new JSONArray().put(item), LogType.LOAD, container);
 		                	dialog.dismiss();
 	                    }
 	                });
