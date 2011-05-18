@@ -27,6 +27,7 @@ public class Roadrunner extends Activity {
 	private static final String SCAN_PACKAGE = "com.google.zxing.client.android";
 
 	private Intent _replicateServer;
+	private boolean _systemCheck = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,10 @@ public class Roadrunner extends Activity {
 		startService(_replicateServer);
 		
 		// run System-Check
-		startActivity(new Intent(this, SystemTest.class));
+		if (savedInstanceState == null) {
+			startActivity(new Intent(this, SystemTest.class));
+			_systemCheck = true;
+		}
 	}
 
 	@Override
@@ -51,12 +55,26 @@ public class Roadrunner extends Activity {
 		stopService(_replicateServer);
 	}
 	
+	
+	
 //	@Override
 //	public void onConfigurationChanged(Configuration newConfig) {
 //		//ignore orientation change
 //		super.onConfigurationChanged(newConfig);
 //	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putBoolean("SystemCheck", _systemCheck);
+		super.onSaveInstanceState(outState);
+	}
 	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		_systemCheck = savedInstanceState.getBoolean("SystemCheck");
+	}
+
 	public void onScanClick(View view) {
 		scan();
 		openContextMenu(view);
