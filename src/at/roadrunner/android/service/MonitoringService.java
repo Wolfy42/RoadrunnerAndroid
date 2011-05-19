@@ -7,13 +7,16 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 import at.roadrunner.android.Config;
+import at.roadrunner.android.controller.MonitoringController;
 
 public class MonitoringService extends Service {
 	private Timer _timer = new Timer();
+	private MonitoringController _monitoringController;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		_monitoringController = new MonitoringController(this);
 		startService();
 	}
 	
@@ -26,7 +29,7 @@ public class MonitoringService extends Service {
 	private void startService() {
 		_timer.schedule(new TimerTask() {
 			public void run() {
-				Log.e("roadrunner", "Should read sensor data");
+				_monitoringController.readSensorData();
 			}
 		}, 0, Config.MONITORING_SERVICE_INTERVAL);
 	}
