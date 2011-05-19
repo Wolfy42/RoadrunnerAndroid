@@ -202,6 +202,7 @@ public class RequestWorker {
 	}
 	
 	public boolean replicateSelectedContainer() {
+		String result = null;
 		JSONObject repl = new JSONObject();
 		SharedPreferences prefs = PreferenceManager
 			.getDefaultSharedPreferences(_context);
@@ -215,8 +216,8 @@ public class RequestWorker {
 			StringEntity body = new StringEntity(repl.toString());
 			post.setEntity(body);
 
-			HttpExecutor.getInstance().executeForResponse(post);
-			return true;
+			result = HttpExecutor.getInstance().executeForResponse(post);
+			return new JSONObject(result).has("ok");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
