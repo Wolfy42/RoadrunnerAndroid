@@ -1,9 +1,11 @@
 package at.roadrunner.android.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import org.json.JSONObject;
 
-public class Delivery {
+public class Delivery implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String _trackingNumber;
 	private Address _destination;
 	private Address _from;

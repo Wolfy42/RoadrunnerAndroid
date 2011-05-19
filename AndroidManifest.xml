@@ -13,6 +13,9 @@
       <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
+    	<!-- Google Maps -->
+    	<uses-library android:name="com.google.android.maps" />
+    	
     	<!-- Services -->
     	<service android:name=".service.MonitoringService" />
     	<service android:name=".service.ReplicationService" />
@@ -46,6 +49,12 @@
         <activity android:name=".activity.Items"
         		  android:theme="@style/Theme.Roadrunner"
                   android:label="@string/items_title">
+        </activity>
+        
+        <!-- Route Activity -->
+        <activity android:name=".activity.DeliveryMap"
+        		  android:theme="@style/Theme.Roadrunner"
+                  android:label="@string/map_title">
         </activity>
         
         <!-- Settings Activity -->

@@ -18,12 +18,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import at.roadrunner.android.R;
 import at.roadrunner.android.controller.DeliveryController;
 import at.roadrunner.android.model.Delivery;
 
 public class Deliveries extends ListActivity {
 	private static final String TAG = "Deliveries";
+	
+	private static final int MENU_ITEM_SHOW = 1;
+	private static final int MENU_ROUTE_SHOW = 2;
+	
 	private ProgressDialog _progressDialog = null;
 	private ArrayList<Delivery> _deliveries = null;
 	private DeliveryAdapter _adapter;
@@ -98,14 +103,12 @@ public class Deliveries extends ListActivity {
 			Delivery delivery = _deliveries.get(position);
 			if (delivery != null) {
 				// get Views
-				TextView txtId = (TextView) view.findViewById(R.id.deliveries_id);
 				TextView txtFrom = (TextView) view.findViewById(R.id.deliveries_from);
 				TextView txtFromSub = (TextView) view.findViewById(R.id.deliveries_from_sub);
 				TextView txtTo = (TextView) view.findViewById(R.id.deliveries_to);
 				TextView txtToSub = (TextView) view.findViewById(R.id.deliveries_to_sub);
 				
 				// set values of Views
-				txtId.setText(delivery.getTrackingNumber());
 				txtFrom.setText(delivery.getFrom().getRecipient());
 				txtFromSub.setText(delivery.getFrom().getFormatedAddress());
 				txtTo.setText(delivery.getDestination().getRecipient());
@@ -125,20 +128,23 @@ public class Deliveries extends ListActivity {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		
-		menu.add("Show Items");
-		menu.add("Show Route");
+		menu.add(0, MENU_ITEM_SHOW, 0, "Show Item");
+		menu.add(0, MENU_ROUTE_SHOW, 0, "Show Route");
 	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		ContextMenuInfo info = null;
-		try {
-		    info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-		} catch (ClassCastException e) {
-		    Log.e(TAG, "bad menuInfo", e);
-		    return false;
+		switch (item.getItemId()) {
+			case MENU_ITEM_SHOW:
+				startActivity(new Intent(this, Items.class));
+				return true;
+			case MENU_ROUTE_SHOW:
+				Intent mapIntent = new Intent(this, DeliveryMap.class);
+				mapIntent.putExtra("Delivery", _deliveries.get(item.getItemId()));
+				startActivity(mapIntent);
+				return true;
+			default:
+				return super.onContextItemSelected(item);
 		}
-		//long id = getListAdapter().getItemId(info.);
-		return true;
 	}
 }
