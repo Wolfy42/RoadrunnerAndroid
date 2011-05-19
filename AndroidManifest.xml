@@ -42,6 +42,12 @@
                   android:label="@string/deliveries_title">
         </activity>
         
+        <!-- Items Activity -->
+        <activity android:name=".activity.Items"
+        		  android:theme="@style/Theme.Roadrunner"
+                  android:label="@string/items_title">
+        </activity>
+        
         <!-- Settings Activity -->
         <activity android:name=".activity.Settings"
         		  android:theme="@style/Theme.Roadrunner"

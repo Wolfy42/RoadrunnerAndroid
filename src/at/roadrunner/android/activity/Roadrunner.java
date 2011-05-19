@@ -37,7 +37,7 @@ public class Roadrunner extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_roadrunner);
 		
-		ServiceController.startAllServices(this);
+		//ServiceController.startAllServices(this);
 		
 		// GPS
 		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
