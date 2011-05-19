@@ -77,5 +77,10 @@
                   android:label="@string/service_controller_title">
         </activity>
         
+        <activity android:name=".activity.Signature"
+        		  android:theme="@style/Theme.Roadrunner"
+                  android:label="to be set">
+        </activity>
+        
     </application>
 </manifest>
