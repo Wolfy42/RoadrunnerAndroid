@@ -36,10 +36,10 @@
                   android:label="@string/app_name">
         </activity>
         
-        <!-- Items Activity -->
-        <activity android:name=".activity.Items"
+        <!-- Delivery Activity -->
+        <activity android:name=".activity.Deliveries"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/items_title">
+                  android:label="@string/deliveries_title">
         </activity>
         
         <!-- Settings Activity -->

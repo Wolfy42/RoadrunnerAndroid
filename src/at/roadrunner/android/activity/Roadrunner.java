@@ -44,24 +44,12 @@ public class Roadrunner extends Activity {
 		if (locationManager.isProviderEnabled (LocationManager.GPS_PROVIDER) == false) {
 			startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0);
 		}
-
-		// run System-Check
-//		if (savedInstanceState == null) {
-//			startActivity(new Intent(this, SystemTest.class));
-//			_systemCheck = true;
-//		}
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 	}
-	
-//	@Override
-//	public void onConfigurationChanged(Configuration newConfig) {
-//		//ignore orientation change
-//		super.onConfigurationChanged(newConfig);
-//	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
@@ -81,8 +69,7 @@ public class Roadrunner extends Activity {
 	}
 	
 	public void onDeliveriesClick(View view) {
-		Toast toast = Toast.makeText(this, "duuuu elendige puta du! implementiers doch selber!", 5);
-		toast.show();
+		startActivity(new Intent(this, Deliveries.class));
 	}
 	
 	private void scan() {

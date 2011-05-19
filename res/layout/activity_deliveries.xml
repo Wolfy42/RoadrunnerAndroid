@@ -4,19 +4,14 @@
    android:layout_width="fill_parent"
    android:layout_height="fill_parent">
    
-   <TextView
-	    android:id="@+id/items_status"
-	   	style="@style/StatusBar"
-	    android:text="@string/items_txt_status"/>
-   
 	<ListView
 	    android:id="@+id/android:list"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"/>
-	    
 	<TextView
 	    android:id="@+id/android:empty"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:text="@string/items_noItems"/>
+	    android:text="@string/deliveries_noDeliveries"/>
+	    
 </LinearLayout>
