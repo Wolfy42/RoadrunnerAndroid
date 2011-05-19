@@ -89,5 +89,6 @@
     <string name="replicating">Replicating</string>
     <string name="items_noItems">there are currently no items...</string>
     <string name="items_title">Roadrunner &gt; Deliveries &gt; Items</string>
+    <string name="roadrunner_signature">Signature</string>
     <string name="map_title">Roadrunner &gt; Deliveries &gt; Route</string>
 </resources>

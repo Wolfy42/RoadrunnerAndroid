@@ -26,6 +26,11 @@
                 android:onClick="onDeliveriesClick"
                 android:text="@string/roadrunner_deliveries"
                 android:drawableTop="@drawable/ic_roadrunner_btn_deliveries"/>
+            <Button android:id="@+id/roadrunner_btn_signature"
+                style="@style/NavigationButton"
+                android:onClick="onSignatureClick"
+                android:text="@string/roadrunner_signature"
+                android:drawableTop="@drawable/ic_roadrunner_btn_deliveries"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
