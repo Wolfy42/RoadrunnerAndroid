@@ -106,7 +106,7 @@ public class Login extends Activity {
 				edit.putString("user", username);
 				edit.putString("password", password);
 				edit.putString("transportation", container);
-				edit.putString("tranportationId", containerId);
+				edit.putString("transportationId", containerId);
 				edit.commit();
 				
 				startActivity(new Intent(this, Roadrunner.class));
