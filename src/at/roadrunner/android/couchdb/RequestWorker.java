@@ -17,6 +17,7 @@ import android.preference.PreferenceManager;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.model.Log;
 import at.roadrunner.android.model.Log.LogType;
+import at.roadrunner.android.setup.CouchDB;
 
 public class RequestWorker {
 	private final Context _context;
@@ -200,13 +201,16 @@ public class RequestWorker {
 		return false;
 	}
 	
-	public boolean replicateContainers() {
+	public boolean replicateSelectedContainer() {
 		JSONObject repl = new JSONObject();
+		SharedPreferences prefs = PreferenceManager
+			.getDefaultSharedPreferences(_context);
+		String containerId = prefs.getString("transportationId", Config.DEFAULT_TRANSPORTATION);
 		try {
 			repl.put("source", getAuthenticatedRemoteUrl());
 			repl.put("target", Config.DATABASE);
-			repl.put("filter", "roadrunner/foruser");
-
+			repl.put("doc_ids", new JSONArray().put(containerId));
+	
 			HttpPost post = RequestFactory.createLocalHttpPost("_replicate");
 			StringEntity body = new StringEntity(repl.toString());
 			post.setEntity(body);
@@ -245,7 +249,7 @@ public class RequestWorker {
 		return false;
 	}
 	
-	public String getContainers() throws CouchDBException {
+	public String getContainerNames() throws CouchDBException {
 		String result = null;
 		String user;
 		String password;
@@ -257,7 +261,7 @@ public class RequestWorker {
 		password = prefs.getString("password",
 				Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
 		
-		HttpGet get = RequestFactory.createRemoteHttpGet("roadrunner/_design/roadrunner/_view/container", user, password);
+		HttpGet get = RequestFactory.createRemoteHttpGet("roadrunner/_design/roadrunner/_view/containernames", user, password);
 		result = HttpExecutor.getInstance().executeForResponse(get);
 		return result;
 	}

@@ -18,20 +18,20 @@ public class ContainerController {
 		_context = context;
 	}
 
-	public boolean replicateContainers() {
-		return new RequestWorker(_context).replicateContainers();
+	public boolean replicateSelectedContainer() {
+		return new RequestWorker(_context).replicateSelectedContainer();
 	}
 	
-	public ArrayList<String> getContainers() {
-		ArrayList<String> listOfContainers = null;
+	public ArrayList<JSONObject> getContainers() {
+		ArrayList<JSONObject> listOfContainers = null;
 		try {
-			String containers = new RequestWorker(_context).getContainers();
+			String containers = new RequestWorker(_context).getContainerNames();
 			if (containers != null) {
-				listOfContainers = new ArrayList<String>();
+				listOfContainers = new ArrayList<JSONObject>();
 				JSONArray array = new JSONObject(containers).getJSONArray("rows");
 					
 				for (int i=0; i < array.length(); i++)  {
-					listOfContainers.add(array.getJSONObject(i).getJSONObject("value").getString("name"));
+					listOfContainers.add(array.getJSONObject(i).getJSONObject("value"));
 				}
 				return listOfContainers;
 			}
