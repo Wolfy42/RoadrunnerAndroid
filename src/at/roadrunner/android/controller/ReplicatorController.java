@@ -52,7 +52,7 @@ public class ReplicatorController {
 	
 	public void replicateContainerFromServer() {
 		if (!_isContainerReplicated) {
-			_isContainerReplicated = _containerController.replicateContainers();
+			_isContainerReplicated = _containerController.replicateSelectedContainer();
 		}
 	}
 }

@@ -2,6 +2,9 @@ package at.roadrunner.android.activity;
 
 import java.util.ArrayList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -29,7 +32,7 @@ public class Login extends Activity {
 	private Runnable _loadContainers;
 	private ProgressDialog _progressDialog = null;
 	private ArrayAdapter<String> _containerAdapter;
-	private ArrayList<String> _containers;
+	private ArrayList<JSONObject> _containers;
 	
 	private EditText _username; 
 	private EditText _password;
@@ -74,8 +77,12 @@ public class Login extends Activity {
 		@Override
 		public void run() {
 			if (_containers != null) {
-				for (String container : _containers) {
-					_containerAdapter.add(container);
+				for (JSONObject container : _containers) {
+					try {
+						_containerAdapter.add(container.getString("name"));
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
 				}
 				_containerAdapter.notifyDataSetChanged();
 			} 
@@ -93,12 +100,14 @@ public class Login extends Activity {
 		// you can't login if there are no transportation loaded
 		if (_container.getCount() > 0) {
 			container = _container.getSelectedItem().toString();
+			String containerId = getIdForContainer(container);
 			if (new RequestWorker(this).isAuthenticatedAtServer(username, password))  {
 				// save the used form values into the preferences
 				Editor edit = prefs.edit();
 				edit.putString("user", username);
 				edit.putString("password", password);
 				edit.putString("transportation", container);
+				edit.putString("tranportationId", containerId);
 				edit.commit();
 				
 				startActivity(new Intent(this, Roadrunner.class));
@@ -135,5 +144,18 @@ public class Login extends Activity {
         default:
             return super.onOptionsItemSelected(item);
         }
+    }
+    
+    private String getIdForContainer(String containerName) {
+		try {
+			for (JSONObject obj : _containers)  {
+				if (obj.get("name").equals(containerName))  {
+					return obj.getString("id");
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
     }
 }

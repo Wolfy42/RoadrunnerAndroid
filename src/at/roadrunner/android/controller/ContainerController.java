@@ -7,11 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.util.Log;
 import at.roadrunner.android.couchdb.CouchDBException;
 import at.roadrunner.android.couchdb.RequestWorker;
-import at.roadrunner.android.model.Item;
-import at.roadrunner.android.model.Log.LogType;
 
 public class ContainerController {
 
@@ -21,20 +18,20 @@ public class ContainerController {
 		_context = context;
 	}
 
-	public boolean replicateContainers() {
-		return new RequestWorker(_context).replicateContainers();
+	public boolean replicateSelectedContainer() {
+		return new RequestWorker(_context).replicateSelectedContainer();
 	}
 	
-	public ArrayList<String> getContainers() {
-		ArrayList<String> listOfContainers = null;
+	public ArrayList<JSONObject> getContainers() {
+		ArrayList<JSONObject> listOfContainers = null;
 		try {
-			String containers = new RequestWorker(_context).getContainers();
+			String containers = new RequestWorker(_context).getContainerNames();
 			if (containers != null) {
-				listOfContainers = new ArrayList<String>();
+				listOfContainers = new ArrayList<JSONObject>();
 				JSONArray array = new JSONObject(containers).getJSONArray("rows");
 					
 				for (int i=0; i < array.length(); i++)  {
-					listOfContainers.add(array.getJSONObject(i).getString("value"));
+					listOfContainers.add(array.getJSONObject(i).getJSONObject("value"));
 				}
 				return listOfContainers;
 			}
