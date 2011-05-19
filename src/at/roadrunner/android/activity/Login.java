@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -63,7 +64,7 @@ public class Login extends Activity {
 		final Spinner cbxTransportation = (Spinner) findViewById(R.id.login_container);
 		cbxTransportation.setAdapter(_containerAdapter);
 	}
-	
+
 	private void loadTransportations() {
 		_containers = new ContainerController(this).getContainers();
 		runOnUiThread(updateActivity);
