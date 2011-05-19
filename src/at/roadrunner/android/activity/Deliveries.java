@@ -139,7 +139,9 @@ public class Deliveries extends ListActivity {
 				startActivity(new Intent(this, Items.class));
 				return true;
 			case MENU_ROUTE_SHOW:
-				startActivity(new Intent(this, DeliveryMap.class));
+				Intent mapIntent = new Intent(this, DeliveryMap.class);
+				mapIntent.putExtra("Delivery", _deliveries.get(item.getItemId()));
+				startActivity(mapIntent);
 				return true;
 			default:
 				return super.onContextItemSelected(item);

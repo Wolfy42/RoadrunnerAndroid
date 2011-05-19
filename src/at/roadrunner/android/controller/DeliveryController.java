@@ -18,8 +18,9 @@ public class DeliveryController {
 	public ArrayList<Delivery> getDeliveries() {
 		ArrayList<Delivery> _deliveries = new ArrayList<Delivery>();
 		
-		Address from = new Address("Stefan Balle", "Gartenweg 4", "6741", "Nüziders", "AT");
-		Address to = new Address("Stefan Rechtecke", "Seeweg 4", "6714", "Zerdiüurs", "TA");
+		
+		Address from = new Address("Franziskus Domig", "Susergasse 29", "6800", "Feldkirch", "AT");
+		Address to = new Address("Matthias Schmid", "Feldkircherstraße 33a", "6820", "Frastanz", "TA");
 		Delivery delivery = new Delivery("aldkfjop34ukfdjoi3u4ldf");
 		delivery.addItem(new Item("7027309480934", 123098702));
 		delivery.setDestination(to);

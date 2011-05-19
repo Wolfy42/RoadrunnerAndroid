@@ -1,7 +1,10 @@
 package at.roadrunner.android.model;
 
+import java.io.Serializable;
 
-public class Address {
+
+public class Address implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String _recipient;
 	private String _street;
 	private String _zip;
@@ -57,6 +60,10 @@ public class Address {
 
 	public void setCountry(String country) {
 		_country = country;
+	}
+	
+	public String getFormatedAddressForGoogleMap() {
+		return _street + ", " + _zip + " " + _city; 
 	}
 	
 	public String getFormatedAddress() {
