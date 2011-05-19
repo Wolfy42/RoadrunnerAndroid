@@ -7,11 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.util.Log;
 import at.roadrunner.android.couchdb.CouchDBException;
 import at.roadrunner.android.couchdb.RequestWorker;
-import at.roadrunner.android.model.Item;
-import at.roadrunner.android.model.Log.LogType;
 
 public class ContainerController {
 
@@ -34,7 +31,7 @@ public class ContainerController {
 				JSONArray array = new JSONObject(containers).getJSONArray("rows");
 					
 				for (int i=0; i < array.length(); i++)  {
-					listOfContainers.add(array.getJSONObject(i).getString("value"));
+					listOfContainers.add(array.getJSONObject(i).getJSONObject("value").getString("name"));
 				}
 				return listOfContainers;
 			}
