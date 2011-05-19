@@ -2,10 +2,10 @@ package at.roadrunner.android.service;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.controller.MonitoringController;
 
