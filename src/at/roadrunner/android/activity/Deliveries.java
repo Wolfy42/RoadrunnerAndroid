@@ -139,7 +139,7 @@ public class Deliveries extends ListActivity {
 				startActivity(new Intent(this, Items.class));
 				return true;
 			case MENU_ROUTE_SHOW:
-				Toast.makeText(this, "todo", Toast.LENGTH_LONG);
+				startActivity(new Intent(this, DeliveryMap.class));
 				return true;
 			default:
 				return super.onContextItemSelected(item);
