@@ -35,5 +35,11 @@
 			android:summary="@string/pref_transportation_summary"
 			android:title="@string/pref_transportation_name"
 		/>
+		<EditTextPreference
+			android:key="transportationId"
+			android:summary="@string/pref_transportationid_summary"
+			android:title="@string/pref_transportation_id"
+			android:enabled="true"
+		/>
 	</PreferenceCategory>
 </PreferenceScreen>
