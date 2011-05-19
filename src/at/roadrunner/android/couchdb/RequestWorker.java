@@ -281,7 +281,23 @@ public class RequestWorker {
 			e.printStackTrace();
 		}
 		return false;
-
+	}
+	
+	public JSONArray getSensorsForSelectedContainer()  {
+		SharedPreferences prefs = PreferenceManager
+			.getDefaultSharedPreferences(_context);
+		String containerId = prefs.getString("transportationId", Config.DEFAULT_TRANSPORTATION);
+		try {
+			HttpGet get = RequestFactory.createLocalHttpGet(Config.DATABASE + "/" + containerId);
+			String contStr = HttpExecutor.getInstance().executeForResponse(get);
+			JSONObject container = new JSONObject(contStr);
+			return container.getJSONArray("sensors");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (CouchDBException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private String getAuthenticatedRemoteUrl()  {
