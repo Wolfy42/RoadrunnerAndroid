@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import at.roadrunner.android.R;
 import at.roadrunner.android.model.Delivery;
+import at.roadrunner.android.util.AddressOverlay;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
