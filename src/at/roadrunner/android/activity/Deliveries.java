@@ -7,27 +7,27 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.Adapter;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import at.roadrunner.android.R;
 import at.roadrunner.android.controller.DeliveryController;
 import at.roadrunner.android.model.Delivery;
 
 public class Deliveries extends ListActivity {
+	@SuppressWarnings("unused")
 	private static final String TAG = "Deliveries";
 	
-	private static final int MENU_ITEM_SHOW = 1;
-	private static final int MENU_ROUTE_SHOW = 2;
+	private static final int MENU_ITEM_SHOW = 0;
+	private static final int MENU_ROUTE_SHOW = 1;
 	
 	private ProgressDialog _progressDialog = null;
 	private ArrayList<Delivery> _deliveries = null;
@@ -84,7 +84,7 @@ public class Deliveries extends ListActivity {
 	};
 	
 	/*
-	 * ItemAdapter
+	 * DeliveryAdapter
 	 */
 	private class DeliveryAdapter extends ArrayAdapter<Delivery> {
 
@@ -121,7 +121,7 @@ public class Deliveries extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		startActivity(new Intent(this, Items.class));
+		showItem(_deliveries.get(position));
 	}
 
 	@Override
@@ -134,17 +134,32 @@ public class Deliveries extends ListActivity {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		Delivery delivery = null;
 		switch (item.getItemId()) {
 			case MENU_ITEM_SHOW:
-				startActivity(new Intent(this, Items.class));
+				 
+				 delivery = (Delivery) getListAdapter().getItem(info.position);
+				 if (delivery != null) {
+					 showItem(delivery);
+				 }
 				return true;
 			case MENU_ROUTE_SHOW:
 				Intent mapIntent = new Intent(this, DeliveryMap.class);
-				mapIntent.putExtra("Delivery", _deliveries.get(item.getItemId()));
+				delivery = (Delivery) getListAdapter().getItem(info.position);
+				if (delivery != null) {
+					mapIntent.putExtra("Delivery", _deliveries.get(item.getItemId()));
+				}
 				startActivity(mapIntent);
 				return true;
 			default:
 				return super.onContextItemSelected(item);
 		}
+	}
+	
+	private void showItem(Delivery delivery) {
+		Intent intent = new Intent(this, Items.class);
+		intent.putExtra("Delivery", delivery);
+		startActivity(intent);
 	}
 }
