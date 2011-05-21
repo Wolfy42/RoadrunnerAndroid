@@ -4,6 +4,7 @@ import org.json.JSONArray;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -113,10 +114,6 @@ public class Roadrunner extends Activity {
 		startActivity(new Intent(this, Items.class));
 	}
 	
-	public void onSignatureClick(View view)  {
-		startActivity(new Intent(this, Signature.class));
-	}
-	
 	/*
 	 * onActivityResult
 	 */
@@ -133,6 +130,7 @@ public class Roadrunner extends Activity {
 				Button btnLoad = (Button) scanView.findViewById(R.id.roadrunner_dialog_scan_load);
 				Button btnUnload = (Button) scanView.findViewById(R.id.roadrunner_dialog_scan_unload);
 				Button btnView = (Button) scanView.findViewById(R.id.roadrunner_dialog_scan_view);
+				Button btnDeliver = (Button) scanView.findViewById(R.id.roadrunner_dialog_scan_deliver);
 				sd.setView(scanView);
 				
 				// get container
@@ -141,12 +139,13 @@ public class Roadrunner extends Activity {
 
 				// create AlertDialog
 				final AlertDialog dialog = sd.create();
+				final Context context = this;
 				
 				btnLoad.setOnClickListener(new OnClickListener() {
 	                @Override
 	                    public void onClick(View v) {
 		                	// save the log
-		    				reqWorker.saveLog(new JSONArray().put(item), LogType.LOAD, container);
+		    				reqWorker.saveLog(new JSONArray().put(item), LogType.LOAD, container, null);
 		    				dialog.dismiss();
 	                    }
 	                });
@@ -155,7 +154,7 @@ public class Roadrunner extends Activity {
 	                @Override
 	                    public void onClick(View v) {
 		                	// save the log
-		                	reqWorker.saveLog(new JSONArray().put(item), LogType.UNLOAD, container);
+		                	reqWorker.saveLog(new JSONArray().put(item), LogType.UNLOAD, container, null);
 		                	dialog.dismiss();
 	                    }
 	                });
@@ -166,6 +165,17 @@ public class Roadrunner extends Activity {
 	                		dialog.dismiss();
 	                    }
 	                });
+				
+				btnDeliver.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View paramView) {
+						Intent intent = new Intent(context, Signature.class);
+						intent.putExtra("item", item);
+						intent.putExtra("container", container);
+						startActivity(intent);
+						dialog.dismiss();
+					}
+				});
 				
 				// check if item is already loaded and modify the menu
 				if (new RequestWorker(this).isLocalDocumentExisting(item)) {

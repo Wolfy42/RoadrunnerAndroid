@@ -11,6 +11,7 @@ public class Log {
 	public static String TIMESTAMP_KEY = "timestamp";
 	public static String VALUE_KEY = "value";
 	public static String DOCTRINE_METADATA_KEY = "doctrine_metadata";
+	public static String ATTACHMENTS_KEY = "_attachments";
 	
 	public static String ERROR = "error";
 	public static String TYPE_VALUE = "log";

@@ -2,13 +2,36 @@
 <LinearLayout
 	  xmlns:android="http://schemas.android.com/apk/res/android"
 	  android:layout_width="fill_parent"
-	  android:layout_height="fill_parent">
+	  android:layout_height="fill_parent"
+	  android:orientation="vertical">
 	  
     <android.gesture.GestureOverlayView
         android:id="@+id/gestures_overlay"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1.0"
         android:gestureStrokeType="multiple" />
+        
+	<LinearLayout
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="addSignature"
+            android:text="@string/signature_done" />
+    
+        <Button
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="cancelSignature"
+            android:text="@string/signature_cancel" />
+    
+    </LinearLayout>
         
 </LinearLayout>

@@ -17,7 +17,6 @@ import android.preference.PreferenceManager;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.model.Log;
 import at.roadrunner.android.model.Log.LogType;
-import at.roadrunner.android.setup.CouchDB;
 
 public class RequestWorker {
 	private final Context _context;
@@ -32,7 +31,7 @@ public class RequestWorker {
 	/*
 	 * save the log of an item
 	 */
-	public void saveLog(JSONArray itemIds, LogType logType, String value)  {
+	public void saveLog(JSONArray itemIds, LogType logType, String value, JSONObject attachments)  {
 		JSONObject log = new JSONObject();
 		try {
 			log.put(Log.TYPE_KEY, Log.TYPE_VALUE);
@@ -40,6 +39,9 @@ public class RequestWorker {
 			log.put(Log.ITEMS_KEY, itemIds);
 			log.put(Log.TIMESTAMP_KEY, new Date().getTime());
 			log.put(Log.VALUE_KEY, value);
+			if (attachments != null)  {
+				log.put(Log.ATTACHMENTS_KEY, attachments);
+			}
 			Log.addDoctrineMetadata(log);
 			
 			HttpPut put = RequestFactory.createHttpPut(getNextId());

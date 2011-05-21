@@ -91,4 +91,6 @@
     <string name="items_title">Roadrunner &gt; Deliveries &gt; Items</string>
     <string name="roadrunner_signature">Signature</string>
     <string name="map_title">Roadrunner &gt; Deliveries &gt; Route</string>
+    <string name="signature_done">Signature Done</string>
+    <string name="signature_cancel">Cancel Signature</string>
 </resources>

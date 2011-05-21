@@ -40,7 +40,7 @@ public class LoggingController {
 		}
 		_requestWorker.saveLog(array, 
 				LogType.TEMPSENSOR, 
-				Float.toString(SensorData.getTemperature()));
+				Float.toString(SensorData.getTemperature()), null);
 		
 		Log.e("roadrunner", items.toString());
 	}
