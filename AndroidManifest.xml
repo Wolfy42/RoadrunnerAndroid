@@ -88,7 +88,7 @@
         
         <activity android:name=".activity.Signature"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="to be set">
+                  android:label="@string/signature_title">
         </activity>
         
     </application>

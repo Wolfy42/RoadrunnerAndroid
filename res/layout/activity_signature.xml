@@ -10,7 +10,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1.0"
-        android:gestureStrokeType="multiple" />
+        android:gestureStrokeType="multiple"
+        android:gestureColor="@android:color/black"
+        android:fadeOffset="10000"
+        />
         
 	<LinearLayout
         style="@android:style/ButtonBar"
