@@ -27,18 +27,21 @@ public class MonitoringController {
 		JSONArray sensors = _requestWorker.getSensorsForSelectedContainer();
 		float temperature = 0;
 		int count = 0;
-		for (int i=0; i<sensors.length(); i++)  {
-			try {
-				String url = sensors.getString(i);
-				String temp = HttpExecutor.getInstance().executeForResponse(new HttpGet(url));
-				temperature = Float.parseFloat(temp);
-				count++;
-			} catch (JSONException e) {
-				e.printStackTrace();
-			} catch (CouchDBException e) {
-				e.printStackTrace();
+		
+		if (sensors != null) {
+			for (int i=0; i<sensors.length(); i++)  {
+				try {
+					String url = sensors.getString(i);
+					String temp = HttpExecutor.getInstance().executeForResponse(new HttpGet(url));
+					temperature = Float.parseFloat(temp);
+					count++;
+				} catch (JSONException e) {
+					e.printStackTrace();
+				} catch (CouchDBException e) {
+					e.printStackTrace();
+				}
 			}
+			SensorData.setTemperature(temperature/count);
 		}
-		SensorData.setTemperature(temperature/count);
 	}
 }
