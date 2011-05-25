@@ -53,18 +53,22 @@ public class DeliveryMap extends MapActivity {
 				to = _geocoder.getFromLocationName(delivery.getDestination().getFormatedAddressForGoogleMap(), 1);
 				
 				if (from != null) {
-					geoFrom = new GeoPoint((int) (from.get(0).getLatitude() * FACTOR), (int) (from.get(0).getLongitude() * FACTOR));
-					_addressOverlay.addOverlay(new OverlayItem(geoFrom, "From", delivery.getFrom().toString()));
+					if (from.size() > 0) {
+						geoFrom = new GeoPoint((int) (from.get(0).getLatitude() * FACTOR), (int) (from.get(0).getLongitude() * FACTOR));
+						_addressOverlay.addOverlay(new OverlayItem(geoFrom, "From", delivery.getFrom().toString()));
+					}
 				}
 				
 				if (to != null) {
-					geoTo = new GeoPoint((int) (to.get(0).getLatitude() * FACTOR), (int) (to.get(0).getLongitude() * FACTOR));
-					_addressOverlay.addOverlay(new OverlayItem(geoTo, "From", delivery.getDestination().toString()));
+					if (to.size() > 0) {
+						geoTo = new GeoPoint((int) (to.get(0).getLatitude() * FACTOR), (int) (to.get(0).getLongitude() * FACTOR));
+						_addressOverlay.addOverlay(new OverlayItem(geoTo, "From", delivery.getDestination().toString()));
+					}
 				}
 				_addressOverlays.add(_addressOverlay);
 				
 				if (geoFrom != null) { 
-					_mapView.getController().animateTo(geoTo);
+					_mapView.getController().animateTo(geoFrom);
 					_mapView.getController().setZoom(10);
 				}
 			} catch (IOException e) {

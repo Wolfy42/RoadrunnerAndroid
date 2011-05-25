@@ -67,7 +67,7 @@ public class Address implements Serializable {
 	}
 	
 	public String getFormatedAddress() {
-		return _street + ", " + _zip + " " + _city + " - " + _country;
+		return _street + ", " + _zip + " " + _city + ", " + _country;
 	}
 	
 	@Override
