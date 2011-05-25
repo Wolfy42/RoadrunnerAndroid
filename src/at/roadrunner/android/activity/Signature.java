@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Log.LogType;
@@ -39,6 +40,11 @@ public class Signature extends Activity {
 	}
 	
     public void addSignature(View view)  {
+    	if (_gesture == null || _gesture.getStrokes().size() == 0)  {
+    		Toast.makeText(this, "Please make a Signature", Toast.LENGTH_SHORT).show();
+    		return;
+    	}
+    	
     	int targetWidth = 200;
     	double factor = _overlay.getWidth()/200;
     	int scaledHeight = (int) (_overlay.getHeight()/factor);
@@ -63,7 +69,8 @@ public class Signature extends Activity {
     }
     
     public void cancelSignature(View view)  {
-    	//TODO: What should happen?
+    	_overlay.clear(false);
+    	_gesture = null;
     }
     
     private class GesturesProcessor implements GestureOverlayView.OnGestureListener {
