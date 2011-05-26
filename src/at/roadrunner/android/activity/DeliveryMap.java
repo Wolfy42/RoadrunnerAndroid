@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import at.roadrunner.android.R;
 import at.roadrunner.android.model.Delivery;
 import at.roadrunner.android.util.AddressOverlay;
@@ -35,8 +36,11 @@ public class DeliveryMap extends MapActivity {
         
         
         if (delivery != null) {
+        	Log.v("blubb", delivery.getFrom().getFormatedAddressForGoogleMap());
+        	Log.v("blubb", delivery.getDestination().getFormatedAddressForGoogleMap());
         	_geocoder = new Geocoder(this);
         	_mapView = (MapView) findViewById(R.id.mapview);
+        	_mapView.invalidate();
         	GeoPoint geoFrom = null;
         	GeoPoint geoTo = null;
         	

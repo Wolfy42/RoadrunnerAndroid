@@ -104,6 +104,9 @@ public class Login extends Activity {
 			container = _container.getSelectedItem().toString();
 			String containerId = getIdForContainer(container);
 			if (new RequestWorker(this).isAuthenticatedAtServer(username, password))  {
+				MediaPlayer mp = MediaPlayer.create(this, R.raw.meepmeep);
+				mp.start();
+				
 				// save the used form values into the preferences
 				Editor edit = prefs.edit();
 				edit.putString("user", username);

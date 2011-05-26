@@ -38,6 +38,11 @@ public class AddressOverlay extends ItemizedOverlay {
 		return _overlays.size();
 	}
 	
+	public void clear() {
+		_overlays.clear();
+		populate();
+	}
+	
 	@Override
 	protected boolean onTap(int index) {
 		if (_context == null) return false;
