@@ -1,5 +1,7 @@
 package at.roadrunner.android.activity;
 
+import java.io.IOException;
+
 import org.json.JSONArray;
 
 import android.app.Activity;
@@ -8,7 +10,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources.NotFoundException;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -37,6 +41,9 @@ public class Roadrunner extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_roadrunner);
+		
+		MediaPlayer mp = MediaPlayer.create(this, R.raw.meepmeep);
+		mp.start();
 		
 		ServiceController.startAllServices(this);
 		
