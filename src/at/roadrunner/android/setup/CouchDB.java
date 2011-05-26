@@ -142,7 +142,7 @@ public class CouchDB {
 		Log.v("url", url);
 
 		try {
-			response = HttpExecutor.getInstance().executeForResponse(
+			response = new HttpExecutor().executeForResponse(
 					RequestFactory.createHttpPutForDB(url));
 			Log.v("url", response);
 			JSONObject objResponse = new JSONObject(response);

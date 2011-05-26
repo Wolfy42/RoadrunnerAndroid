@@ -75,7 +75,7 @@ public class SystemTestCases {
 		String msg = _context.getString(R.string.systemtest_local_couch_db_reachable);
 			
 		try {
-			JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(RequestFactory.createLocalHttpGet(null)));
+			JSONObject response = new JSONObject(new HttpExecutor().executeForResponse(RequestFactory.createLocalHttpGet(null)));
 			if (response.getString("couchdb") != null)  {
 				return new TestCase(_ok, msg);
 			}
@@ -103,7 +103,7 @@ public class SystemTestCases {
 		String msg = _context.getString(R.string.systemtest_local_db_exists);
 			
 		try {
-			JSONArray content = new JSONArray(HttpExecutor.getInstance().executeForResponse(RequestFactory.createLocalHttpGet("_all_dbs"))); 
+			JSONArray content = new JSONArray(new HttpExecutor().executeForResponse(RequestFactory.createLocalHttpGet("_all_dbs"))); 
 			for (int i = 0; i < content.length(); i++)  {
 				if (content.getString(i).equals(Config.DATABASE))  {
 					return new TestCase(_ok, msg);
@@ -120,7 +120,7 @@ public class SystemTestCases {
 		String msg = _context.getString(R.string.systemtest_remote_couch_db_reachable);
 		
 		try {
-			JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(RequestFactory.createRemoteHttpGet(null, null, null)));
+			JSONObject response = new JSONObject(new HttpExecutor().executeForResponse(RequestFactory.createRemoteHttpGet(null, null, null)));
 			if (response.getString("couchdb") != null)  {
 				return new TestCase(_ok, msg);
 			}
@@ -136,7 +136,7 @@ public class SystemTestCases {
 		String document = "roadrunner/_design/roadrunnermobile";
 		
 		try {
-			JSONObject response = new JSONObject(HttpExecutor.getInstance().executeForResponse(RequestFactory.createLocalHttpGet(document)));
+			JSONObject response = new JSONObject(new HttpExecutor().executeForResponse(RequestFactory.createLocalHttpGet(document)));
 			Log.v(TAG, response.toString());
 			if (response.getString("_rev") != null)  {
 				return new TestCase(_ok, msg);

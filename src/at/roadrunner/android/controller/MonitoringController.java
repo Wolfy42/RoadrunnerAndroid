@@ -38,7 +38,7 @@ public class MonitoringController {
 			for (int i=0; i<sensors.length(); i++)  {
 				try {
 					String url = sensors.getString(i);
-					String temp = HttpExecutor.getInstance().executeForResponse(new HttpGet(url));
+					String temp = new HttpExecutor().executeForResponse(new HttpGet(url));
 					temperature += Float.parseFloat(temp);
 					count++;
 				} catch (JSONException e) {

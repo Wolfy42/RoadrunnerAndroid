@@ -53,7 +53,7 @@ public class RequestWorker {
 			StringEntity body = new StringEntity(log.toString());
 			put.setEntity(body);
 
-			HttpExecutor.getInstance().executeForResponse(put);
+			new HttpExecutor().executeForResponse(put);
 		} catch (CouchDBException e) {
 			e.printStackTrace();
 		} catch (JSONException e) {
@@ -88,7 +88,7 @@ public class RequestWorker {
 
 		HttpGet get = RequestFactory.createLocalHttpGet(dbName
 				+ "/_design/roadrunnermobile/_view/loaded?group=true");
-		result = HttpExecutor.getInstance().executeForResponse(get);
+		result = new HttpExecutor().executeForResponse(get);
 
 		return result;
 	}
@@ -118,7 +118,7 @@ public class RequestWorker {
 
 		HttpGet get = RequestFactory.createLocalHttpGet(dbName
 				+ "/_design/roadrunnermobile/_view/items");
-		result = HttpExecutor.getInstance().executeForResponse(get);
+		result = new HttpExecutor().executeForResponse(get);
 
 		return result;
 	}
@@ -137,7 +137,7 @@ public class RequestWorker {
 			StringEntity body = new StringEntity(repl.toString());
 			post.setEntity(body);
 
-			HttpExecutor.getInstance().executeForResponse(post);
+			new HttpExecutor().executeForResponse(post);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
@@ -168,7 +168,7 @@ public class RequestWorker {
 			StringEntity body = new StringEntity(repl.toString());
 			post.setEntity(body);
 
-			HttpExecutor.getInstance().executeForResponse(post);
+			new HttpExecutor().executeForResponse(post);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
@@ -192,7 +192,7 @@ public class RequestWorker {
 			StringEntity body = new StringEntity(repl.toString());
 			post.setEntity(body);
 
-			JSONObject response = new JSONObject(HttpExecutor.getInstance()
+			JSONObject response = new JSONObject(new HttpExecutor()
 					.executeForResponse(post));
 			android.util.Log.v("replicate design", response.toString());
 
@@ -223,7 +223,7 @@ public class RequestWorker {
 			StringEntity body = new StringEntity(repl.toString());
 			post.setEntity(body);
 
-			result = HttpExecutor.getInstance().executeForResponse(post);
+			result = new HttpExecutor().executeForResponse(post);
 			return new JSONObject(result).has("ok");
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -246,7 +246,7 @@ public class RequestWorker {
 
 		HttpGet get = RequestFactory.createLocalHttpGet(dbName + "/" + id);
 		try {
-			result = HttpExecutor.getInstance().executeForResponse(get);
+			result = new HttpExecutor().executeForResponse(get);
 			response = new JSONObject(result);
 			return (!response.has("error"));
 		} catch (CouchDBException e) {
@@ -270,7 +270,7 @@ public class RequestWorker {
 				Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
 		
 		HttpGet get = RequestFactory.createRemoteHttpGet("roadrunner/_design/roadrunner/_view/containernames", user, password);
-		result = HttpExecutor.getInstance().executeForResponse(get);
+		result = new HttpExecutor().executeForResponse(get);
 		return result;
 	}
 	
@@ -280,7 +280,7 @@ public class RequestWorker {
 		
 		HttpGet get = RequestFactory.createRemoteHttpGet("roadrunner", username, password);
 		try {
-			result = HttpExecutor.getInstance().executeForResponse(get);
+			result = new HttpExecutor().executeForResponse(get);
 			response = new JSONObject(result);
 			return (!response.has("error"));
 		} catch (CouchDBException e) {
@@ -297,7 +297,7 @@ public class RequestWorker {
 		String containerId = prefs.getString("transportationId", Config.DEFAULT_TRANSPORTATION);
 		try {
 			HttpGet get = RequestFactory.createLocalHttpGet(Config.DATABASE + "/" + containerId);
-			String contStr = HttpExecutor.getInstance().executeForResponse(get);
+			String contStr = new HttpExecutor().executeForResponse(get);
 			JSONObject container = new JSONObject(contStr);
 			return container.getJSONArray("sensors");
 		} catch (JSONException e) {
@@ -333,7 +333,7 @@ public class RequestWorker {
 	static public String getNextId() {
 		try {
 			HttpGet get = RequestFactory.createLocalHttpGet("_uuids");
-			JSONObject content = new JSONObject(HttpExecutor.getInstance()
+			JSONObject content = new JSONObject(new HttpExecutor()
 					.executeForResponse(get));
 			JSONArray array = new JSONArray(content.getString("uuids"));
 			return array.getString(0);
