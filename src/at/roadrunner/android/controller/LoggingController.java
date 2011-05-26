@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 
 import android.content.Context;
+import android.location.Location;
 import android.util.Log;
 import at.roadrunner.android.couchdb.CouchDBException;
 import at.roadrunner.android.couchdb.RequestWorker;
@@ -38,10 +39,28 @@ public class LoggingController {
 		for (Item item : items)  {
 			array.put(item.getKey());
 		}
-		_requestWorker.saveLog(array, 
-				LogType.TEMPSENSOR, 
-				Float.toString(SensorData.getTemperature()), null);
+		Float temperature = SensorData.getTemperature();
+		Location loc = SensorData.getLocation();
 		
+		if (temperature == null)  {
+			_requestWorker.saveLog(array, 
+					LogType.TEMPERROR, 
+					"Temperatue sensor not available.", null);
+		}  else  {
+			_requestWorker.saveLog(array, 
+					LogType.TEMPSENSOR, 
+					Float.toString(SensorData.getTemperature()), null);
+		}
+		
+		if (loc == null)  {
+			_requestWorker.saveLog(array, 
+					LogType.POSERROR, 
+					"GPS not available.", null);
+		}  else  {
+			_requestWorker.saveLog(array, 
+					LogType.POSSENSOR, 
+					loc.getLongitude()+","+loc.getLatitude(), null);
+		}
 		Log.e("roadrunner", items.toString());
 	}
 }
