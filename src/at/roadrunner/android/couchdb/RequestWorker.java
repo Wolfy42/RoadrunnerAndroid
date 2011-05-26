@@ -1,7 +1,10 @@
 package at.roadrunner.android.couchdb;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -14,6 +17,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.format.Time;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.model.Log;
 import at.roadrunner.android.model.Log.LogType;
@@ -34,10 +38,11 @@ public class RequestWorker {
 	public void saveLog(JSONArray itemIds, LogType logType, String value, JSONObject attachments)  {
 		JSONObject log = new JSONObject();
 		try {
+			Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(Time.TIMEZONE_UTC));
 			log.put(Log.TYPE_KEY, Log.TYPE_VALUE);
 			log.put(Log.LOG_TYPE_KEY, logType.name());
 			log.put(Log.ITEMS_KEY, itemIds);
-			log.put(Log.TIMESTAMP_KEY, new Date().getTime());
+			log.put(Log.TIMESTAMP_KEY, cal.getTimeInMillis()/1000);
 			log.put(Log.VALUE_KEY, value);
 			if (attachments != null)  {
 				log.put(Log.ATTACHMENTS_KEY, attachments);
