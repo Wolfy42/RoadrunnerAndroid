@@ -113,6 +113,7 @@ public class Login extends Activity {
 				edit.commit();
 				
 				startActivity(new Intent(this, Roadrunner.class));
+				finish();
 			}  else  {
 				Toast.makeText(this, "Not Authenticated", Toast.LENGTH_SHORT).show();
 			}

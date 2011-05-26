@@ -17,14 +17,13 @@ public class Log {
 	public static String TYPE_VALUE = "log";
 	
 	public enum LogType {		
-		REGISTER,
 		UNREGISTER,
 		LOAD,
 		UNLOAD,
-		TRACK,
 		TEMPSENSOR,
 		POSSENSOR,
-		SENSOR_NOT_ACCESSIBLE;
+		TEMPERROR,
+		POSERROR;
 	}
 	
 	public static void addDoctrineMetadata(JSONObject log)  {
