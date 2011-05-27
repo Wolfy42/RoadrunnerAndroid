@@ -24,7 +24,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import at.roadrunner.android.sensor.HttpSensor;
+import at.roadrunner.android.model.HttpSensor;
 import at.roadrunner.android.sensor.SensorConnectionFactory;
 import at.roadrunner.android.sensor.SensorType;
 
