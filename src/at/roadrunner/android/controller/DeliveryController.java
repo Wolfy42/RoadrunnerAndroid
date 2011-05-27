@@ -33,7 +33,7 @@ public class DeliveryController {
 		Delivery delivery2 = new Delivery("23t5124353242323");
 		delivery2.addItem(new Item("Tastatur", 10, 20));
 		delivery2.setDestination(to1);
-		delivery2.setFrom(from);
+		delivery2.setFrom(to1);
 		
 		Delivery delivery3 = new Delivery("asdfasdf");
 		delivery3.addItem(new Item("Mouse", 0, 10));

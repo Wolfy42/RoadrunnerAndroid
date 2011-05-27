@@ -42,9 +42,6 @@ public class Roadrunner extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_roadrunner);
 		
-		MediaPlayer mp = MediaPlayer.create(this, R.raw.meepmeep);
-		mp.start();
-		
 		ServiceController.startAllServices(this);
 		
 		// GPS
