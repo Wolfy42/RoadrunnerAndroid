@@ -187,6 +187,7 @@ public class Roadrunner extends Activity {
 				} else {
 					btnUnload.setEnabled(false);
 					btnView.setEnabled(false);
+					btnDeliver.setEnabled(false);
 				}
 				
 				dialog.show();
