@@ -79,6 +79,7 @@ public class Login extends Activity {
 		@Override
 		public void run() {
 			if (_containers != null) {
+				_containerAdapter.clear();
 				for (JSONObject container : _containers) {
 					try {
 						_containerAdapter.add(container.getString("name"));
