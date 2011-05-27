@@ -34,10 +34,7 @@ public class DeliveryMap extends MapActivity {
 	    Bundle extras = getIntent().getExtras();
         Delivery delivery = (Delivery) extras.getSerializable("Delivery");
         
-        
         if (delivery != null) {
-        	Log.v("blubb", delivery.getFrom().getFormatedAddressForGoogleMap());
-        	Log.v("blubb", delivery.getDestination().getFormatedAddressForGoogleMap());
         	_geocoder = new Geocoder(this);
         	_mapView = (MapView) findViewById(R.id.mapview);
         	_mapView.invalidate();
@@ -66,14 +63,14 @@ public class DeliveryMap extends MapActivity {
 				if (to != null) {
 					if (to.size() > 0) {
 						geoTo = new GeoPoint((int) (to.get(0).getLatitude() * FACTOR), (int) (to.get(0).getLongitude() * FACTOR));
-						_addressOverlay.addOverlay(new OverlayItem(geoTo, "From", delivery.getDestination().toString()));
+						_addressOverlay.addOverlay(new OverlayItem(geoTo, "To", delivery.getDestination().toString()));
 					}
 				}
 				_addressOverlays.add(_addressOverlay);
 				
 				if (geoFrom != null) { 
 					_mapView.getController().animateTo(geoFrom);
-					_mapView.getController().setZoom(10);
+					_mapView.getController().setZoom(15);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -85,7 +82,4 @@ public class DeliveryMap extends MapActivity {
 	protected boolean isRouteDisplayed() {
 		return false;
 	}
-	
-	
-
 }

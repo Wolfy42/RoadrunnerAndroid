@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -138,7 +139,6 @@ public class Deliveries extends ListActivity {
 		Delivery delivery = null;
 		switch (item.getItemId()) {
 			case MENU_ITEM_SHOW:
-				 
 				 delivery = (Delivery) getListAdapter().getItem(info.position);
 				 if (delivery != null) {
 					 showItem(delivery);
@@ -148,7 +148,7 @@ public class Deliveries extends ListActivity {
 				Intent mapIntent = new Intent(this, DeliveryMap.class);
 				delivery = (Delivery) getListAdapter().getItem(info.position);
 				if (delivery != null) {
-					mapIntent.putExtra("Delivery", _deliveries.get(item.getItemId()));
+					mapIntent.putExtra("Delivery", delivery);
 				}
 				startActivity(mapIntent);
 				return true;
