@@ -8,8 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import junit.framework.TestCase;
-
-import at.roadrunner.android.sensor.HttpSensor;
+import at.roadrunner.android.model.HttpSensor;
 import at.roadrunner.android.sensor.SensorConnectionFactory;
 import at.roadrunner.android.sensor.SensorType;
 
