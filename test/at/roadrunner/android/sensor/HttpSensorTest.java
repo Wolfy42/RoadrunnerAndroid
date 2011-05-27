@@ -8,7 +8,7 @@
  * @author Franziskus Domig
  * @date 10.03.2011
  */
-package at.roadrunner.android.test.sensor;
+package at.roadrunner.android.sensor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

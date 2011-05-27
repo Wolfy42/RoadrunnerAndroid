@@ -1,4 +1,4 @@
-package at.roadrunner.android.test.activity;
+package at.roadrunner.android.activity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
