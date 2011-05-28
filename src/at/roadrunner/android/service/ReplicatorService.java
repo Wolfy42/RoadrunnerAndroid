@@ -33,6 +33,7 @@ public class ReplicatorService extends  Service{
 				_replicatorController.replicateLogsToServer();
 				_replicatorController.replicateItemsFromServer();
 				_replicatorController.replicateContainerFromServer();
+				_replicatorController.synchronizeTime();
 			}
 		}, 0, Config.REPLICATOR_SERVICE_INTERAL);
 	}

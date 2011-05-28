@@ -16,6 +16,7 @@ public class ReplicatorController {
 	private RequestWorker _requestWorker;
 	private ItemController _itemController;
 	private ContainerController _containerController;
+	private TimeController _timeController;
 	private boolean _isContainerReplicated = false;
 	
 	public ReplicatorController(Context context) {
@@ -23,6 +24,7 @@ public class ReplicatorController {
 		_requestWorker = new RequestWorker(_context);
 		_itemController = new ItemController(_context);
 		_containerController = new ContainerController(_context);
+		_timeController = new TimeController();
 	}
 
 	public void replicateLogsToServer() {
@@ -54,5 +56,9 @@ public class ReplicatorController {
 		if (!_isContainerReplicated) {
 			_isContainerReplicated = _containerController.replicateSelectedContainer();
 		}
+	}
+
+	public void synchronizeTime() {
+		_timeController.synchronizeTime(_requestWorker, _itemController);
 	}
 }
