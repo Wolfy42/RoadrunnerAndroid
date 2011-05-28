@@ -23,7 +23,8 @@ public class Log {
 		TEMPSENSOR,
 		POSSENSOR,
 		TEMPERROR,
-		POSERROR;
+		POSERROR,
+		TIMESYNCHRONIZATION;
 	}
 	
 	public static void addDoctrineMetadata(JSONObject log)  {

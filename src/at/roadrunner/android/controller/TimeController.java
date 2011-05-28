@@ -2,10 +2,10 @@ package at.roadrunner.android.controller;
 
 import java.util.Calendar;
 
-import android.content.Context;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.couchdb.CouchDBException;
 import at.roadrunner.android.couchdb.RequestWorker;
+import at.roadrunner.android.model.Log;
 
 public class TimeController {
 
@@ -52,7 +52,7 @@ public class TimeController {
 		return _factory.createCalendarForUtc().getTimeInMillis()/1000+getGlobalOffset();
 	}
 
-	public void synchronizeTime(RequestWorker requestWorker) {
+	public void synchronizeTime(RequestWorker requestWorker, ItemController itemController) {
 		try {
 			long before = getTimestampForDatabase();
 			long serverTime = requestWorker.getServerTime();
@@ -60,8 +60,9 @@ public class TimeController {
 			
 			if (after-before <= Config.SERVER_RESPONSE_DELAY)  {
 				if (Math.abs(serverTime-before) >= Config.SERVER_OFFSET_FOR_CORRECTION)  {
-					//TODO: save log for correction
 					setGlobalOffset(serverTime-before);
+					
+					requestWorker.saveLog(itemController.getLoadedItemsAsArray(), Log.LogType.TIMESYNCHRONIZATION, "Correction: " + (serverTime-before) + " seconds.", null);
 				}
 			}
 		} catch (CouchDBException e)  {

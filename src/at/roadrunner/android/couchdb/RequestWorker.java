@@ -27,7 +27,7 @@ public class RequestWorker {
 	public RequestWorker(Context context) {
 		_context = context;
 	}
-	
+
 	/*
 	 * save the log of an item
 	 */

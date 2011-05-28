@@ -2,29 +2,27 @@ package at.roadrunner.android.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.TimeZone;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import com.xtremelabs.robolectric.RobolectricTestRunner;
-
-import android.content.Context;
 import android.text.format.Time;
-import android.util.Log;
-import at.roadrunner.android.activity.Roadrunner;
 import at.roadrunner.android.couchdb.CouchDBException;
 import at.roadrunner.android.couchdb.RequestWorker;
+import at.roadrunner.android.model.Log.LogType;
 
-@RunWith(RobolectricTestRunner.class)
 public class TimeControllerTest {
 	
 	private CalendarFactory _factory;
@@ -115,6 +113,7 @@ public class TimeControllerTest {
 		final Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(Time.TIMEZONE_UTC));
 		when(factory.createCalendarForUtc()).thenReturn(cal);
 		final TimeController controller = new TimeController(factory);
+		ItemController itemController = mock(ItemController.class);
 		
 		//Worker will answer with delayed time
 		RequestWorker worker = mock(RequestWorker.class);
@@ -128,7 +127,7 @@ public class TimeControllerTest {
 				}
 			});
 		
-		controller.synchronizeTime(worker);
+		controller.synchronizeTime(worker, itemController);
 		assertEquals(0, controller.getOffset());
 	}
 	
@@ -138,6 +137,7 @@ public class TimeControllerTest {
 		final Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(Time.TIMEZONE_UTC));
 		when(factory.createCalendarForUtc()).thenReturn(cal);
 		final TimeController controller = new TimeController(factory);
+		ItemController itemController = mock(ItemController.class);
 		
 		//Worker will answer with delayed time
 		RequestWorker worker = mock(RequestWorker.class);
@@ -151,7 +151,7 @@ public class TimeControllerTest {
 				}
 			});
 		
-		controller.synchronizeTime(worker);
+		controller.synchronizeTime(worker, itemController);
 		assertEquals(0, controller.getOffset());
 	}
 	
@@ -161,6 +161,7 @@ public class TimeControllerTest {
 		final Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(Time.TIMEZONE_UTC));
 		when(factory.createCalendarForUtc()).thenReturn(cal);
 		final TimeController controller = new TimeController(factory);
+		ItemController itemController = mock(ItemController.class);
 		
 		//Worker will answer with delayed time
 		RequestWorker worker = mock(RequestWorker.class);
@@ -174,8 +175,21 @@ public class TimeControllerTest {
 				}
 			});
 		
-		controller.synchronizeTime(worker);
+		final List<Boolean> calls = new LinkedList<Boolean>();
+		calls.add(false);
+		
+		//Worker will log the event
+		 doAnswer(new Answer<Void>() {
+		      public Void answer(InvocationOnMock invocation) {
+		    	  calls.set(0, true);
+		          return null;
+		      }})
+		  .when(worker).saveLog(null, LogType.TIMESYNCHRONIZATION, "Correction: 10 seconds.", null);
+
+		controller.synchronizeTime(worker, itemController);
 		assertEquals(10, controller.getOffset());
+		//assert that the logging-event was called
+		assertTrue(calls.get(0));
 	}
 	
 }

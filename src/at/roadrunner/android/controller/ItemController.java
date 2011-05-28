@@ -56,6 +56,23 @@ public class ItemController {
 		}
 		return items;
 	}
+	
+	public JSONArray getLoadedItemsAsArray()  {
+		ArrayList<Item> items;
+		try {
+			items = getLoadedItems();
+		} catch (CouchDBException e) {
+			e.printStackTrace();
+			return new JSONArray();
+		}
+		if (items.size() == 0)  return new JSONArray();
+		
+		JSONArray array = new JSONArray();
+		for (Item item : items)  {
+			array.put(item.getKey());
+		}
+		return array;
+	}
 
 	/**
 	 * 
