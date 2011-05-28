@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import android.text.format.Time;
-public class TimeControllerText {
+public class TimeControllerTest {
 	
 	private CalendarFactory _factory;
 	private TimeController _controller;
