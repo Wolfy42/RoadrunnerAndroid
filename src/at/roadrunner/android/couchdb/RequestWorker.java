@@ -27,7 +27,7 @@ public class RequestWorker {
 	public RequestWorker(Context context) {
 		_context = context;
 	}
-
+	
 	/*
 	 * save the log of an item
 	 */
@@ -264,7 +264,7 @@ public class RequestWorker {
 		password = prefs.getString("password",
 				Config.ROADRUNNER_AUTHENTICATION_PASSWORD);
 		
-		HttpGet get = RequestFactory.createRemoteHttpGet("roadrunner/_design/roadrunner/_view/containernames", user, password);
+		HttpGet get = RequestFactory.createRemoteDbHttpGet("roadrunner/_design/roadrunner/_view/containernames", user, password);
 		result = new HttpExecutor().executeForResponse(get);
 		return result;
 	}
@@ -273,7 +273,7 @@ public class RequestWorker {
 		String result = null;
 		JSONObject response = null;
 		
-		HttpGet get = RequestFactory.createRemoteHttpGet("roadrunner", username, password);
+		HttpGet get = RequestFactory.createRemoteDbHttpGet("roadrunner", username, password);
 		try {
 			result = new HttpExecutor().executeForResponse(get);
 			response = new JSONObject(result);
@@ -301,6 +301,12 @@ public class RequestWorker {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public long getServerTime() throws CouchDBException {
+		HttpGet get = RequestFactory.createRemoteHttpGet("servertime");
+		String contStr = new HttpExecutor().executeForResponse(get);
+		return Long.valueOf(contStr);
 	}
 
 	private String getAuthenticatedRemoteUrl()  {

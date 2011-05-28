@@ -11,8 +11,20 @@ import java.util.TimeZone;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
+import com.xtremelabs.robolectric.RobolectricTestRunner;
+
+import android.content.Context;
 import android.text.format.Time;
+import android.util.Log;
+import at.roadrunner.android.activity.Roadrunner;
+import at.roadrunner.android.couchdb.CouchDBException;
+import at.roadrunner.android.couchdb.RequestWorker;
+
+@RunWith(RobolectricTestRunner.class)
 public class TimeControllerTest {
 	
 	private CalendarFactory _factory;
@@ -95,6 +107,75 @@ public class TimeControllerTest {
 		controller.setOffset(-5);
 		cal2.add(Calendar.SECOND, -5);
 		assertEquals(cal2, controller.getCalendar());
+	}
+	
+	@Test
+	public void timeControllerShouldNotCorrectTimeBecauseDelayedServerResponse() throws CouchDBException  {
+		CalendarFactory factory = mock(CalendarFactory.class);
+		final Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(Time.TIMEZONE_UTC));
+		when(factory.createCalendarForUtc()).thenReturn(cal);
+		final TimeController controller = new TimeController(factory);
+		
+		//Worker will answer with delayed time
+		RequestWorker worker = mock(RequestWorker.class);
+		when(worker.getServerTime())
+			.thenAnswer(new Answer<Long>() {
+				@Override
+				public Long answer(InvocationOnMock invocation) throws Throwable {
+					long time = controller.getTimestampForDatabase();
+					cal.add(Calendar.SECOND, 3);
+					return time;
+				}
+			});
+		
+		controller.synchronizeTime(worker);
+		assertEquals(0, controller.getOffset());
+	}
+	
+	@Test
+	public void timeControllerShouldNotCorrectTimeBecauseTimeOffsetToLittle() throws CouchDBException  {
+		CalendarFactory factory = mock(CalendarFactory.class);
+		final Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(Time.TIMEZONE_UTC));
+		when(factory.createCalendarForUtc()).thenReturn(cal);
+		final TimeController controller = new TimeController(factory);
+		
+		//Worker will answer with delayed time
+		RequestWorker worker = mock(RequestWorker.class);
+		when(worker.getServerTime())
+			.thenAnswer(new Answer<Long>() {
+				@Override
+				public Long answer(InvocationOnMock invocation) throws Throwable {
+					long time = controller.getTimestampForDatabase()-4;
+					cal.add(Calendar.SECOND, 1);
+					return time;
+				}
+			});
+		
+		controller.synchronizeTime(worker);
+		assertEquals(0, controller.getOffset());
+	}
+	
+	@Test
+	public void timeControllerShoulCorrectOffset() throws CouchDBException  {
+		CalendarFactory factory = mock(CalendarFactory.class);
+		final Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(Time.TIMEZONE_UTC));
+		when(factory.createCalendarForUtc()).thenReturn(cal);
+		final TimeController controller = new TimeController(factory);
+		
+		//Worker will answer with delayed time
+		RequestWorker worker = mock(RequestWorker.class);
+		when(worker.getServerTime())
+			.thenAnswer(new Answer<Long>() {
+				@Override
+				public Long answer(InvocationOnMock invocation) throws Throwable {
+					long time = controller.getTimestampForDatabase()+10;
+					cal.add(Calendar.SECOND, 1);
+					return time;
+				}
+			});
+		
+		controller.synchronizeTime(worker);
+		assertEquals(10, controller.getOffset());
 	}
 	
 }

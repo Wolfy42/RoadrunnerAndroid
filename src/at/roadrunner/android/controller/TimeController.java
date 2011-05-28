@@ -2,6 +2,11 @@ package at.roadrunner.android.controller;
 
 import java.util.Calendar;
 
+import android.content.Context;
+import at.roadrunner.android.Config;
+import at.roadrunner.android.couchdb.CouchDBException;
+import at.roadrunner.android.couchdb.RequestWorker;
+
 public class TimeController {
 
 	//Offset of the time in seconds
@@ -16,7 +21,7 @@ public class TimeController {
 	public TimeController(CalendarFactory factory) {
 		_factory = factory;
 	}
-
+	
 	private static Long getGlobalOffset()  {
 		synchronized (_offset)  {
 			return _offset;
@@ -43,7 +48,24 @@ public class TimeController {
 		return cal;
 	}
 
-	public Object getTimestampForDatabase() {
+	public long getTimestampForDatabase() {
 		return _factory.createCalendarForUtc().getTimeInMillis()/1000+getGlobalOffset();
+	}
+
+	public void synchronizeTime(RequestWorker requestWorker) {
+		try {
+			long before = getTimestampForDatabase();
+			long serverTime = requestWorker.getServerTime();
+			long after = getTimestampForDatabase();
+			
+			if (after-before <= Config.SERVER_RESPONSE_DELAY)  {
+				if (Math.abs(serverTime-before) >= Config.SERVER_OFFSET_FOR_CORRECTION)  {
+					//TODO: save log for correction
+					setGlobalOffset(serverTime-before);
+				}
+			}
+		} catch (CouchDBException e)  {
+			e.printStackTrace();
+		}
 	}
 }

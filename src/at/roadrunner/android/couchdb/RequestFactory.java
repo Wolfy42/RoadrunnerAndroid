@@ -19,8 +19,8 @@ public class RequestFactory {
 		return get;
 	}
 	
-	public static HttpGet createRemoteHttpGet(String path, String username, String password)  {
-		StringBuilder sb = new StringBuilder(Config.REMOTE_HOST);
+	public static HttpGet createRemoteDbHttpGet(String path, String username, String password)  {
+		StringBuilder sb = new StringBuilder(Config.REMOTE_DB_HOST);
 		if (path != null)  {
 			sb.append(path);
 		}
@@ -28,6 +28,15 @@ public class RequestFactory {
 		if (username != null && password != null)  {
 			setRemoteAuthentication(get, username, password);
 		}
+		return get;
+	}
+	
+	public static HttpGet createRemoteHttpGet(String path)  {
+		StringBuilder sb = new StringBuilder(Config.REMOTE_HOST);
+		if (path != null)  {
+			sb.append(path);
+		}
+		HttpGet get = new HttpGet(sb.toString());
 		return get;
 	}
 		
