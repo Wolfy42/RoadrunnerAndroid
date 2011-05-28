@@ -22,6 +22,7 @@ public class TimeControllerText {
 	public void setUp()  {
 		_factory = new CalendarFactory();
 		_controller = new TimeController(_factory);
+		_controller.setOffset(0);
 	}
 	
 	@Test
@@ -64,5 +65,36 @@ public class TimeControllerText {
 		assertSame(cal, new TimeController(factory).getCalendar());
 	}
 	
+	@Test
+	public void timeControllerShouldReturnUtcInSeconds()  {
+		CalendarFactory factory = mock(CalendarFactory.class);
+		Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(Time.TIMEZONE_UTC));
+		when(factory.createCalendarForUtc()).thenReturn(cal);
+		assertEquals(cal.getTimeInMillis()/1000, new TimeController(factory).getTimestampForDatabase());
+	}
+	
+	@Test
+	public void timeControllerShouldReturnTimestampWithOffset()  {
+		CalendarFactory factory = mock(CalendarFactory.class);
+		Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(Time.TIMEZONE_UTC));
+		when(factory.createCalendarForUtc()).thenReturn(cal);
+		
+		TimeController controller = new TimeController(factory);
+		controller.setOffset(5);
+		assertEquals(cal.getTimeInMillis()/1000+5, controller.getTimestampForDatabase());
+	}
+	
+	@Test
+	public void timeControllerShouldReturnCalendarWithOffset()  {
+		CalendarFactory factory = mock(CalendarFactory.class);
+		Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(Time.TIMEZONE_UTC));
+		Calendar cal2 = GregorianCalendar.getInstance(TimeZone.getTimeZone(Time.TIMEZONE_UTC));
+		when(factory.createCalendarForUtc()).thenReturn(cal);
+		
+		TimeController controller = new TimeController(factory);
+		controller.setOffset(-5);
+		cal2.add(Calendar.SECOND, -5);
+		assertEquals(cal2, controller.getCalendar());
+	}
 	
 }

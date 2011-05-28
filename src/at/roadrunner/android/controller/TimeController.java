@@ -4,22 +4,26 @@ import java.util.Calendar;
 
 public class TimeController {
 
-	//Offset of the time in milliseconds
+	//Offset of the time in seconds
 	private static Long _offset = Long.valueOf(0);
 	
 	private CalendarFactory _factory;
+	
+	public TimeController()  {
+		_factory = new CalendarFactory();
+	}
 	
 	public TimeController(CalendarFactory factory) {
 		_factory = factory;
 	}
 
-	public static Long getGlobalOffset()  {
+	private static Long getGlobalOffset()  {
 		synchronized (_offset)  {
 			return _offset;
 		}
 	}
 	
-	public static void setGlobalOffset(Long offset)  {
+	private static void setGlobalOffset(Long offset)  {
 		synchronized (_offset)  {
 			_offset = offset;
 		}
@@ -34,7 +38,12 @@ public class TimeController {
 	}
 	
 	public Calendar getCalendar()  {
-		return _factory.createCalendarForUtc();
+		Calendar cal = _factory.createCalendarForUtc();
+		cal.add(Calendar.SECOND, getGlobalOffset().intValue());
+		return cal;
 	}
 
+	public Object getTimestampForDatabase() {
+		return _factory.createCalendarForUtc().getTimeInMillis()/1000+getGlobalOffset();
+	}
 }
