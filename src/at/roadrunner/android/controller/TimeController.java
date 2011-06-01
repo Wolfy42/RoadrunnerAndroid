@@ -58,10 +58,14 @@ public class TimeController {
 			long serverTime = requestWorker.getServerTime();
 			long after = getTimestampForDatabase();
 			
+			android.util.Log.e("roadrunner", "before: "+before);
+			android.util.Log.e("roadrunner", "servertime: "+serverTime);
+			android.util.Log.e("roadrunner", "after: "+after);
+			
 			if (after-before <= Config.SERVER_RESPONSE_DELAY)  {
 				if (Math.abs(serverTime-before) >= Config.SERVER_OFFSET_FOR_CORRECTION)  {
 					setGlobalOffset(serverTime-before);
-					
+					android.util.Log.e("roadrunner", "correction: "+(serverTime-before));
 					requestWorker.saveLog(itemController.getLoadedItemsAsArray(), Log.LogType.TIMESYNCHRONIZATION, "Correction: " + (serverTime-before) + " seconds.", null);
 				}
 			}

@@ -31,6 +31,11 @@ public class RequestFactory {
 		return get;
 	}
 	
+	public static HttpGet createRemoteTimeHttpGet()  {
+		HttpGet get = new HttpGet(Config.TIME_HOST);
+		return get;
+	}
+	
 	public static HttpGet createRemoteHttpGet(String path)  {
 		StringBuilder sb = new StringBuilder(Config.REMOTE_HOST);
 		if (path != null)  {

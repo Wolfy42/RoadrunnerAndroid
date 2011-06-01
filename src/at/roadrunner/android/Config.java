@@ -25,10 +25,12 @@ public class Config {
 	public static final String PROTOCOL = "http://";
 	public static final String URL = "127.0.0.1";
 	public static final String PORT = "5984";
+	public static final String TIME_PORT = "10500";
 	
 	public static final String HOST = PROTOCOL + URL + ":" + PORT + "/";
 	public static final String AUTH_HOST = PROTOCOL + USERNAME + ":" + PASSWORD + "@" + URL + ":" + PORT + "/";
 	public static final String REMOTE_HOST = PROTOCOL + ROADRUNNER_SERVER_IP + "/";
+	public static final String TIME_HOST = PROTOCOL + ROADRUNNER_SERVER_IP + ":" + TIME_PORT + "/";
 	public static final String REMOTE_DB_HOST = PROTOCOL + ROADRUNNER_SERVER_IP + ":" + ROADRUNNER_SERVER_PORT + "/";
 	
 	public static final String DB_HOST = PROTOCOL + URL + ":" + PORT + "/" + DATABASE + "/";
@@ -52,6 +54,6 @@ public class Config {
 	public static final String DEFAULT_TRANSPORTATION = "UNKNOWN";
 	
 	//For Time-Synchronisation
-	public static final long SERVER_RESPONSE_DELAY = 2; //Server should answer with timestamp in <= 2 seconds
+	public static final long SERVER_RESPONSE_DELAY = 10; //Server should answer with timestamp in <= 2 seconds
 	public static final long SERVER_OFFSET_FOR_CORRECTION = 5; //If the time-offset is >= 5 seconds it will be corrected
 }

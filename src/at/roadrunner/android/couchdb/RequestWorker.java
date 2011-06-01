@@ -304,7 +304,7 @@ public class RequestWorker {
 	}
 	
 	public long getServerTime() throws CouchDBException {
-		HttpGet get = RequestFactory.createRemoteHttpGet("servertime");
+		HttpGet get = RequestFactory.createRemoteTimeHttpGet();
 		String contStr = new HttpExecutor().executeForResponse(get);
 		return Long.valueOf(contStr);
 	}
