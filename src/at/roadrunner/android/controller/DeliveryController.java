@@ -9,6 +9,7 @@ import at.roadrunner.android.model.Item;
 
 public class DeliveryController {
 
+	@SuppressWarnings("unused")
 	private Context _context;
 	
 	public DeliveryController(Context context) {

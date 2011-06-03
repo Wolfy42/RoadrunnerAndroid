@@ -22,6 +22,7 @@ public class ItemController {
 		_context = context;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public ArrayList<Item> getLoadedItems() throws CouchDBException  {
 		ArrayList<Item> items = new ArrayList<Item>();
 		String loadedItems = null;

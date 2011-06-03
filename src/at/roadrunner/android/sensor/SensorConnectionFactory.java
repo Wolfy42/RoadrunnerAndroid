@@ -5,10 +5,6 @@ import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import at.roadrunner.android.couchdb.RequestWorker;
-import at.roadrunner.android.model.Log;
-import at.roadrunner.android.model.Log.LogType;
-
 /**
  * Class SensorConnectionFactory
  * 

@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.util.Log;
 import at.roadrunner.android.R;
 import at.roadrunner.android.model.Delivery;
 import at.roadrunner.android.util.AddressOverlay;
