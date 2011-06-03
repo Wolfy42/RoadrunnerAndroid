@@ -108,10 +108,10 @@ public class Deliveries extends ListActivity {
 				TextView txtToSub = (TextView) view.findViewById(R.id.deliveries_to_sub);
 				
 				// set values of Views
-				txtFrom.setText(delivery.getFrom().getRecipient());
-				txtFromSub.setText(delivery.getFrom().getFormatedAddress());
-				txtTo.setText(delivery.getDestination().getRecipient());
-				txtToSub.setText(delivery.getDestination().getFormatedAddress());
+				txtFrom.setText(delivery.getAddressFrom().getRecipient());
+				txtFromSub.setText(delivery.getAddressFrom().getFormatedAddress());
+				txtTo.setText(delivery.getAddressTo().getRecipient());
+				txtToSub.setText(delivery.getAddressTo().getFormatedAddress());
 			}
 
 			return view;

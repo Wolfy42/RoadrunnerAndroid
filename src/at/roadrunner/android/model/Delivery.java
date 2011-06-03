@@ -7,8 +7,8 @@ import org.json.JSONObject;
 public class Delivery implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String _trackingNumber;
-	private Address _destination;
 	private Address _from;
+	private Address _to;
 	private ArrayList<Item> _items = new ArrayList<Item>();
 	
 	public Delivery(String trackingNumber) {
@@ -34,19 +34,19 @@ public class Delivery implements Serializable {
 		_trackingNumber = number;
 	}
 
-	public Address getDestination() {
-		return _destination;
+	public Address getAddressTo() {
+		return _to;
 	}
 	
-	public void setDestination(Address destination) {
-		_destination = destination;
+	public void setAddressTo(Address to) {
+		_to = to;
 	}
 	
-	public Address getFrom() {
+	public Address getAddressFrom() {
 		return _from;
 	}
 	
-	public void setFrom(Address from) {
+	public void setAddressFrom(Address from) {
 		_from = from;
 	}
 

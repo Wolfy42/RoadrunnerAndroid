@@ -41,10 +41,10 @@ public class Roadrunner extends Activity {
 		ServiceController.startAllServices(this);
 		
 		// GPS
-		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		if (locationManager.isProviderEnabled (LocationManager.GPS_PROVIDER) == false) {
-			startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0);
-		}
+//		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+//		if (locationManager.isProviderEnabled (LocationManager.GPS_PROVIDER) == false) {
+//			startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0);
+//		}
 	}
 
 	@Override

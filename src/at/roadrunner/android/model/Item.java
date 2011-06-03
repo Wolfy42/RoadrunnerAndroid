@@ -17,7 +17,6 @@ public class Item implements Serializable {
 		_maxTemp = maxTemp;
 	}
 	
-	@Deprecated
 	public Item(String key, long timestamp) {
 		_key = key;
 		_timestamp = timestamp;

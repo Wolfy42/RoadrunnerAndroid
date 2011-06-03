@@ -28,18 +28,18 @@ public class DeliveryController {
 		delivery1.addItem(new Item("Notebook", 10, 20));
 		delivery1.addItem(new Item("USB Stick", 0, 10));
 		delivery1.addItem(new Item("Bildschirm", 20, 30));
-		delivery1.setDestination(to);
-		delivery1.setFrom(from);
+		delivery1.setAddressTo(to);
+		delivery1.setAddressFrom(from);
 		
 		Delivery delivery2 = new Delivery("23t5124353242323");
 		delivery2.addItem(new Item("Tastatur", 10, 20));
-		delivery2.setDestination(to1);
-		delivery2.setFrom(to1);
+		delivery2.setAddressTo(to1);
+		delivery2.setAddressFrom(to1);
 		
 		Delivery delivery3 = new Delivery("asdfasdf");
 		delivery3.addItem(new Item("Mouse", 0, 10));
-		delivery3.setDestination(to1);
-		delivery3.setFrom(to2);
+		delivery3.setAddressTo(to1);
+		delivery3.setAddressFrom(to2);
 
 		_deliveries.add(delivery1);
 		_deliveries.add(delivery2);
