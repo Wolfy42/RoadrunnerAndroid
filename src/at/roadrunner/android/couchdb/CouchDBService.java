@@ -24,6 +24,7 @@ public class CouchDBService {
 		startCouchDB(context);
 	}
 
+	@SuppressWarnings("unused")
 	private static class CouchDBConnection implements ServiceConnection {
 
 		@Override

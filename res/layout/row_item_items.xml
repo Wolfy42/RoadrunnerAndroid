@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:padding="6dip"
+    android:weightSum="100"
     android:orientation="horizontal">
     
     <LinearLayout
-        android:layout_width="100sp"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="50"
         android:orientation="vertical">
         <TextView
             android:id="@+id/items_name"
@@ -19,16 +20,16 @@
     </LinearLayout>
     
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="25"
         android:orientation="vertical">
         <TextView
             android:id="@+id/items_min_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/ItemsTemp"
-            android:text="Minimum Temperature"
+            android:text="Min Temp."
             android:layout_weight="1"/>
         <TextView
             android:id="@+id/items_min"
@@ -39,16 +40,16 @@
     </LinearLayout>
     
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="25"
         android:orientation="vertical">
         <TextView
             android:id="@+id/items_min_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/ItemsTemp"
-            android:text="Maximum Temperature"
+            android:text="Max Temp."
             android:layout_weight="1"/>
         <TextView
             android:id="@+id/items_max"

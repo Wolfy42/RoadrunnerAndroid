@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.util.Log;
 import at.roadrunner.android.R;
 import at.roadrunner.android.model.Delivery;
 import at.roadrunner.android.util.AddressOverlay;
@@ -50,20 +49,20 @@ public class DeliveryMap extends MapActivity {
 	       	List<Address> from = null;
 	       	List<Address> to = null;
        	    try {
-				from = _geocoder.getFromLocationName(delivery.getFrom().getFormatedAddressForGoogleMap(), 1);
-				to = _geocoder.getFromLocationName(delivery.getDestination().getFormatedAddressForGoogleMap(), 1);
+				from = _geocoder.getFromLocationName(delivery.getAddressFrom().getFormatedAddressForGoogleMap(), 1);
+				to = _geocoder.getFromLocationName(delivery.getAddressTo().getFormatedAddressForGoogleMap(), 1);
 				
 				if (from != null) {
 					if (from.size() > 0) {
 						geoFrom = new GeoPoint((int) (from.get(0).getLatitude() * FACTOR), (int) (from.get(0).getLongitude() * FACTOR));
-						_addressOverlay.addOverlay(new OverlayItem(geoFrom, "From", delivery.getFrom().toString()));
+						_addressOverlay.addOverlay(new OverlayItem(geoFrom, "From", delivery.getAddressFrom().toString()));
 					}
 				}
 				
 				if (to != null) {
 					if (to.size() > 0) {
 						geoTo = new GeoPoint((int) (to.get(0).getLatitude() * FACTOR), (int) (to.get(0).getLongitude() * FACTOR));
-						_addressOverlay.addOverlay(new OverlayItem(geoTo, "To", delivery.getDestination().toString()));
+						_addressOverlay.addOverlay(new OverlayItem(geoTo, "To", delivery.getAddressTo().toString()));
 					}
 				}
 				_addressOverlays.add(_addressOverlay);
