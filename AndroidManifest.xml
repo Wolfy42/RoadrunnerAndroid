@@ -36,25 +36,29 @@
         <!-- Roadrunner Activity -->
         <activity android:name=".activity.Roadrunner"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:screenOrientation="landscape">
         </activity>
         
         <!-- Delivery Activity -->
         <activity android:name=".activity.Deliveries"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/deliveries_title">
+                  android:label="@string/deliveries_title"
+                  android:screenOrientation="landscape">
         </activity>
         
         <!-- Items Activity -->
         <activity android:name=".activity.Items"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/items_title">
+                  android:label="@string/items_title"
+                  android:screenOrientation="landscape">
         </activity>
         
         <!-- Route Activity -->
         <activity android:name=".activity.DeliveryMap"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/map_title">
+                  android:label="@string/map_title"
+                  android:screenOrientation="landscape">
         </activity>
         
         <!-- Settings Activity -->
@@ -72,7 +76,8 @@
         <!-- SystemTest Activity -->
         <activity android:name=".activity.SystemTest"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/systemtest_title">
+                  android:label="@string/systemtest_title"
+                  android:screenOrientation="landscape">
         </activity>
         
          <!-- Monitoring Activity -->
