@@ -303,6 +303,19 @@ public class RequestWorker {
 		return null;
 	}
 	
+	public JSONArray getDeliveries()  {
+		try {
+			HttpGet get = RequestFactory.createLocalHttpGet("roadrunner/_design/roadrunnermobile/_view/deliveries?include_docs=true");
+			String contStr = new HttpExecutor().executeForResponse(get);
+			return new JSONArray(contStr);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (CouchDBException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public long getServerTime() throws CouchDBException {
 		HttpGet get = RequestFactory.createRemoteTimeHttpGet();
 		String contStr = new HttpExecutor().executeForResponse(get);
