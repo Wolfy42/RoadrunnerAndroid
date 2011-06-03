@@ -25,7 +25,7 @@ public class Config {
 	public static final String PROTOCOL = "http://";
 	public static final String URL = "127.0.0.1";
 	public static final String PORT = "5984";
-	public static final String TIME_PORT = "10500";
+	public static final String TIME_PORT = "10010";
 	
 	public static final String HOST = PROTOCOL + URL + ":" + PORT + "/";
 	public static final String AUTH_HOST = PROTOCOL + USERNAME + ":" + PASSWORD + "@" + URL + ":" + PORT + "/";
