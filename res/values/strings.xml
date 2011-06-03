@@ -53,7 +53,7 @@
         <item>pkw1</item>
     </string-array>
     <string name="pref_transportationid_summary">ID of the Transportation Document</string>
-    <string name="pref_transportation_id">Transportation ID</string>
+    <string name="pref_transportation_id">Transportation ID</string><string name="pref_loginsound_summary">Play famous Roadrunner Sound on Login</string><string name="pref_loginsound_name">Login Sound</string><string name="pref_other">Other Settings</string>
     <string name="systemtest_title">Roadrunner &gt; System Test</string><string name="systemtest_ok">OK</string>
     <string name="systemtest_fail">FAIL</string>
     <string name="systemtest_local_couch_db_installed">CouchDB is installed on this device</string><string name="systemtest_local_ini_file_exists">CouchDB configuration file is available</string><string name="systemtest_local_couch_db_running">CouchDB is running on this device</string>
@@ -94,4 +94,7 @@
     <string name="signature_done">Signature Done</string>
     <string name="signature_cancel">Cancel Signature</string>
     <string name="signature_title">Roadrunner &gt; Signature</string>
+    
+    
+    
 </resources>

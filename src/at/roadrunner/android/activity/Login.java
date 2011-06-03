@@ -15,6 +15,7 @@ import android.content.res.Resources.NotFoundException;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -105,8 +106,10 @@ public class Login extends Activity {
 			container = _container.getSelectedItem().toString();
 			String containerId = getIdForContainer(container);
 			if (new RequestWorker(this).isAuthenticatedAtServer(username, password))  {
-				MediaPlayer mp = MediaPlayer.create(this, R.raw.meepmeep);
-				mp.start();
+				if (prefs.getBoolean("loginSound", false) == true) {
+					MediaPlayer mp = MediaPlayer.create(this, R.raw.meepmeep);
+					mp.start();
+				}
 				
 				// save the used form values into the preferences
 				Editor edit = prefs.edit();
