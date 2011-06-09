@@ -8,10 +8,10 @@ public class Item implements Serializable {
 	private String _key;
 	private long _timestamp;
 	private String _name;
-	private int _maxTemp;
-	private int _minTemp;
+	private double _maxTemp;
+	private double _minTemp;
 	
-	public Item(String name, int minTemp, int maxTemp) {
+	public Item(String name, double minTemp, double maxTemp) {
 		_name = name;
 		_minTemp = minTemp;
 		_maxTemp = maxTemp;
@@ -46,19 +46,19 @@ public class Item implements Serializable {
 		return _name;
 	}
 
-	public int getMaxTemp() {
+	public double getMaxTemp() {
 		return _maxTemp;
 	}
 
-	public void setMaxTemp(int maxTemp) {
+	public void setMaxTemp(double maxTemp) {
 		_maxTemp = maxTemp;
 	}
 
-	public int getMinTemp() {
+	public double getMinTemp() {
 		return _minTemp;
 	}
 
-	public void setMinTemp(int minTemp) {
+	public void setMinTemp(double minTemp) {
 		_minTemp = minTemp;
 	}
 }

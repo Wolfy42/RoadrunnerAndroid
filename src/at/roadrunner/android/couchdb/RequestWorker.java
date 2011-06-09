@@ -307,7 +307,7 @@ public class RequestWorker {
 		try {
 			HttpGet get = RequestFactory.createLocalHttpGet("roadrunner/_design/roadrunnermobile/_view/deliveries?include_docs=true");
 			String contStr = new HttpExecutor().executeForResponse(get);
-			return new JSONArray(contStr);
+			return new JSONObject(contStr).getJSONArray("rows");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (CouchDBException e) {
