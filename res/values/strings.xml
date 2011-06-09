@@ -14,44 +14,18 @@
     	CouchDB.\n\nWould you like to download CouchDB now?
     </string><string name="roadrunner_dialog_firstStartCouchDB">You have to start the installed CouchDB App for the first time to finish the installation process.</string>
     <string name="roadrunner_dialog_startCouchDB">In order to use Roadrunner you have to start your CouchDB.</string>
-    <string name="roadrunner_dialog_closedCouchDB">Please start CouchDB to use Roadrunner!</string><string name="roadrunner_dialog_restartCouchDB">A new user has been created - please restart CouchDB! </string><string name="roadrunner_dialog_checkConnection">Please check your Server IP/Port in your settings and make sure you have established a connection (WiFi).</string><string name="info_title">Roadrunner &gt; Information</string><string name="info_text">
-    	Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den sueßen Fruehlingsmorgen, 
-    	die ich mit ganzem Herzen geniesse. Ich bin allein und freue mich meines Lebens in dieser Gegend, 
-    	die fuer solche Seelen geschaffen ist wie die meine. Ich bin so gluecklich, mein Bester, so ganz 
-    	in dem Gefuehle von ruhigem Dasein versunken, daß meine Kunst darunter leidet. Ich koennte jetzt nicht zeichnen, 
-    	nicht einen Strich, und bin nie ein groeßerer Maler gewesen als in diesen Augenblicken.
-    	Wenn das liebe Tal um mich dampft, und die hohe Sonne an der Oberflaeche der undurchdringlichen Finsternis 
-    	meines Waldes ruht, und nur einzelne Strahlen sich in das innere Heiligtum stehlen, ich dann im hohen Grase 
-    	am fallenden Bache liege, und näher an der Erde tausend mannigfaltige Graeschen mir merkwürdig werden,
-    	wenn ich das Wimmeln der kleinen Welt zwischen Halmen, die unzähligen, unergruendlichen Gestalten der Wuermchen, 
-    	der Mueckchen naeher an meinem Herzen fuehle, und fuehle die Gegenwart des Allmaechtigen, der uns 
-    	nach seinem Bilde schuf, das Wehen des Alliebenden, der uns in ewiger Wonne schwebend traegt und erhaelt -
-    	mein Freund! Wenns dann um meine Augen daemmert, und die Welt um mich her und der Himmel ganz in meiner 
-    	Seele ruhn wie die Gestalt einer Geliebten - dann sehne ich mich oft und denke - ach koenntest du das wieder 
-    	ausdruecken, koenntest du dem Papiere das einhauchen, was so voll, so warm in dir lebt, daß es wuerde der 
-    	Spiegel deiner Seele, wie deine Seele ist der Spiegel des unendlichen Gottes! - mein Freund - aber ich gehe darueber
-    	zugrunde, ich erliege unter der Gewalt der Herrlichkeit dieser Erscheinungen. Eine wunderbare Heiterkeit 
-    	hat meine ganze Seele eingenommen, gleich den sueßen Frühlingsmorgen, die ich mit ganzem Herzen geniesse.
+    <string name="roadrunner_dialog_closedCouchDB">Please start CouchDB to use Roadrunner!</string><string name="roadrunner_dialog_restartCouchDB">A new user has been created - please restart CouchDB! </string><string name="roadrunner_dialog_checkConnection">Please check your Server IP/Port in your settings and make sure you have established a connection (WiFi).</string><string name="info_title">Roadrunner &gt; Information</string>
+    <string name="info_header">
+    	Roadrunner App
+	</string>
+    <string name="info_text">
+    	\n\nProject Members of the Roadrunner Android App:\n\nMatthias Schmidt\nFranziskus Domig\nWolfgang Halbeisen\nStefan Gassner\n\n© 2011 The Roadrunner Project Team
 	</string>
     <string name="pref_title">Roadrunner &gt; Settings</string><string name="pref_server">Connection Settings</string>
     <string name="pref_server_ip">Server IP</string>
     <string name="pref_server_database">Databasename</string>
     
-    <string name="pref_authentication">User Settings</string><string name="pref_authentication_user">User Name</string><string name="pref_authentication_password">User Password</string><string name="pref_transportation">Transportation Settings</string><string name="pref_transportation_name">Transportation</string><string name="pref_transportation_summary">Select your actual transportation which you are using to deliver the goods</string><string-array name="pref_transportation_array">
-        <item>LKW 1</item>
-        <item>LKW 2</item>
-        <item>LKW 3</item>
-        <item>Van 1</item>
-        <item>Van 2</item>
-        <item>PKW 1</item>
-    </string-array><string-array name="pref_transportation_values">
-        <item>lkw1</item>
-        <item>lkw2</item>
-        <item>lkw3</item>
-        <item>van1</item>
-        <item>van2</item>
-        <item>pkw1</item>
-    </string-array>
+    <string name="pref_authentication">User Settings</string><string name="pref_authentication_user">User Name</string><string name="pref_authentication_password">User Password</string><string name="pref_transportation">Transportation Settings</string><string name="pref_transportation_name">Transportation</string><string name="pref_transportation_summary">Select your actual transportation which you are using to deliver the goods</string>
     <string name="pref_transportationid_summary">ID of the Transportation Document</string>
     <string name="pref_transportation_id">Transportation ID</string><string name="pref_loginsound_summary">Play famous Roadrunner Sound on Login</string><string name="pref_loginsound_name">Login Sound</string><string name="pref_other">Other Settings</string>
     <string name="systemtest_title">Roadrunner &gt; System Test</string><string name="systemtest_ok">OK</string>
