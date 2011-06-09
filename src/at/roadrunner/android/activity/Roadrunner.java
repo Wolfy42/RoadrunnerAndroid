@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -39,12 +38,6 @@ public class Roadrunner extends Activity {
 		setContentView(R.layout.activity_roadrunner);
 		
 		ServiceController.startAllServices(this);
-		
-		// GPS
-//		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-//		if (locationManager.isProviderEnabled (LocationManager.GPS_PROVIDER) == false) {
-//			startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), 0);
-//		}
 	}
 
 	@Override

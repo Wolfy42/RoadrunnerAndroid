@@ -5,16 +5,14 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.Context;
 import at.roadrunner.android.couchdb.RequestWorker;
-import at.roadrunner.android.model.Address;
 import at.roadrunner.android.model.Delivery;
 import at.roadrunner.android.model.Item;
+import at.roadrunner.android.model.Address;
 
 public class DeliveryController {
 
-	@SuppressWarnings("unused")
 	private Context _context;
 	
 	public DeliveryController(Context context) {

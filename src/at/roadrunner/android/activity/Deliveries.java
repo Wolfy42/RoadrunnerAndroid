@@ -17,9 +17,11 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
 import at.roadrunner.android.controller.DeliveryController;
 import at.roadrunner.android.model.Delivery;
+import at.roadrunner.android.util.AppInfo;
 
 public class Deliveries extends ListActivity {
 	@SuppressWarnings("unused")
@@ -37,26 +39,27 @@ public class Deliveries extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deliveries);
 		
-		_adapter = new DeliveryAdapter(this, R.layout.row_item_deliveries);
-		setListAdapter(_adapter);
-		
-		registerForContextMenu(getListView());
-		
-		// Runnable to fill the items in a Thread
-		Runnable showDeliveries = new Runnable() {
-			@Override
-			public void run() {
-				getDeliveries();
-			}
-		};
-
-		// start a new Thread to get the items
-		new Thread(null, showDeliveries, "getDeliveriesOfCouchDB").start();
-
-		// show the Progressbar
-		_progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait),getString(R.string.app_progress_retdata), true);
-	}
+		if (AppInfo.isAppRunning(this, Config.COUCHDB_SERVICE) ) {
+			_adapter = new DeliveryAdapter(this, R.layout.row_item_deliveries);
+			setListAdapter(_adapter);
+			
+			registerForContextMenu(getListView());
+			
+			// Runnable to fill the items in a Thread
+			Runnable showDeliveries = new Runnable() {
+				@Override
+				public void run() {
+					getDeliveries();
+				}
+			};
 	
+			// start a new Thread to get the items
+			new Thread(null, showDeliveries, "getDeliveriesOfCouchDB").start();
+	
+			// show the Progressbar
+			_progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait),getString(R.string.app_progress_retdata), true);
+		}
+	}
 
 	private void getDeliveries() {
 		_deliveries = new DeliveryController(this).getDeliveries();
