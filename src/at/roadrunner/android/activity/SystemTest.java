@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,8 +45,8 @@ public class SystemTest extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		setContentView(R.layout.activity_systemtest);
+		
 		_context = this;
 		_testCaseList = (GridView) findViewById(R.id.TestCaseList);
 		_progressBar = (ProgressBar) findViewById(R.id.systemstate_progressbar);
@@ -56,6 +57,12 @@ public class SystemTest extends Activity {
         _testCaseList.setAdapter(_adapter);
         
         new UpdateTask().execute();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	  super.onConfigurationChanged(newConfig);
+	  setContentView(R.layout.activity_systemtest);
 	}
 	
 	@Override

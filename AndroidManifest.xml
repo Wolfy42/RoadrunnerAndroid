@@ -78,8 +78,7 @@
         <!-- SystemTest Activity -->
         <activity android:name=".activity.SystemTest"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/systemtest_title"
-                  android:screenOrientation="landscape">
+                  android:label="@string/systemtest_title">
         </activity>
         
          <!-- Monitoring Activity -->
