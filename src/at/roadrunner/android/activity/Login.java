@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -59,7 +60,7 @@ public class Login extends Activity {
 		new Thread(null, _loadContainers, "getTransportations").start();
 
 		// show the Progressbar
-		_progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait), getString(R.string.app_progress_retdata), true);
+		_progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait), getString(R.string.login_load_transportations), true);
 		
 		_containerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
 		_containerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -67,7 +68,13 @@ public class Login extends Activity {
 		final Spinner cbxTransportation = (Spinner) findViewById(R.id.login_container);
 		cbxTransportation.setAdapter(_containerAdapter);
 	}
-
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	  super.onConfigurationChanged(newConfig);
+	  setContentView(R.layout.activity_login);
+	}
+	
 	private void loadTransportations() {
 		_containers = new ContainerController(this).getContainers();
 		runOnUiThread(updateActivity);
@@ -119,10 +126,11 @@ public class Login extends Activity {
 				startActivity(new Intent(this, Roadrunner.class));
 				finish();
 			}  else  {
-				Toast.makeText(this, "Not Authenticated", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, R.string.login_not_authenticated, Toast.LENGTH_SHORT).show();
 			}
 		} else {
-			Toast.makeText(this, "There are no Transportations available. Select \"Refresh Transportation\" in the Menu.", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.login_no_transportation, Toast.LENGTH_LONG).show();
+			openOptionsMenu();
 		}
 	}
 	

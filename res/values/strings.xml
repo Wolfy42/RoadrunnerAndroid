@@ -52,7 +52,7 @@
     <string name="login_txt_username">Username:</string>
     <string name="login_txt_password">Password:</string>
     <string name="login_txt_container">Select Your Transportation:</string><string name="login_btn_login">Login</string>
-    <string name="login_menu_refresh">Refresh Transportation</string><string name="login_menu_exit">Exit</string><string name="service_controller_title">Roadrunner &gt; Service Controller </string>
+    <string name="login_menu_refresh">Refresh Transportation</string><string name="login_menu_exit">Exit</string><string name="login_no_transportation">There are no Transportations available. \nSelect \&quot;Refresh Transportation\&quot; in the Menu.</string><string name="login_not_authenticated">You could not be authenticaed by the server. Please try again.</string><string name="login_load_transportations">Retrieving Transportations...</string><string name="service_controller_title">Roadrunner &gt; Service Controller </string>
     <string name="start_all_services">Start all Services</string>
     <string name="stop_all_services">Stop all Services</string>
     <string name="service_running">Service Running</string>
@@ -68,6 +68,9 @@
     <string name="signature_done">Signature Done</string>
     <string name="signature_cancel">Cancel Signature</string>
     <string name="signature_title">Roadrunner &gt; Signature</string>
+    
+    
+    
     
     
     
