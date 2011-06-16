@@ -6,6 +6,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -64,6 +65,12 @@ public class Deliveries extends ListActivity {
 	private void getDeliveries() {
 		_deliveries = new DeliveryController(this).getDeliveries();
 		runOnUiThread(updateActivity);
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	  super.onConfigurationChanged(newConfig);
+	  setContentView(R.layout.activity_deliveries);
 	}
 	
 	/*

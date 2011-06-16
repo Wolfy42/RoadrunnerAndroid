@@ -45,15 +45,13 @@
         <!-- Delivery Activity -->
         <activity android:name=".activity.Deliveries"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/deliveries_title"
-                  android:screenOrientation="landscape">
+                  android:label="@string/deliveries_title">
         </activity>
         
         <!-- Items Activity -->
         <activity android:name=".activity.Items"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/items_title"
-                  android:screenOrientation="landscape">
+                  android:label="@string/items_title">
         </activity>
         
         <!-- Route Activity -->
