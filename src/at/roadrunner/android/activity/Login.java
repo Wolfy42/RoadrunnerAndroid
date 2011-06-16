@@ -161,6 +161,9 @@ public class Login extends Activity {
         }
     }
     
+    /*
+     * returns the container Name
+     */
     private String getIdForContainer(String containerName) {
 		try {
 			for (JSONObject obj : _containers)  {
