@@ -1,7 +1,6 @@
 package at.roadrunner.android;
 
 import android.app.Application;
-import at.roadrunner.android.activity.ServiceController;
 
 public class ApplicationController extends Application {
 

@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import at.roadrunner.android.ApplicationController;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBService;
 import at.roadrunner.android.service.LoggingService;
@@ -28,7 +27,6 @@ public class ServiceController extends Activity implements OnClickListener  {
 	private Button _stopAllServices;
 	private Button _startAllServices;
 	private Button _stopRoadrunner;
-	private ApplicationController _applicationController;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +45,6 @@ public class ServiceController extends Activity implements OnClickListener  {
 		
 		_stopRoadrunner = (Button) findViewById(R.id.stop_roadrunner);
 		_stopRoadrunner.setOnClickListener(this);
-		
-		_applicationController = (ApplicationController) getApplicationContext();
 		
 		refreshStatus();
 	}
