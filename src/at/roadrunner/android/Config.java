@@ -10,6 +10,8 @@ public class Config {
 	// CouchDB Packages
 	public static final String COUCHDB_PACKAGE = "com.arandomurl.couchdb";
 	public static final String COUCHDB_SERVICE = "com.arandomurl.couchdb.CouchService";
+	// CouchDB - Service
+	public static final String COUCH_SERVICE = "com.couchone.libcouch.ICouchService";
 	
 	// Default preferences settings
 	public static final String ROADRUNNER_SERVER_NAME = "roadrunner";
@@ -39,9 +41,6 @@ public class Config {
 	
 	// dateformat (german)
 	public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-	
-	// CouchDB - Service
-	public static final String COUCH_SERVICE = "com.couchone.libcouch.ICouchService";
 	
 	// TemperatureSensor
 	public static final String TEMPERATUR_SENSOR_URL_1 = PROTOCOL + ROADRUNNER_SERVER_IP + ":" + "10001"; 

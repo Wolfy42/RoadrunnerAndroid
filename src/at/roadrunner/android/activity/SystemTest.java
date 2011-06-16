@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBService;
@@ -96,6 +95,9 @@ public class SystemTest extends Activity {
 			if ( (isFixUpNeeded = isFixUpNeeded() ) ) {
 				showFixUpDialog();
 			} else {
+				Intent resultIntent = new Intent();
+				resultIntent.putExtra("systemCheck", true);
+				setResult(Activity.RESULT_OK, resultIntent);
 				finish();
 			}
 		}
@@ -263,6 +265,12 @@ public class SystemTest extends Activity {
         case R.id.systemtest_menu_fixitup:
         	fixUpProblems();
             return true;
+        case R.id.systemtest_menu_exit:
+        	Intent resultIntent = new Intent();
+			resultIntent.putExtra("systemCheck", false);
+			setResult(Activity.RESULT_OK, resultIntent);
+			finish();
+        	return true;
         default:
             return super.onOptionsItemSelected(item);
         }

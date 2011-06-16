@@ -37,7 +37,7 @@ public class Roadrunner extends Activity {
 		setContentView(R.layout.activity_roadrunner);
 		
 		// SystemCheck
-		startActivity(new Intent(this, SystemTest.class));
+		startActivityForResult(new Intent(this, SystemTest.class), 1);
 	}
 	
 	@Override
@@ -103,6 +103,10 @@ public class Roadrunner extends Activity {
 	
 	/*
 	 * onActivityResult
+	 * 
+	 * Request Codes:
+	 * 0 -> Scan
+	 * 1 -> SystemTest
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -175,6 +179,21 @@ public class Roadrunner extends Activity {
 				
 				dialog.show();
 			} 
+		} else if (requestCode == 1) {
+			if (resultCode == RESULT_OK) {
+				if (intent.getBooleanExtra("systemCheck", false) == false) {
+					// show dialog
+					AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+					alertBuilder.setMessage(R.string.roadrunner_dialog_system_check_failed);
+					alertBuilder.setCancelable(false);
+					alertBuilder.setPositiveButton(R.string.app_dialog_ok, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							finish();
+						}
+					});
+					alertBuilder.show();
+				}
+			}
 		}
 	}
 
