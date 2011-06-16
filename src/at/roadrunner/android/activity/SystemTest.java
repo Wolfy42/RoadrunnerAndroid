@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBService;
@@ -78,6 +79,13 @@ public class SystemTest extends Activity {
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			_progressBar.setVisibility(View.INVISIBLE);
+			
+			if (isFixUpNeeded()) {
+				Toast.makeText(getApplicationContext(), R.string.systemtest_fixup_needed, Toast.LENGTH_LONG);
+				openOptionsMenu();
+			} else {
+				finish();
+			}
 		}
 		
 		@Override
@@ -197,6 +205,18 @@ public class SystemTest extends Activity {
 	}
 	
 	/*
+	 * returns true if at least one test case fails
+	 */
+	private boolean isFixUpNeeded() {
+		for (HashMap<String, String> map : _testList) {
+			if (map.get(RESULT).equals(getString(R.string.systemtest_fail) )) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/*
 	 * inflate menu
 	 */
 	@Override
@@ -214,18 +234,8 @@ public class SystemTest extends Activity {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
 		
-		boolean isFixUpNeeded = false;
-		
-		// disable fixItUp if there are no problems
-		for (HashMap<String, String> map : _testList) {
-			if (map.get(RESULT).equals(getString(R.string.systemtest_fail) )) {
-				isFixUpNeeded = true;
-				break;
-			}
-		}
-		
 		MenuItem item = menu.findItem(R.id.systemtest_menu_fixitup);
-		item.setEnabled(isFixUpNeeded);
+		item.setEnabled(isFixUpNeeded());
 
 		return true;
 	}

@@ -6,7 +6,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -93,7 +95,9 @@ public class Login extends Activity {
 					}
 				}
 				_containerAdapter.notifyDataSetChanged();
-			} 
+			} else {
+				showTransportationDialog();
+			}
 			_progressDialog.dismiss();
 		}
 	};
@@ -129,11 +133,29 @@ public class Login extends Activity {
 				Toast.makeText(this, R.string.login_not_authenticated, Toast.LENGTH_SHORT).show();
 			}
 		} else {
-			Toast.makeText(this, R.string.login_no_transportation, Toast.LENGTH_LONG).show();
-			openOptionsMenu();
+			showTransportationDialog();
 		}
 	}
 	
+	private void showTransportationDialog() {
+		// show dialog
+		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+		alertBuilder.setTitle(R.string.login_dialog_no_transportation_title);
+		alertBuilder.setMessage(R.string.login_dialog_no_transportation_body);
+		alertBuilder.setCancelable(false);
+		alertBuilder.setPositiveButton(R.string.app_dialog_yes, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				new Thread(null, _loadContainers, "getTransportations").start();
+			}
+		});
+		alertBuilder.setNegativeButton(R.string.app_dialog_no, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});	
+		alertBuilder.show();
+	}
+
 	/*
 	 * inflate menu
 	 */

@@ -31,7 +31,7 @@
     <string name="systemtest_title">Roadrunner &gt; System Test</string><string name="systemtest_ok">OK</string>
     <string name="systemtest_fail">FAIL</string>
     <string name="systemtest_local_couch_db_installed">CouchDB is installed on this device</string><string name="systemtest_local_ini_file_exists">CouchDB configuration file is available</string><string name="systemtest_local_couch_db_running">CouchDB is running on this device</string>
-    <string name="systemtest_local_couch_db_reachable">CouchDB (local) is reachable</string><string name="systemtest_local_admin_exists">Admin User exists</string><string name="systemtest_local_db_exists">Local Database exists</string><string name="systemtest_local_initial_replication">Local Database is initial replicated</string><string name="systemtest_remote_couch_db_reachable">CouchDB (remote) is reachable</string><string name="systemtest_menu_refresh">Refresh</string><string name="systemtest_menu_fixitup">Fix Problems</string>
+    <string name="systemtest_local_couch_db_reachable">CouchDB (local) is reachable</string><string name="systemtest_local_admin_exists">Admin User exists</string><string name="systemtest_local_db_exists">Local Database exists</string><string name="systemtest_local_initial_replication">Local Database is initial replicated</string><string name="systemtest_remote_couch_db_reachable">CouchDB (remote) is reachable</string><string name="systemtest_menu_refresh">Refresh</string><string name="systemtest_menu_fixitup">Fix Problems</string><string name="systemtest_fixup_needed">The System Check failed.\n\nDo you want Roadrunner to fix up the problems?</string>
     <string name="deliveries_title">Roadrunner &gt; Deliveries</string><string name="deliveries_noDeliveries">no deliveries available...</string>
     <string name="items_txt_status"></string><string name="items_txt_key">Key</string>
     <string name="items_txt_date">Scanned</string><string name="items_status_synchronize">Synchronize with Server...</string>
@@ -52,7 +52,7 @@
     <string name="login_txt_username">Username:</string>
     <string name="login_txt_password">Password:</string>
     <string name="login_txt_container">Select Your Transportation:</string><string name="login_btn_login">Login</string>
-    <string name="login_menu_refresh">Refresh Transportation</string><string name="login_menu_exit">Exit</string><string name="login_no_transportation">There are no Transportations available. \nSelect \&quot;Refresh Transportation\&quot; in the Menu.</string><string name="login_not_authenticated">You could not be authenticaed by the server. Please try again.</string><string name="login_load_transportations">Retrieving Transportations...</string><string name="service_controller_title">Roadrunner &gt; Service Controller </string>
+    <string name="login_menu_refresh">Refresh Transportation</string><string name="login_menu_exit">Exit</string><string name="login_no_transportation">There are no Transportations available. \nSelect \&quot;Refresh Transportation\&quot; in the Menu.</string><string name="login_not_authenticated">You could not be authenticaed by the server. Please try again.</string><string name="login_load_transportations">Retrieving Transportations...</string><string name="login_dialog_no_transportation_title">Transportation failed to load</string><string name="login_dialog_no_transportation_body">Do you want Roadrunner try loading the transportations again?</string><string name="service_controller_title">Roadrunner &gt; Service Controller </string>
     <string name="start_all_services">Start all Services</string>
     <string name="stop_all_services">Stop all Services</string>
     <string name="service_running">Service Running</string>
@@ -68,6 +68,9 @@
     <string name="signature_done">Signature Done</string>
     <string name="signature_cancel">Cancel Signature</string>
     <string name="signature_title">Roadrunner &gt; Signature</string>
+    
+    
+    
     
     
     
