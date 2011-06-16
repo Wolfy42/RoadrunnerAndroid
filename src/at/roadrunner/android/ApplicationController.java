@@ -10,8 +10,6 @@ public class ApplicationController extends Application {
 		super.onCreate();
 		
 		// start the services
-		ServiceController.startAllServices(this);
-		
-		
+		//new ServiceController().startAllServices(this);
 	}
 }

@@ -12,7 +12,7 @@
       <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"  />
       <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
-    <application android:icon="@drawable/icon" android:label="@string/app_name" 
+    <application android:icon="@drawable/ic_roadrunner" android:label="@string/app_name" 
     			 android:name=".ApplicationController" android:debuggable="true">
     	<!-- Google Maps -->
     	<uses-library android:name="com.google.android.maps" />
@@ -27,7 +27,8 @@
         <activity android:name=".activity.Login"
         		  android:theme="@style/Theme.Roadrunner"
                   android:label="@string/app_name"
-                  android:configChanges="keyboardHidden|orientation">
+                  android:configChanges="keyboardHidden|orientation"
+                  android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -37,6 +37,8 @@ public class SystemTest extends Activity {
 	private ProgressBar _progressBar;
 	private Context _context;
 	
+	private boolean isFixUpNeeded = true;
+	
 	@SuppressWarnings("unused")
 	private static final String TAG = "SystemTest";
 	
@@ -57,6 +59,17 @@ public class SystemTest extends Activity {
         new UpdateTask().execute();
 	}
 	
+	@Override
+	public void onBackPressed() {
+		if (isFixUpNeeded) {
+			showFixUpDialog();
+		}
+	}
+
+	private void showFixUpDialog() {
+		openOptionsMenu();
+	}
+
 	class UpdateTask extends AsyncTask<Void, TestCase, Void>  {
 
 		@Override
@@ -80,9 +93,8 @@ public class SystemTest extends Activity {
 			super.onPostExecute(result);
 			_progressBar.setVisibility(View.INVISIBLE);
 			
-			if (isFixUpNeeded()) {
-				Toast.makeText(getApplicationContext(), R.string.systemtest_fixup_needed, Toast.LENGTH_LONG);
-				openOptionsMenu();
+			if ( (isFixUpNeeded = isFixUpNeeded() ) ) {
+				showFixUpDialog();
 			} else {
 				finish();
 			}
@@ -162,7 +174,6 @@ public class SystemTest extends Activity {
 		alert.show();
 	}
 	
-	
 	private void installCouchDB() {
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
 		alertBuilder.setMessage(R.string.roadrunner_dialog_firstStartCouchDB);
@@ -194,7 +205,7 @@ public class SystemTest extends Activity {
 		alertBuilder.setMessage(R.string.roadrunner_dialog_checkConnection);
 		AlertDialog alert = alertBuilder.create();
 		
-		alert.show();		
+		alert.show();	
 	}
 	
 	/*

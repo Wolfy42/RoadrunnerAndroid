@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import at.roadrunner.android.ApplicationController;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.CouchDBService;
 import at.roadrunner.android.service.LoggingService;
@@ -27,6 +28,7 @@ public class ServiceController extends Activity implements OnClickListener  {
 	private Button _stopAllServices;
 	private Button _startAllServices;
 	private Button _stopRoadrunner;
+	private ApplicationController _applicationController;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class ServiceController extends Activity implements OnClickListener  {
 		
 		_stopRoadrunner = (Button) findViewById(R.id.stop_roadrunner);
 		_stopRoadrunner.setOnClickListener(this);
+		
+		_applicationController = (ApplicationController) getApplicationContext();
 		
 		refreshStatus();
 	}
@@ -83,10 +87,8 @@ public class ServiceController extends Activity implements OnClickListener  {
 		refreshStatus();
 	}
 	
-	public static void showRoadrunnerNotification(Context context)  {
-		
+	public void showRoadrunnerNotification(Context context)  {
 		NotificationManager _notificationMgr = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-		
 		cancelNotification(context);
 		
 		Notification notification = new Notification(R.drawable.ic_roadrunner_notification,
@@ -103,12 +105,12 @@ public class ServiceController extends Activity implements OnClickListener  {
 		_notificationMgr.notify(R.id.service_notification_id, notification);	
 	}
 	
-	private static void cancelNotification(Context context)  {
+	private void cancelNotification(Context context)  {
 		NotificationManager _notificationMgr = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
 		_notificationMgr.cancel(R.id.service_notification_id);
 	}
 
-	public static void startAllServices(Context context) {
+	public void startAllServices(Context context) {
 		CouchDBService.startCouchDB(context);
 		
 		context.startService(new Intent(context, MonitoringService.class));
@@ -118,7 +120,7 @@ public class ServiceController extends Activity implements OnClickListener  {
 		showRoadrunnerNotification(context);
 	}
 	
-	public static void stopAllServices(Context context)  {
+	public void stopAllServices(Context context)  {
 		context.stopService(new Intent(context, MonitoringService.class));
 		context.stopService(new Intent(context, LoggingService.class));
 		context.stopService(new Intent(context, ReplicatorService.class));

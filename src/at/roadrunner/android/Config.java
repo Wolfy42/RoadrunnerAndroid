@@ -8,8 +8,8 @@ public class Config {
 	public static final String LOCAL_INI = "/sdcard/couch/etc/couchdb/local.ini";
 	
 	// CouchDB Packages
-	public static final String COUCHDB_PACKAGE = "com.couchone.couchdb";
-	public static final String COUCHDB_SERVICE = "com.couchone.couchdb.CouchService";
+	public static final String COUCHDB_PACKAGE = "com.arandomurl.couchdb";
+	public static final String COUCHDB_SERVICE = "com.arandomurl.couchdb.CouchService";
 	
 	// Default preferences settings
 	public static final String ROADRUNNER_SERVER_NAME = "roadrunner";

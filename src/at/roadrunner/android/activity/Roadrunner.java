@@ -35,6 +35,9 @@ public class Roadrunner extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_roadrunner);
+		
+		// SystemCheck
+		startActivity(new Intent(this, SystemTest.class));
 	}
 	
 	@Override
