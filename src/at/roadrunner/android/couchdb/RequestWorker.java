@@ -87,7 +87,7 @@ public class RequestWorker {
 
 		return result;
 	}
-
+	
 	/*
 	 * get local stored items
 	 */

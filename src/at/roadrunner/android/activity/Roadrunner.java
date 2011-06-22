@@ -59,7 +59,6 @@ public class Roadrunner extends Activity {
 	private void setLayout() {
 		setContentView(R.layout.activity_roadrunner);
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-		actionBar.setTitle("Roadrunner");
 		actionBar.setHomeAction(new IntentAction(this, new Intent(this, Roadrunner.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), R.drawable.ic_title_home_default));
 	}
 	

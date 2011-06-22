@@ -10,11 +10,13 @@ public class Item implements Serializable {
 	private String _name;
 	private double _maxTemp;
 	private double _minTemp;
+	private boolean _loaded;
 	
-	public Item(String name, double minTemp, double maxTemp) {
+	public Item(String name, double minTemp, double maxTemp, boolean loaded) {
 		_name = name;
 		_minTemp = minTemp;
 		_maxTemp = maxTemp;
+		_loaded = loaded;
 	}
 	
 	public Item(String key, long timestamp) {
@@ -60,5 +62,9 @@ public class Item implements Serializable {
 
 	public void setMinTemp(double minTemp) {
 		_minTemp = minTemp;
+	}
+	
+	public boolean isLoaded()  {
+		return _loaded;
 	}
 }
