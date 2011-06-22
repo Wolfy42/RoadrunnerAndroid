@@ -319,7 +319,12 @@ public class RequestWorker {
 	public long getServerTime() throws CouchDBException {
 		HttpGet get = RequestFactory.createRemoteTimeHttpGet();
 		String contStr = new HttpExecutor().executeForResponse(get);
-		return Long.valueOf(contStr);
+		try {
+			return Long.valueOf(contStr);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return 0;
 	}
 
 	private String getAuthenticatedRemoteUrl()  {

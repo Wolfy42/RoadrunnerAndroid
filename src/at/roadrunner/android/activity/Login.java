@@ -47,7 +47,7 @@ public class Login extends Activity {
 		setContentView(R.layout.activity_login);
 
 		// start the services
-		new ServiceController().startAllServices(this);
+		//new ServiceController().startAllServices(this);
 		
 		_username = (EditText) findViewById(R.id.login_username);
 		_password = (EditText) findViewById(R.id.login_password);

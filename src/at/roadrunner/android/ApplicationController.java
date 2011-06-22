@@ -1,6 +1,7 @@
 package at.roadrunner.android;
 
 import android.app.Application;
+import at.roadrunner.android.activity.ServiceController;
 
 public class ApplicationController extends Application {
 
@@ -9,6 +10,6 @@ public class ApplicationController extends Application {
 		super.onCreate();
 		
 		// start the services
-		//new ServiceController().startAllServices(this);
+		new ServiceController().startAllServices(this);
 	}
 }
