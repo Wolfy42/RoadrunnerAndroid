@@ -26,7 +26,7 @@ public class DeliveryController {
 		JSONObject obj;
 		Delivery delivery = null;
 		try {
-			for (int i=0; i < arr.length()-1; i++)  {
+			for (int i=0; i < arr.length(); i++)  {
 				obj = arr.getJSONObject(i);
 				if (delivery == null || !delivery.getTrackingNumber().equals(obj.getString("id")))  {
 					delivery = new Delivery(obj.getString("id"));

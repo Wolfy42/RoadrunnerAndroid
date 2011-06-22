@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import at.roadrunner.android.ApplicationController;
 import at.roadrunner.android.R;
 import at.roadrunner.android.controller.ContainerController;
 import at.roadrunner.android.couchdb.RequestWorker;
@@ -36,6 +37,7 @@ public class Login extends Activity {
 	private ProgressDialog _progressDialog = null;
 	private ArrayAdapter<String> _containerAdapter;
 	private ArrayList<JSONObject> _containers;
+	private ApplicationController _ac;
 	
 	private EditText _username; 
 	private EditText _password;
@@ -50,25 +52,31 @@ public class Login extends Activity {
 		_password = (EditText) findViewById(R.id.login_password);
 		_container = (Spinner) findViewById(R.id.login_container);
 		
-		// Runnable to fill the items in a Thread
-		_loadContainers = new Runnable() {
-			@Override
-			public void run() {
-				loadTransportations();
-			}
-		};
-
-		// start a new Thread to get the items
-		new Thread(null, _loadContainers, "getTransportations").start();
-
-		// show the Progressbar
-		_progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait), getString(R.string.login_load_transportations), true);
-		
-		_containerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-		_containerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		
-		final Spinner cbxTransportation = (Spinner) findViewById(R.id.login_container);
-		cbxTransportation.setAdapter(_containerAdapter);
+		_ac = (ApplicationController)getApplicationContext();
+		if (_ac.getLoginStatus() == true) {
+			startActivity(new Intent(this, Roadrunner.class));
+			finish();
+		} else {
+			// Runnable to fill the items in a Thread
+			_loadContainers = new Runnable() {
+				@Override
+				public void run() {
+					loadTransportations();
+				}
+			};
+	
+			// start a new Thread to get the items
+			new Thread(null, _loadContainers, "getTransportations").start();
+	
+			// show the Progressbar
+			_progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait), getString(R.string.login_load_transportations), true);
+			
+			_containerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+			_containerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			
+			final Spinner cbxTransportation = (Spinner) findViewById(R.id.login_container);
+			cbxTransportation.setAdapter(_containerAdapter);
+		}
 	}
 	
 	@Override
@@ -126,6 +134,8 @@ public class Login extends Activity {
 				edit.putString("transportation", container);
 				edit.putString("transportationId", containerId);
 				edit.commit();
+				
+				_ac.setLoginStatus(true);
 				
 				startActivity(new Intent(this, Roadrunner.class));
 				finish();

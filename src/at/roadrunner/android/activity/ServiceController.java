@@ -79,6 +79,7 @@ public class ServiceController extends Activity implements OnClickListener  {
 				stopAllServices(this);
 				cancelNotification(this);
 				finish();
+				System.exit(0);
 		}
 		refreshStatus();
 	}
