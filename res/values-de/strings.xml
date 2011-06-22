@@ -1,4 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Roadrunner</string>
+        <string name="app_dialog_yes">Ja</string>
+    <string name="app_dialog_ok">Ok</string>
+    <string name="app_dialog_no">Nein</string><string name="app_progress_pleasewait">Bitte warten...</string>
+    <string name="app_progress_retdata">Empfange Daten...</string><string name="roadrunner_scan">Scan Paket</string>
+    <string name="roadrunner_deliveries">Meine Lieferungen</string><string name="roadrunner_menu_settings">Systemeinstellungen</string>
+    <string name="roadrunner_dialog_missingScanner">Um die Roadrunner-App verwenden zu können benötigen Sie einen QR-barcode Scanner.\n\nMöchten Sie jetzt einen Scanner herunterladen?
+    </string>
+    <string name="roadrunner_dialog_missingCouchDB">Um die Roadrunner-App verwenden zu können benötigen Sie CouchDB.\n\nMöchten Sie CouchDB jetzt herunterladen?</string><string name="roadrunner_dialog_firstStartCouchDB">Sie müssen die Installierte CouchDB-App starten um den Installationsvorgang abzuschließen.</string><string name="roadrunner_dialog_checkConnection">Bitte überprüfen Sie die IP/Port-Einstellungen in den Systemenstellungen und überprüfen Sie ob Sie Internetzugang (WiFi) haben.</string>
+    <string name="pref_title">Roadrunner &gt; Systemeinstellungen</string><string name="pref_server">Verbindungseinstellungen</string>
+    <string name="pref_server_ip">Server IP</string>
+    <string name="pref_server_database">Datenbankname</string>
+    
+    <string name="pref_authentication">Benutzereinstellungen</string><string name="pref_authentication_user">Benutzername</string><string name="pref_authentication_password">Benutzerpasswort</string><string name="pref_transportation">Transportmittel-Einstellungen</string><string name="pref_transportation_name">Transportmittel</string><string name="pref_transportation_summary">Wählen Sie das Transportmittel, dass Sie zum Transport der Pakete verwenden.</string>
+    <string name="pref_transportationid_summary">ID des Transportmittel-Dokuments.</string>
+    <string name="pref_transportation_id">Transportmittel ID</string><string name="pref_loginsound_summary">Bekanntes Roadrunner-Lied beim Login abspielen.</string><string name="pref_loginsound_name">Login Lied</string><string name="pref_other">Andere Einstellungen</string>
+    <string name="systemtest_title">Roadrunner &gt; Systemtest</string><string name="systemtest_ok">OK</string>
+    <string name="systemtest_fail">FEHLER</string>
+    <string name="systemtest_local_couch_db_installed">CouchDB ist auf dem Gerät installiert.</string><string name="systemtest_local_ini_file_exists">CouchDB Konfiguration verfügbar.</string><string name="systemtest_local_couch_db_running">CouchDB läuft auf dem Device.</string>
+    <string name="systemtest_local_couch_db_reachable">CouchDB ist auf dem Gerät erreichbar.</string><string name="systemtest_local_admin_exists">Adminbenutzer existiert.</string><string name="systemtest_local_db_exists">Lokale Datenbank existiert.</string><string name="systemtest_local_initial_replication">Lokale Datenbank ist initial repliziert.</string><string name="systemtest_remote_couch_db_reachable">CouchDB (Server) ist erreichbar.</string><string name="systemtest_menu_refresh">Aktualisieren</string><string name="systemtest_menu_fixitup">Probleme beheben</string>
+    <string name="deliveries_title">Roadrunner &gt; Lieferungen</string><string name="deliveries_noDeliveries">keine Lieferungen vorhanden...</string>
+    <item type="id" name="service_notification_id" />
+    <string name="service_label">Roadrunner Services</string>
+    <string name="service_infotext">Wählen für Service-Details</string>
+    <string name="login_txt_username">Benutzername:</string>
+    <string name="login_txt_password">Passwort:</string>
+    <string name="login_txt_container">Transportmittel wählen:</string><string name="login_btn_login">Login</string>
+    <string name="login_menu_refresh">Transportmittel aktualisieren</string><string name="login_menu_exit">Exit</string><string name="login_not_authenticated">Authentifizierung fehlgeschlagen. Bittte versuchen Sie es nochmal.</string><string name="login_load_transportations">Empfange Transportmittel...</string><string name="login_dialog_no_transportation_title">Aktualisierung der Transportmittel fehlgeschlagen.</string><string name="login_dialog_no_transportation_body">Soll von Roadrunner nochmals versucht werden die Transportmittel zu aktualisieren?</string><string name="service_controller_title">Roadrunner &gt; Service Kontroller</string>
+    <string name="start_all_services">Alle Services starten</string>
+    <string name="stop_all_services">Alle Services stoppen</string>
+    <string name="service_running">Service läuft</string>
+    <string name="service_not_running">Service gestoppt</string>
+    <string name="stop_roadrunner">Stop Roadrunner</string>
+    <string name="logging">Logging</string>
+    <string name="monitoring">Überwachung</string>
+    <string name="replicating">Replizierung</string>
+    <string name="items_noItems">Keine Pakete vorhanden...</string>
+    <string name="items_title">Roadrunner &gt; Lieferungen &gt; Pakete</string>
+    <string name="map_title">Roadrunner &gt; Lieferungen&gt; Route</string>
+    <string name="signature_done">Unterschrift fertig.</string>
+    <string name="signature_cancel">Unterschrift zurücksetzen.</string>
+    <string name="signature_title">Roadrunner &gt; Unterschrift</string>
+    <string name="roadrunner_dialog_system_check_failed">Systemcheck fehlgeschlagen. App wird beendet..\n\nBitte kontaktieren Sie den Systemadministrator.</string>
+    <string name="roadrunner_dialog_exit_app_title">Roadrunner beenden</string>
+    <string name="roadrunner_dialog_exit_app">Möchten Sie Roadrunner wirklich beenden?</string>
+    <string name="systemtest_menu_exit">Exit</string>
+    <string name="roadrunner_dialog_scan_cancel">Paketoperation wurde unterbruchen.</string>
+    <string name="roadrunner_dialog_scan_load">Paket wurde aufgeladen.</string>
+    <string name="roadrunner_dialog_scan_unload">Paket wurde abgeladen.</string>
+    <string name="roadrunner_dialog_scan_deliver">Paket wurde geliefert.</string>
+    <string name="roadrunner_dialog_scan_title">Paketoperation wählen.</string>
+    <string name="roadrunner_dialog_load">Paket laden</string>
+    <string name="roadrunner_dialog_unload">Paket abladen</string>
+    <string name="roadrunner_dialog_deliver">Paket abliefern</string>
 </resources>
