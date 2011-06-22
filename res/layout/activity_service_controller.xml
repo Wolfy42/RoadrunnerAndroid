@@ -3,74 +3,33 @@
    android:orientation="vertical"
    android:layout_width="fill_parent"
    android:layout_height="fill_parent">
+    <TableLayout android:layout_height="wrap_content" android:id="@+id/tableLayout1" android:padding="20dip" android:layout_width="fill_parent" android:gravity="center|center_vertical|center_horizontal">
+        <TableRow android:layout_width="wrap_content" android:id="@+id/tableRow1" android:layout_height="wrap_content" android:gravity="center_horizontal">
+            <TextView android:layout_height="wrap_content" android:text="@string/logging" android:layout_width="wrap_content" android:paddingRight="5dip"></TextView>
+            <TextView android:layout_height="wrap_content" android:id="@+id/logging_status" android:layout_width="wrap_content"></TextView>
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:id="@+id/tableRow2" android:layout_height="wrap_content" android:gravity="center_horizontal">
+            <TextView android:layout_height="wrap_content" android:text="@string/monitoring" android:layout_width="wrap_content" android:paddingRight="10dip"></TextView>
+            <TextView android:layout_height="wrap_content" android:id="@+id/monitoring_status" android:layout_width="wrap_content"></TextView>
+        </TableRow>
+        <TableRow android:layout_width="wrap_content" android:id="@+id/tableRow3" android:layout_height="wrap_content" android:gravity="center_horizontal">
+            <TextView android:layout_height="wrap_content" android:text="@string/replicating" android:layout_width="wrap_content"></TextView>
+            <TextView android:layout_height="wrap_content" android:id="@+id/replicating_status" android:layout_width="wrap_content"></TextView>
+        </TableRow>
+    </TableLayout>
    
    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	   android:orientation="horizontal"
-	   android:layout_width="wrap_content"
-	   android:layout_height="wrap_content">
-	   
-	   <TextView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="@string/logging"/>
-	   
-	   <TextView
-		    android:id="@+id/logging_status"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"/>
+	   android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center|center_horizontal" android:layout_width="fill_parent">
+       <Button android:text="@string/start_all_services" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/start_all_services"></Button>
+       <Button android:text="@string/stop_all_services" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/stop_all_services" android:layout_marginLeft="10dip"></Button>
 	   
 	</LinearLayout>
    
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	   android:orientation="horizontal"
-	   android:layout_width="wrap_content"
-	   android:layout_height="wrap_content">
-	   
-	   <TextView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="@string/monitoring"/>
-	   
-	   <TextView
-		    android:id="@+id/monitoring_status"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"/>
+	   android:layout_height="wrap_content" android:layout_width="fill_parent" android:gravity="center_horizontal" android:paddingTop="20dip">
+		<Button android:text="@string/stop_roadrunner" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/stop_roadrunner"></Button>
 	   
 	</LinearLayout>
-	
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	   android:orientation="horizontal"
-	   android:layout_width="wrap_content"
-	   android:layout_height="wrap_content">
-	   
-	   <TextView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="@string/replicating"/>
-	   
-	   <TextView
-		    android:id="@+id/replicating_status"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"/>
-	   
-	</LinearLayout>
-	     
-	<Button
-	    android:id="@+id/start_all_services"
-	    android:text="@string/start_all_services"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"/>
-	      
-	<Button
-	    android:id="@+id/stop_all_services"
-	    android:text="@string/stop_all_services"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"/>
-	    
-	<Button
-	    android:id="@+id/stop_roadrunner"
-	    android:text="@string/stop_roadrunner"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"/>
 	        
 </LinearLayout>
