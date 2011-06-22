@@ -2,9 +2,13 @@ package at.roadrunner.android.activity;
 
 import java.util.ArrayList;
 
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,6 +37,11 @@ public class Items extends ListActivity {
 			return;
 		}
 		
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setTitle("Roadrunner > Deliveries > Packets");
+		actionBar.setHomeAction(new IntentAction(this, new Intent(this, Roadrunner.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), R.drawable.ic_title_home_default));
+		actionBar.addAction(new IntentAction(this, createMapIntent(), R.drawable.ic_title_map_default));
+		
 		_adapter = new ItemAdapter(this, R.layout.row_item_deliveries);
 		setListAdapter(_adapter);
 		
@@ -51,6 +60,12 @@ public class Items extends ListActivity {
 
 		// show the Progressbar
 		_progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait),getString(R.string.app_progress_retdata), true);
+	}
+	
+	private Intent createMapIntent() {
+		Intent mapIntent = new Intent(this, DeliveryMap.class);
+		mapIntent.putExtra("Delivery", _delivery);
+		return mapIntent;
 	}
 	
 	@Override

@@ -6,6 +6,7 @@ import at.roadrunner.android.activity.ServiceController;
 public class ApplicationController extends Application {
 
 	private boolean _loginStatus = false;
+	private boolean _systemStatus = false;
 	
 	@Override
 	public void onCreate() {
@@ -21,5 +22,13 @@ public class ApplicationController extends Application {
 
 	public boolean getLoginStatus() {
 		return _loginStatus;
+	}
+
+	public void setSystemStatus(boolean systemStatus) {
+		_systemStatus = systemStatus;
+	}
+
+	public boolean getSystemStatus() {
+		return _systemStatus;
 	}
 }
