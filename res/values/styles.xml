@@ -3,7 +3,7 @@
     <style name="Theme" parent="android:Theme"></style>
 
     <style name="Theme.Roadrunner" parent="android:style/Theme.Light">
-        <!-- <item name="android:windowNoTitle">true</item> -->
+        <item name="android:windowNoTitle">true</item>
     </style>
     
     <style name="NavigationButton">
@@ -56,4 +56,5 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    
 </resources>

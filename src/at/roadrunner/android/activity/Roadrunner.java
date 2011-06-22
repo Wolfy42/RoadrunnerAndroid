@@ -20,32 +20,49 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+import at.roadrunner.android.ApplicationController;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Log.LogType;
 import at.roadrunner.android.util.AppInfo;
 
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+
 public class Roadrunner extends Activity {
 	// Intent for scanning
 	private static final String SCAN_INTENT = "com.google.zxing.client.android.SCAN";
 	private static final String SCAN_PACKAGE = "com.google.zxing.client.android";
 	
+	private ApplicationController _ac;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_roadrunner);
+		setLayout();
+		
+		_ac = (ApplicationController)getApplicationContext();
 		
 		// SystemCheck
-		startActivityForResult(new Intent(this, SystemTest.class), 1);
+		if (_ac.getSystemStatus() == false) {
+			startActivityForResult(new Intent(this, SystemTest.class), 1);
+		}
 	}
 	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 	  super.onConfigurationChanged(newConfig);
-	  setContentView(R.layout.activity_roadrunner);
+	  setLayout();
 	}
 
+	private void setLayout() {
+		setContentView(R.layout.activity_roadrunner);
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setTitle("Roadrunner");
+		actionBar.setHomeAction(new IntentAction(this, new Intent(this, Roadrunner.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), R.drawable.ic_title_home_default));
+	}
+	
 	@Override
 	public void onBackPressed() {
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -69,8 +86,6 @@ public class Roadrunner extends Activity {
 		scan();
 		openContextMenu(view);
 	}
-	
-	
 	
 	public void onDeliveriesClick(View view) {
 		startActivity(new Intent(this, Deliveries.class));
@@ -209,6 +224,9 @@ public class Roadrunner extends Activity {
 						}
 					});
 					alertBuilder.show();
+				} else {
+					ApplicationController ac = (ApplicationController)getApplicationContext();
+					ac.setSystemStatus(true);
 				}
 			}
 		}

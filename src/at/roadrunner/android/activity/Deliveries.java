@@ -2,6 +2,9 @@ package at.roadrunner.android.activity;
 
 import java.util.ArrayList;
 
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -39,6 +42,10 @@ public class Deliveries extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deliveries);
+		
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setTitle("Roadrunner > Deliveries");
+		actionBar.setHomeAction(new IntentAction(this, new Intent(this, Roadrunner.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), R.drawable.ic_title_home_default));
 		
 		if (AppInfo.isAppRunning(this, Config.COUCHDB_SERVICE) ) {
 			_adapter = new DeliveryAdapter(this, R.layout.row_item_deliveries);
@@ -137,8 +144,8 @@ public class Deliveries extends ListActivity {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		
-		menu.add(0, MENU_ITEM_SHOW, 0, "Show Item");
-		menu.add(0, MENU_ROUTE_SHOW, 0, "Show Route");
+		menu.add(0, MENU_ITEM_SHOW, 0, "Show Packets of Delivery");
+		menu.add(0, MENU_ROUTE_SHOW, 0, "Show Route of Delivery");
 	}
 
 	@Override
