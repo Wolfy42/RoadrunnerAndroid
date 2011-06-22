@@ -70,6 +70,8 @@ public class Roadrunner extends Activity {
 		openContextMenu(view);
 	}
 	
+	
+	
 	public void onDeliveriesClick(View view) {
 		startActivity(new Intent(this, Deliveries.class));
 	}
@@ -130,11 +132,17 @@ public class Roadrunner extends Activity {
 				final RequestWorker reqWorker = new RequestWorker(this);
 				
 				// get layout
-				AlertDialog.Builder sd = new AlertDialog.Builder(this).setTitle("Perform Action");
+				AlertDialog.Builder sd = new AlertDialog.Builder(this).setTitle(R.string.roadrunner_dialog_scan_title);
+				sd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+				    @Override
+					public void onCancel(DialogInterface dialog) {
+				         Toast.makeText(getApplicationContext(), R.string.roadrunner_dialog_scan_cancel, Toast.LENGTH_SHORT).show();
+				    }
+				});
+				
 				View scanView = getLayoutInflater().inflate(R.layout.dialog_scan, (ViewGroup)findViewById(R.id.dialog_scan_root));
 				Button btnLoad = (Button) scanView.findViewById(R.id.roadrunner_dialog_scan_load);
 				Button btnUnload = (Button) scanView.findViewById(R.id.roadrunner_dialog_scan_unload);
-				Button btnView = (Button) scanView.findViewById(R.id.roadrunner_dialog_scan_view);
 				Button btnDeliver = (Button) scanView.findViewById(R.id.roadrunner_dialog_scan_deliver);
 				sd.setView(scanView);
 				
@@ -152,6 +160,7 @@ public class Roadrunner extends Activity {
 		                	// save the log
 		    				reqWorker.saveLog(new JSONArray().put(item), LogType.LOAD, container, null);
 		    				dialog.dismiss();
+		    				Toast.makeText(getApplicationContext(), R.string.roadrunner_dialog_scan_load, Toast.LENGTH_SHORT).show();
 	                    }
 	                });
 				
@@ -161,13 +170,7 @@ public class Roadrunner extends Activity {
 		                	// save the log
 		                	reqWorker.saveLog(new JSONArray().put(item), LogType.UNLOAD, container, null);
 		                	dialog.dismiss();
-	                    }
-	                });
-				
-				btnView.setOnClickListener(new OnClickListener() {
-	                @Override
-	                    public void onClick(View v) {
-	                		dialog.dismiss();
+		                	Toast.makeText(getApplicationContext(), R.string.roadrunner_dialog_scan_unload, Toast.LENGTH_SHORT).show();
 	                    }
 	                });
 				
@@ -179,6 +182,7 @@ public class Roadrunner extends Activity {
 						intent.putExtra("container", container);
 						startActivity(intent);
 						dialog.dismiss();
+						Toast.makeText(getApplicationContext(), R.string.roadrunner_dialog_scan_deliver, Toast.LENGTH_SHORT).show();
 					}
 				});
 				
@@ -187,7 +191,6 @@ public class Roadrunner extends Activity {
 					btnLoad.setEnabled(false);
 				} else {
 					btnUnload.setEnabled(false);
-					btnView.setEnabled(false);
 					btnDeliver.setEnabled(false);
 				}
 				
