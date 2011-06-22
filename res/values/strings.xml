@@ -54,6 +54,9 @@
     <string name="roadrunner_dialog_scan_unload">The Packet was unloaded.</string>
     <string name="roadrunner_dialog_scan_deliver">The Packet was delivered.</string>
     <string name="roadrunner_dialog_scan_title">Choose Packet Operation</string>
+    <string name="roadrunner_dialog_load">Load Packet</string>
+    <string name="roadrunner_dialog_unload">Unload Packet</string>
+    <string name="roadrunner_dialog_deliver">Deliver Packet</string>
     
     
     

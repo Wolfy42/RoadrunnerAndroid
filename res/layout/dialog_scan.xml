@@ -10,15 +10,15 @@
 	  		android:id="@+id/roadrunner_dialog_scan_load"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:text="Load Packet"/>
+	        android:text="@string/roadrunner_dialog_load"/>
 	    <Button
 	  		android:id="@+id/roadrunner_dialog_scan_unload"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:text="Unload Packet"/>
+	        android:text="@string/roadrunner_dialog_unload"/>
 	    <Button
 	  		android:id="@+id/roadrunner_dialog_scan_deliver"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:text="Deliver Packet"/>
+	        android:text="@string/roadrunner_dialog_deliver"/>
 </LinearLayout>
