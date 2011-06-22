@@ -72,6 +72,8 @@
     <string name="system_dialog_fixup_title">System Check Failed</string>
     <string name="system_dialog_fixup_body">Before you can use the application the System Check has to be passed.\n\nRoadrunner will try to fixup the problems.</string>
     <string name="roadrunner_dialog_system_check_failed">The System Check failed and the Application will be closed.\n\nPlease contact you Systemadminstrator.</string>
+    <string name="roadrunner_dialog_exit_app_title">Exit Roadrunner</string>
+    <string name="roadrunner_dialog_exit_app">Are you sure you want to exit Roadrunner?</string>
     
     
     

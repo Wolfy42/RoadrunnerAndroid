@@ -46,6 +46,25 @@ public class Roadrunner extends Activity {
 	  setContentView(R.layout.activity_roadrunner);
 	}
 
+	@Override
+	public void onBackPressed() {
+		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+		alertBuilder.setTitle(R.string.roadrunner_dialog_exit_app_title);
+		alertBuilder.setMessage(R.string.roadrunner_dialog_exit_app);
+		alertBuilder.setCancelable(false);
+		alertBuilder.setPositiveButton(R.string.app_dialog_yes, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				finish();
+			}
+		});
+		alertBuilder.setNegativeButton(R.string.app_dialog_no, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});	
+		alertBuilder.show();
+	}
+
 	public void onScanClick(View view) {
 		scan();
 		openContextMenu(view);
