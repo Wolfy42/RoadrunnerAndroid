@@ -29,7 +29,6 @@ public class Items extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_items);
 		
 		// get the selected delivery
 		_delivery = (Delivery) getIntent().getSerializableExtra("Delivery");
@@ -37,10 +36,7 @@ public class Items extends ListActivity {
 			return;
 		}
 		
-		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-		actionBar.setTitle("Deliveries > Packets");
-		actionBar.setHomeAction(new IntentAction(this, new Intent(this, Roadrunner.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), R.drawable.ic_title_home_default));
-		actionBar.addAction(new IntentAction(this, createMapIntent(), R.drawable.ic_title_map_default));
+		setLayout();
 		
 		_adapter = new ItemAdapter(this, R.layout.row_item_deliveries);
 		setListAdapter(_adapter);
@@ -71,12 +67,20 @@ public class Items extends ListActivity {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 	  super.onConfigurationChanged(newConfig);
-	  setContentView(R.layout.activity_items);
+	  setLayout();
 	}
 	
 	private void getItems() {
 		_items = _delivery.getItems();
 		runOnUiThread(updateActivity);
+	}
+	
+	private void setLayout() {
+		setContentView(R.layout.activity_items);
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setTitle("Deliveries > Packets");
+		actionBar.setHomeAction(new IntentAction(this, new Intent(this, Roadrunner.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), R.drawable.ic_title_home_default));
+		actionBar.addAction(new IntentAction(this, createMapIntent(), R.drawable.ic_title_map_default));
 	}
 	
 	/*
@@ -124,8 +128,8 @@ public class Items extends ListActivity {
 				
 				// set values of Views
 				txtName.setText(item.getName());
-				txtTemp.setText(String.valueOf(item.getMinTemp()) + " - " + String.valueOf(item.getMaxTemp()));
-				txtStatus.setText( (item.isLoaded() ? "loaded" : "unloaded") ); 
+				txtTemp.setText(item.getMinTempString() + " - " + item.getMaxTempString());
+				txtStatus.setText( (item.isLoaded() ? "loaded" : "delivered") ); 
 			}
 
 			return view;

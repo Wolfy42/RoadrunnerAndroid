@@ -45,13 +45,15 @@
         <!-- Delivery Activity -->
         <activity android:name=".activity.Deliveries"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/deliveries_title">
+                  android:label="@string/deliveries_title"
+                  android:configChanges="keyboardHidden|orientation">
         </activity>
         
         <!-- Items Activity -->
         <activity android:name=".activity.Items"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/items_title">
+                  android:label="@string/items_title"
+                  android:configChanges="keyboardHidden|orientation">
         </activity>
         
         <!-- Route Activity -->
@@ -70,7 +72,8 @@
         <!-- SystemTest Activity -->
         <activity android:name=".activity.SystemTest"
         		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/systemtest_title">
+                  android:label="@string/systemtest_title"
+                  android:configChanges="keyboardHidden|orientation">
         </activity>
                         
         <activity android:name=".activity.ServiceController"

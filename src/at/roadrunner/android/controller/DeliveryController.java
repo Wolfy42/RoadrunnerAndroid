@@ -46,26 +46,40 @@ public class DeliveryController {
 					
 					_deliveries.add(delivery);
 				}
-				
-				JSONObject item = obj.getJSONObject("doc");
-				try {
-					delivery.getItems().add(new Item(
-							item.getString("name"), 
-							Double.parseDouble(item.getString("tempMin")), 
-							Double.parseDouble(item.getString("tempMax")),
-							_itemController.isItemLoaded(obj.getJSONObject("value").getString("_id"))));
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (CouchDBException e) {
-					e.printStackTrace();
+				if (!obj.isNull("doc"))  {
+					JSONObject item = obj.getJSONObject("doc");
+					try {
+						delivery.getItems().add(new Item(
+								item.getString("name"), 
+								Double.parseDouble(item.getString("tempMin")), 
+								Double.parseDouble(item.getString("tempMax")),
+								_itemController.isItemLoaded(obj.getJSONObject("value").getString("_id"))));
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					} catch (CouchDBException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		
+		ArrayList<Delivery> loadedDeliveries = new ArrayList<Delivery>();
+		for (Delivery del : _deliveries)  {
+			boolean isLoaded = false;
+			for (Item item : del.getItems())  {
+				if (item.isLoaded())  {
+					isLoaded = true;
+				}
+			}
+			if (isLoaded)  {
+				loadedDeliveries.add(del);
+			}
+		}
+		
 		// sort the delivery-items
-		for (Delivery del: _deliveries)  {
+		for (Delivery del: loadedDeliveries)  {
 			Collections.sort(del.getItems(), new Comparator<Item>()  {
 				@Override
 				public int compare(Item object1, Item object2) {
@@ -76,7 +90,7 @@ public class DeliveryController {
 			});
 		}
 		
-		return _deliveries;
+		return loadedDeliveries;
 	}
 }
 

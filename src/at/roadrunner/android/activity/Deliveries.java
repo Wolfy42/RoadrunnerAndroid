@@ -41,11 +41,7 @@ public class Deliveries extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_deliveries);
-		
-		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-		actionBar.setTitle("Deliveries");
-		actionBar.setHomeAction(new IntentAction(this, new Intent(this, Roadrunner.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), R.drawable.ic_title_home_default));
+		setLayout();
 		
 		if (AppInfo.isAppRunning(this, Config.COUCHDB_SERVICE) ) {
 			_adapter = new DeliveryAdapter(this, R.layout.row_item_deliveries);
@@ -77,7 +73,14 @@ public class Deliveries extends ListActivity {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 	  super.onConfigurationChanged(newConfig);
-	  setContentView(R.layout.activity_deliveries);
+	  setLayout();
+	}
+	
+	private void setLayout() {
+		setContentView(R.layout.activity_deliveries);
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setTitle("Deliveries");
+		actionBar.setHomeAction(new IntentAction(this, new Intent(this, Roadrunner.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), R.drawable.ic_title_home_default));
 	}
 	
 	/*
