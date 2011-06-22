@@ -3,10 +3,4 @@
 	<item android:id="@+id/roadrunner_menu_settings"
           android:icon="@drawable/ic_roadrunner_menu_settings"
           android:title="@string/roadrunner_menu_settings" />
-    <item android:id="@+id/roadrunner_menu_info"
-          android:icon="@drawable/ic_roadrunner_menu_info"
-          android:title="@string/roadrunner_menu_info" />
-	<item android:id="@+id/roadrunner_menu_systemtest"
-          android:icon="@drawable/ic_roadrunner_menu_systemtest"
-          android:title="@string/roadrunner_menu_systemtest" />
 </menu>

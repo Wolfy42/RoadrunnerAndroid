@@ -7,6 +7,6 @@
           android:icon="@drawable/ic_systemtest_menu_fixitup"
           android:title="@string/systemtest_menu_fixitup" />
     <item android:id="@+id/systemtest_menu_exit"
-          android:icon="@drawable/ic_login_menu_exit"
-          android:title="@string/login_menu_exit" />
+          android:icon="@drawable/ic_systemtest_menu_exit"
+          android:title="@string/systemtest_menu_exit" />
 </menu>
