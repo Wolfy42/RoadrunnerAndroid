@@ -1,11 +1,14 @@
 package at.roadrunner.android.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
+import at.roadrunner.android.couchdb.CouchDBException;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Delivery;
 import at.roadrunner.android.model.Item;
@@ -14,9 +17,11 @@ import at.roadrunner.android.model.Address;
 public class DeliveryController {
 
 	private Context _context;
+	private ItemController _itemController;
 	
 	public DeliveryController(Context context) {
 		_context = context;
+		_itemController = new ItemController(_context);
 	}
 
 	public ArrayList<Delivery> getDeliveries() {
@@ -43,13 +48,32 @@ public class DeliveryController {
 				}
 				
 				JSONObject item = obj.getJSONObject("doc");
-				delivery.getItems().add(new Item(
-						item.getString("name"), 
-						Double.parseDouble(item.getString("tempMin")), 
-						Double.parseDouble(item.getString("tempMax"))));
+				try {
+					delivery.getItems().add(new Item(
+							item.getString("name"), 
+							Double.parseDouble(item.getString("tempMin")), 
+							Double.parseDouble(item.getString("tempMax")),
+							_itemController.isItemLoaded(obj.getJSONObject("value").getString("_id"))));
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (CouchDBException e) {
+					e.printStackTrace();
+				}
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
+		}
+		
+		// sort the delivery-items
+		for (Delivery del: _deliveries)  {
+			Collections.sort(del.getItems(), new Comparator<Item>()  {
+				@Override
+				public int compare(Item object1, Item object2) {
+					int obj1 = object1.isLoaded() ? 0 : 1;
+					int obj2 = object2.isLoaded() ? 0 : 1;
+					return Integer.valueOf(obj1).compareTo(obj2);
+				}
+			});
 		}
 		
 		return _deliveries;

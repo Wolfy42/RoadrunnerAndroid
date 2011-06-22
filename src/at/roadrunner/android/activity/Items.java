@@ -2,10 +2,6 @@ package at.roadrunner.android.activity;
 
 import java.util.ArrayList;
 
-import com.markupartist.android.widget.ActionBar;
-import com.markupartist.android.widget.ActionBar.IntentAction;
-import com.markupartist.android.widget.actionbar.R;
-
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,6 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import at.roadrunner.android.model.Delivery;
 import at.roadrunner.android.model.Item;
+
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+import com.markupartist.android.widget.actionbar.R;
 
 public class Items extends ListActivity {
 	private ProgressDialog _progressDialog = null;
@@ -38,7 +38,7 @@ public class Items extends ListActivity {
 		}
 		
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-		actionBar.setTitle("Roadrunner > Deliveries > Packets");
+		actionBar.setTitle("Deliveries > Packets");
 		actionBar.setHomeAction(new IntentAction(this, new Intent(this, Roadrunner.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), R.drawable.ic_title_home_default));
 		actionBar.addAction(new IntentAction(this, createMapIntent(), R.drawable.ic_title_map_default));
 		
@@ -119,13 +119,13 @@ public class Items extends ListActivity {
 			if (item != null) {
 				// get Views
 				TextView txtName = (TextView) view.findViewById(R.id.items_name);
-				TextView txtMin = (TextView) view.findViewById(R.id.items_min);
-				TextView txtMax = (TextView) view.findViewById(R.id.items_max);
+				TextView txtTemp = (TextView) view.findViewById(R.id.items_temp);
+				TextView txtStatus = (TextView) view.findViewById(R.id.items_status);
 				
 				// set values of Views
 				txtName.setText(item.getName());
-				txtMin.setText(String.valueOf(item.getMinTemp()));
-				txtMax.setText(String.valueOf(item.getMaxTemp()));
+				txtTemp.setText(String.valueOf(item.getMinTemp()) + " - " + String.valueOf(item.getMaxTemp()));
+				txtStatus.setText( (item.isLoaded() ? "loaded" : "unloaded") ); 
 			}
 
 			return view;

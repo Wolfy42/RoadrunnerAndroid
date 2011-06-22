@@ -57,6 +57,36 @@ public class ItemController {
 		return items;
 	}
 	
+	public boolean isItemLoaded(String itemId) throws CouchDBException  {
+		String loadedItems = null;
+		loadedItems = new RequestWorker(_context).getLoadedItems();
+		
+		if (loadedItems != null) {
+			try {
+				JSONObject result = new JSONObject(loadedItems);
+				
+				JSONArray rows = result.getJSONArray("rows");
+				JSONObject row;
+				JSONArray value;
+				String loadedState = LogType.LOAD.name();
+				
+				for (int i=0; i < rows.length(); i++)  {
+					row = rows.getJSONObject(i);
+					value = row.getJSONArray("value");
+					if (loadedState.equals(value.getString(0)))  {
+						if (row.getString("key").equals(itemId))  {
+							return true;
+						}
+					}
+				}
+				
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} 
+		}
+		return false;
+	}
+	
 	public JSONArray getLoadedItemsAsArray()  {
 		ArrayList<Item> items;
 		try {

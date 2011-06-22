@@ -22,17 +22,17 @@
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="20"
+        android:layout_weight="25"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/items_min_text"
+            android:id="@+id/items_temp_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/ItemsTemp"
-            android:text="Min Temp."
+            android:text="Temp."
             android:layout_weight="1"/>
         <TextView
-            android:id="@+id/items_min"
+            android:id="@+id/items_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/ItemsTemp"
@@ -42,34 +42,13 @@
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="20"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/items_min_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/ItemsTemp"
-            android:text="Max Temp."
-            android:layout_weight="1"/>
-        <TextView
-            android:id="@+id/items_max"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/ItemsTemp"
-            android:layout_weight="1"/>
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
+        android:layout_weight="25"
         android:orientation="vertical">
         <TextView
             android:id="@+id/items_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/ItemsStatus"
-            android:layout_weight="1"
-            android:text="loaded"/>
+            android:layout_weight="1"/>
     </LinearLayout>
 </LinearLayout>
