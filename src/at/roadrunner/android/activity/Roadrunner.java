@@ -203,7 +203,6 @@ public class Roadrunner extends Activity {
 						intent.putExtra("container", container);
 						startActivity(intent);
 						dialog.dismiss();
-						Toast.makeText(getApplicationContext(), R.string.roadrunner_dialog_scan_deliver, Toast.LENGTH_SHORT).show();
 					}
 				});
 				

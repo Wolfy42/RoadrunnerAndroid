@@ -7,11 +7,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import at.roadrunner.android.model.Delivery;
 import at.roadrunner.android.model.Item;
@@ -123,13 +125,17 @@ public class Items extends ListActivity {
 			if (item != null) {
 				// get Views
 				TextView txtName = (TextView) view.findViewById(R.id.items_name);
+				TextView txtTempText = (TextView) view.findViewById(R.id.items_temp_text);
 				TextView txtTemp = (TextView) view.findViewById(R.id.items_temp);
-				TextView txtStatus = (TextView) view.findViewById(R.id.items_status);
+				ImageView imgStatus = (ImageView) view.findViewById(R.id.items_status);
 				
 				// set values of Views
+				txtName.setTextColor( (item.isLoaded() ? Color.BLACK : Color.GRAY) );
+				txtTempText.setTextColor( (item.isLoaded() ? Color.BLACK : Color.GRAY) );
+				txtTemp.setTextColor( (item.isLoaded() ? Color.BLACK : Color.GRAY) );
 				txtName.setText(item.getName());
 				txtTemp.setText(item.getMinTempString() + " - " + item.getMaxTempString());
-				txtStatus.setText( (item.isLoaded() ? "loaded" : "delivered") ); 
+				imgStatus.setImageResource( (item.isLoaded() ? R.drawable.ic_item_truck : R.drawable.ic_item_house) );
 			}
 
 			return view;

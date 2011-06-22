@@ -5,13 +5,11 @@
 			android:key="ip" 
 			android:title="@string/pref_server_ip" 
 			android:defaultValue="172.16.102.224:5984"
-			android:enabled="false"
 		/> 
 		<EditTextPreference
 			android:key="database"
 			android:title="@string/pref_server_database"
 			android:defaultValue="roadrunner"
-			android:enabled="false"
 		/>
 	</PreferenceCategory>
 	

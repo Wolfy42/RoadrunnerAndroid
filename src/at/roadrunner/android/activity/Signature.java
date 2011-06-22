@@ -65,6 +65,7 @@ public class Signature extends Activity {
 		}
  
     	new RequestWorker(this).saveLog(new JSONArray().put(_item), LogType.UNREGISTER, _container, attachment);
+    	Toast.makeText(getApplicationContext(), R.string.roadrunner_dialog_scan_deliver, Toast.LENGTH_SHORT).show();
     	finish();
     }
     
