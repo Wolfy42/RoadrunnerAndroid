@@ -66,25 +66,13 @@
         		  android:theme="@style/Theme.Roadrunner"
                   android:label="@string/pref_title">
         </activity>
-		
-		<!-- Info Activity -->
-        <activity android:name=".activity.Info"
-        		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/info_title">
-        </activity>
-        
+		        
         <!-- SystemTest Activity -->
         <activity android:name=".activity.SystemTest"
         		  android:theme="@style/Theme.Roadrunner"
                   android:label="@string/systemtest_title">
         </activity>
-        
-         <!-- Monitoring Activity -->
-        <activity android:name=".activity.Monitoring"
-        		  android:theme="@style/Theme.Roadrunner"
-                  android:label="@string/monitoring_title">
-        </activity>
-                
+                        
         <activity android:name=".activity.ServiceController"
         		  android:theme="@style/Theme.Roadrunner"
                   android:label="@string/service_controller_title">

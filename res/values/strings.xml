@@ -3,23 +3,15 @@
     <string name="app_name">Roadrunner</string>
     <string name="app_dialog_yes">Yes</string>
     <string name="app_dialog_ok">Ok</string>
-    <string name="app_dialog_no">No</string><string name="app_dialog_login">Login</string><string name="app_dialog_cancel">Cancel</string><string name="app_progress_pleasewait">Please Wait...</string>
-    <string name="app_progress_retdata">Retrieving Data...</string><string name="app_progress_systemState">Checking System...</string><string name="app_progress_fixingProblem">Fixing Problem...</string><string name="roadrunner_scan">Scan Packet</string>
+    <string name="app_dialog_no">No</string><string name="app_progress_pleasewait">Please Wait...</string>
+    <string name="app_progress_retdata">Retrieving Data...</string><string name="roadrunner_scan">Scan Packet</string>
     <string name="roadrunner_deliveries">My Deliveries</string><string name="roadrunner_menu_settings">System Settings</string>
     <string name="roadrunner_dialog_missingScanner">In order to use the Roadrunner App you need to install a
      	QR-barcode scanner.\n\nWould you like to download a barcode scanner now?
     </string>
     <string name="roadrunner_dialog_missingCouchDB">In order to use the Roadrunner App you need to install 
     	CouchDB.\n\nWould you like to download CouchDB now?
-    </string><string name="roadrunner_dialog_firstStartCouchDB">You have to start the installed CouchDB App for the first time to finish the installation process.</string>
-    <string name="roadrunner_dialog_startCouchDB">In order to use Roadrunner you have to start your CouchDB.</string>
-    <string name="roadrunner_dialog_closedCouchDB">Please start CouchDB to use Roadrunner!</string><string name="roadrunner_dialog_restartCouchDB">A new user has been created - please restart CouchDB! </string><string name="roadrunner_dialog_checkConnection">Please check your Server IP/Port in your settings and make sure you have established a connection (WiFi).</string><string name="info_title">Roadrunner &gt; Information</string>
-    <string name="info_header">
-    	Roadrunner App
-	</string>
-    <string name="info_text">
-    	\n\nProject Members of the Roadrunner Android App:\n\nMatthias Schmidt\nFranziskus Domig\nWolfgang Halbeisen\nStefan Gassner\n\n© 2011 The Roadrunner Project Team
-	</string>
+    </string><string name="roadrunner_dialog_firstStartCouchDB">You have to start the installed CouchDB App for the first time to finish the installation process.</string><string name="roadrunner_dialog_checkConnection">Please check your Server IP/Port in your settings and make sure you have established a connection (WiFi).</string>
     <string name="pref_title">Roadrunner &gt; Settings</string><string name="pref_server">Connection Settings</string>
     <string name="pref_server_ip">Server IP</string>
     <string name="pref_server_database">Databasename</string>
@@ -30,28 +22,15 @@
     <string name="systemtest_title">Roadrunner &gt; System Test</string><string name="systemtest_ok">OK</string>
     <string name="systemtest_fail">FAIL</string>
     <string name="systemtest_local_couch_db_installed">CouchDB is installed on this device</string><string name="systemtest_local_ini_file_exists">CouchDB configuration file is available</string><string name="systemtest_local_couch_db_running">CouchDB is running on this device</string>
-    <string name="systemtest_local_couch_db_reachable">CouchDB (local) is reachable</string><string name="systemtest_local_admin_exists">Admin User exists</string><string name="systemtest_local_db_exists">Local Database exists</string><string name="systemtest_local_initial_replication">Local Database is initial replicated</string><string name="systemtest_remote_couch_db_reachable">CouchDB (remote) is reachable</string><string name="systemtest_menu_refresh">Refresh</string><string name="systemtest_menu_fixitup">Fix Problems</string><string name="systemtest_fixup_needed">The System Check failed.\n\nDo you want Roadrunner to fix up the problems?</string>
+    <string name="systemtest_local_couch_db_reachable">CouchDB (local) is reachable</string><string name="systemtest_local_admin_exists">Admin User exists</string><string name="systemtest_local_db_exists">Local Database exists</string><string name="systemtest_local_initial_replication">Local Database is initial replicated</string><string name="systemtest_remote_couch_db_reachable">CouchDB (remote) is reachable</string><string name="systemtest_menu_refresh">Refresh</string><string name="systemtest_menu_fixitup">Fix Problems</string>
     <string name="deliveries_title">Roadrunner &gt; Deliveries</string><string name="deliveries_noDeliveries">no deliveries available...</string>
-    <string name="items_txt_status"></string><string name="items_txt_key">Key</string>
-    <string name="items_txt_date">Scanned</string><string name="items_status_synchronize">Synchronize with Server...</string>
-    <string name="items_status_loading_local_items">Loading loaded Items...</string><string name="items_status_local_items_loaded">Currently Loaded Items</string><string name="items_status_last_synchronized">Last Synchronization with Server</string>
-    
-    <string name="items_status_remote_db_not_reachable">Remote Database is not reachable</string>
-    <string name="items_status_local_db_not_reachable">Local Database is not reachable</string>
-    <string name="items_context_details_item">Show Details</string><string name="items_context_delete_item">Delete Item</string>
-    <string name="local_service_started">Monitoring Started</string>
-    <string name="local_service_stopped">Monitoring Stopped</string><string name="local_service_label">Roadrunner Monitoring Service</string><string name="monitoring_title">Roadrunner &gt; Monitoring</string><string name="monitoring_txt_status">Roadrunner is now tracking GPS/Temperature!</string>
-    <string name="monitoring_controller_start">Start Service</string>
-    <string name="monitoring_controller_stop">Stop Service</string>
     <item type="id" name="service_notification_id" />
     <string name="service_label">Roadrunner Services</string>
     <string name="service_infotext">Click for Service-Details</string>
-    <string name="monitoring_controller_title">Roadrunner &gt; Monitor  Service Controller </string>
-    <string name="login_txt_status">Please enter your Login-Data</string>
     <string name="login_txt_username">Username:</string>
     <string name="login_txt_password">Password:</string>
     <string name="login_txt_container">Select Your Transportation:</string><string name="login_btn_login">Login</string>
-    <string name="login_menu_refresh">Refresh Transportation</string><string name="login_menu_exit">Exit</string><string name="login_no_transportation">There are no Transportations available. \nSelect \&quot;Refresh Transportation\&quot; in the Menu.</string><string name="login_not_authenticated">You could not be authenticaed by the server. Please try again.</string><string name="login_load_transportations">Retrieving Transportations...</string><string name="login_dialog_no_transportation_title">Transportation failed to load</string><string name="login_dialog_no_transportation_body">Do you want Roadrunner try loading the transportations again?</string><string name="login_title">Roadrunner &gt; Login</string><string name="service_controller_title">Roadrunner &gt; Service Controller </string>
+    <string name="login_menu_refresh">Refresh Transportation</string><string name="login_menu_exit">Exit</string><string name="login_not_authenticated">You could not be authenticaed by the server. Please try again.</string><string name="login_load_transportations">Retrieving Transportations...</string><string name="login_dialog_no_transportation_title">Transportation failed to load</string><string name="login_dialog_no_transportation_body">Do you want Roadrunner try loading the transportations again?</string><string name="service_controller_title">Roadrunner &gt; Service Controller </string>
     <string name="start_all_services">Start all Services</string>
     <string name="stop_all_services">Stop all Services</string>
     <string name="service_running">Service Running</string>
@@ -62,13 +41,10 @@
     <string name="replicating">Replicating</string>
     <string name="items_noItems">there are currently no items...</string>
     <string name="items_title">Roadrunner &gt; Deliveries &gt; Items</string>
-    <string name="roadrunner_signature">Signature</string>
     <string name="map_title">Roadrunner &gt; Deliveries &gt; Route</string>
     <string name="signature_done">Signature Done</string>
     <string name="signature_cancel">Cancel Signature</string>
     <string name="signature_title">Roadrunner &gt; Signature</string>
-    <string name="system_dialog_fixup_title">System Check Failed</string>
-    <string name="system_dialog_fixup_body">Before you can use the application the System Check has to be passed.\n\nRoadrunner will try to fixup the problems.</string>
     <string name="roadrunner_dialog_system_check_failed">The System Check failed and the Application will be closed.\n\nPlease contact you Systemadminstrator.</string>
     <string name="roadrunner_dialog_exit_app_title">Exit Roadrunner</string>
     <string name="roadrunner_dialog_exit_app">Are you sure you want to exit Roadrunner?</string>
