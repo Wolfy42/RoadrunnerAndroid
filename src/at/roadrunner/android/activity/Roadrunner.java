@@ -45,11 +45,6 @@ public class Roadrunner extends Activity {
 	  super.onConfigurationChanged(newConfig);
 	  setContentView(R.layout.activity_roadrunner);
 	}
-	
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-	}
 
 	public void onScanClick(View view) {
 		scan();
