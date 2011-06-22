@@ -7,11 +7,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import at.roadrunner.android.model.Delivery;
 import at.roadrunner.android.model.Item;
@@ -29,7 +31,6 @@ public class Items extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_items);
 		
 		// get the selected delivery
 		_delivery = (Delivery) getIntent().getSerializableExtra("Delivery");
@@ -37,10 +38,7 @@ public class Items extends ListActivity {
 			return;
 		}
 		
-		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-		actionBar.setTitle("Deliveries > Packets");
-		actionBar.setHomeAction(new IntentAction(this, new Intent(this, Roadrunner.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), R.drawable.ic_title_home_default));
-		actionBar.addAction(new IntentAction(this, createMapIntent(), R.drawable.ic_title_map_default));
+		setLayout();
 		
 		_adapter = new ItemAdapter(this, R.layout.row_item_deliveries);
 		setListAdapter(_adapter);
@@ -71,12 +69,20 @@ public class Items extends ListActivity {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 	  super.onConfigurationChanged(newConfig);
-	  setContentView(R.layout.activity_items);
+	  setLayout();
 	}
 	
 	private void getItems() {
 		_items = _delivery.getItems();
 		runOnUiThread(updateActivity);
+	}
+	
+	private void setLayout() {
+		setContentView(R.layout.activity_items);
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setTitle("Deliveries > Packets");
+		actionBar.setHomeAction(new IntentAction(this, new Intent(this, Roadrunner.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), R.drawable.ic_title_home_default));
+		actionBar.addAction(new IntentAction(this, createMapIntent(), R.drawable.ic_title_map_default));
 	}
 	
 	/*
@@ -119,13 +125,17 @@ public class Items extends ListActivity {
 			if (item != null) {
 				// get Views
 				TextView txtName = (TextView) view.findViewById(R.id.items_name);
+				TextView txtTempText = (TextView) view.findViewById(R.id.items_temp_text);
 				TextView txtTemp = (TextView) view.findViewById(R.id.items_temp);
-				TextView txtStatus = (TextView) view.findViewById(R.id.items_status);
+				ImageView imgStatus = (ImageView) view.findViewById(R.id.items_status);
 				
 				// set values of Views
+				txtName.setTextColor( (item.isLoaded() ? Color.BLACK : Color.GRAY) );
+				txtTempText.setTextColor( (item.isLoaded() ? Color.BLACK : Color.GRAY) );
+				txtTemp.setTextColor( (item.isLoaded() ? Color.BLACK : Color.GRAY) );
 				txtName.setText(item.getName());
-				txtTemp.setText(String.valueOf(item.getMinTemp()) + " - " + String.valueOf(item.getMaxTemp()));
-				txtStatus.setText( (item.isLoaded() ? "loaded" : "unloaded") ); 
+				txtTemp.setText(item.getMinTempString() + " - " + item.getMaxTempString());
+				imgStatus.setImageResource( (item.isLoaded() ? R.drawable.ic_item_truck : R.drawable.ic_item_house) );
 			}
 
 			return view;

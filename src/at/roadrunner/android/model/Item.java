@@ -67,4 +67,26 @@ public class Item implements Serializable {
 	public boolean isLoaded()  {
 		return _loaded;
 	}
+	
+	public String getMinTempString() {
+		double temp = getMinTemp();
+		String result = "";
+		if (Math.floor(temp) != temp) {
+			result = String.valueOf(temp);
+		} else {
+			result = String.valueOf((int)Math.round(temp));
+		}
+		return result + " C°";
+	}
+	
+	public String getMaxTempString() {
+		double temp = getMaxTemp();
+		String result = "";
+		if (Math.floor(temp) != temp) {
+			result = String.valueOf(temp);
+		} else {
+			result = String.valueOf((int)Math.round(temp));
+		}
+		return result + " C°";
+	}
 }

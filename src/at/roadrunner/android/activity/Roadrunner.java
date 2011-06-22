@@ -23,6 +23,7 @@ import android.widget.Toast;
 import at.roadrunner.android.ApplicationController;
 import at.roadrunner.android.Config;
 import at.roadrunner.android.R;
+import at.roadrunner.android.controller.ReplicatorController;
 import at.roadrunner.android.couchdb.RequestWorker;
 import at.roadrunner.android.model.Log.LogType;
 import at.roadrunner.android.util.AppInfo;
@@ -175,6 +176,12 @@ public class Roadrunner extends Activity {
 		    				reqWorker.saveLog(new JSONArray().put(item), LogType.LOAD, container, null);
 		    				dialog.dismiss();
 		    				Toast.makeText(getApplicationContext(), R.string.roadrunner_dialog_scan_load, Toast.LENGTH_SHORT).show();
+		    				new Thread(new Runnable() {
+								@Override
+								public void run() {
+									new ReplicatorController(context).replicateItemsFromServer();
+								}
+							}).start();
 	                    }
 	                });
 				
@@ -196,7 +203,6 @@ public class Roadrunner extends Activity {
 						intent.putExtra("container", container);
 						startActivity(intent);
 						dialog.dismiss();
-						Toast.makeText(getApplicationContext(), R.string.roadrunner_dialog_scan_deliver, Toast.LENGTH_SHORT).show();
 					}
 				});
 				

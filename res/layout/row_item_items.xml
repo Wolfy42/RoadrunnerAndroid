@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/items_root"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:padding="6dip"
@@ -22,7 +23,7 @@
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="25"
+        android:layout_weight="40"
         android:orientation="vertical">
         <TextView
             android:id="@+id/items_temp_text"
@@ -42,13 +43,15 @@
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="25"
+        android:layout_weight="10"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/items_status"
+        
+        <ImageView
+        	android:id="@+id/items_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/ItemsStatus"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:src="@drawable/ic_item_house"
+        />
     </LinearLayout>
 </LinearLayout>
