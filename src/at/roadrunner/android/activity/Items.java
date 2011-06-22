@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.IntentAction;
+import com.markupartist.android.widget.actionbar.R;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -16,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import at.roadrunner.android.R;
 import at.roadrunner.android.model.Delivery;
 import at.roadrunner.android.model.Item;
 

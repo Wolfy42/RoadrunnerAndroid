@@ -2,9 +2,6 @@ package at.roadrunner.android.activity;
 
 import java.util.ArrayList;
 
-import com.markupartist.android.widget.ActionBar;
-import com.markupartist.android.widget.ActionBar.IntentAction;
-
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -22,10 +19,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import at.roadrunner.android.Config;
-import at.roadrunner.android.R;
 import at.roadrunner.android.controller.DeliveryController;
 import at.roadrunner.android.model.Delivery;
 import at.roadrunner.android.util.AppInfo;
+
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+import com.markupartist.android.widget.actionbar.R;
 
 public class Deliveries extends ListActivity {
 	@SuppressWarnings("unused")
