@@ -22,7 +22,7 @@
     <string name="systemtest_fail">FAIL</string>
     <string name="systemtest_local_couch_db_installed">CouchDB está instalado en este dispositivo</string><string name="systemtest_local_ini_file_exists">CouchDB fichero de configuración está disponible</string><string name="systemtest_local_couch_db_running">CouchDB se está ejecutando en este equipo</string>
     <string name="systemtest_local_couch_db_reachable">CouchDB (local) es alcanzable</string><string name="systemtest_local_admin_exists">El usuario admin existe</string><string name="systemtest_local_db_exists">Base de datos local existe</string><string name="systemtest_local_initial_replication">Base de datos local se replica inicial</string><string name="systemtest_remote_couch_db_reachable">CouchDB (remoto) se puede llegar</string><string name="systemtest_menu_refresh">refrescar</string><string name="systemtest_menu_fixitup">solucionar los problemas</string>
-    <string name="deliveries_title">Roadrunner &gt; las entregas</string><string name="deliveries_noDeliveries">no entregas disponibles...</string>
+    <string name="deliveries_title">las entregas</string><string name="deliveries_noDeliveries">no entregas disponibles...</string>
     <string name="service_label">Roadrunner Servicios</string>
     <string name="service_infotext">Haga clic para el Servicio de Información</string>
     <string name="login_txt_username">Nombre de usuario:</string>
@@ -38,8 +38,8 @@
     <string name="monitoring">monitoreo</string>
     <string name="replicating">replicar</string>
     <string name="items_noItems">Actualmente no hay elementos...</string>
-    <string name="items_title">Roadrunner &gt; las entregas &gt; artículos</string>
-    <string name="map_title">Roadrunner &gt; las entregas &gt; ruta</string>
+    <string name="items_title">las entregas &gt; artículos</string>
+    <string name="map_title">las entregas &gt; ruta</string>
     <string name="signature_done">firma, que tuvo</string>
     <string name="signature_cancel">Cancelar Firma</string>
     <string name="signature_title">Roadrunner &gt; firma</string>

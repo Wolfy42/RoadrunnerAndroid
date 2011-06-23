@@ -20,7 +20,7 @@
     <string name="systemtest_fail">FEHLER</string>
     <string name="systemtest_local_couch_db_installed">CouchDB ist auf dem Gerät installiert.</string><string name="systemtest_local_ini_file_exists">CouchDB Konfiguration verfügbar.</string><string name="systemtest_local_couch_db_running">CouchDB läuft auf dem Device.</string>
     <string name="systemtest_local_couch_db_reachable">CouchDB ist auf dem Gerät erreichbar.</string><string name="systemtest_local_admin_exists">Adminbenutzer existiert.</string><string name="systemtest_local_db_exists">Lokale Datenbank existiert.</string><string name="systemtest_local_initial_replication">Lokale Datenbank ist initial repliziert.</string><string name="systemtest_remote_couch_db_reachable">CouchDB (Server) ist erreichbar.</string><string name="systemtest_menu_refresh">Aktualisieren</string><string name="systemtest_menu_fixitup">Probleme beheben</string>
-    <string name="deliveries_title">Roadrunner &gt; Lieferungen</string><string name="deliveries_noDeliveries">keine Lieferungen vorhanden...</string>
+    <string name="deliveries_title">Lieferungen</string><string name="deliveries_noDeliveries">keine Lieferungen vorhanden...</string>
     <item type="id" name="service_notification_id" />
     <string name="service_label">Roadrunner Services</string>
     <string name="service_infotext">Wählen für Service-Details</string>
@@ -37,8 +37,8 @@
     <string name="monitoring">Überwachung</string>
     <string name="replicating">Replizierung</string>
     <string name="items_noItems">Keine Pakete vorhanden...</string>
-    <string name="items_title">Roadrunner &gt; Lieferungen &gt; Pakete</string>
-    <string name="map_title">Roadrunner &gt; Lieferungen&gt; Route</string>
+    <string name="items_title">Lieferungen &gt; Pakete</string>
+    <string name="map_title">Lieferungen &gt; Route</string>
     <string name="signature_done">Unterschrift fertig.</string>
     <string name="signature_cancel">Unterschrift zurücksetzen.</string>
     <string name="signature_title">Roadrunner &gt; Unterschrift</string>

@@ -80,7 +80,7 @@ public class Items extends ListActivity {
 	private void setLayout() {
 		setContentView(R.layout.activity_items);
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-		actionBar.setTitle("Deliveries > Packets");
+		actionBar.setTitle(R.string.items_title);
 		actionBar.setHomeAction(new IntentAction(this, new Intent(this, Roadrunner.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), R.drawable.ic_title_home_default));
 		actionBar.addAction(new IntentAction(this, createMapIntent(), R.drawable.ic_title_map_default));
 	}
