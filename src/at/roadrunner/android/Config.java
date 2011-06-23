@@ -46,7 +46,7 @@ public class Config {
 	public static final String TEMPERATUR_SENSOR_URL_1 = PROTOCOL + ROADRUNNER_SERVER_IP + ":" + "10001"; 
 
 	// Service Settings
-	public static final long MONITORING_SERVICE_INTERVAL = 100000;
+	public static final long MONITORING_SERVICE_INTERVAL = 300000;
 	public static final long LOGGING_SERVICE_INTERAL = 300000;
 	public static final long REPLICATOR_SERVICE_INTERAL = 10000;
 	
