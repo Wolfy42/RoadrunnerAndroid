@@ -40,7 +40,7 @@
     <string name="monitoring">Monitoring</string>
     <string name="replicating">Replicating</string>
     <string name="items_noItems">there are currently no items...</string>
-    <string name="items_title">Deliveries &gt; Items</string>
+    <string name="items_title">Deliveries &gt; Packets</string>
     <string name="map_title">Deliveries &gt; Route</string>
     <string name="signature_done">Signature Done</string>
     <string name="signature_cancel">Cancel Signature</string>

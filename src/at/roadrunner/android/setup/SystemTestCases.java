@@ -46,13 +46,15 @@ public class SystemTestCases {
 	 * local.ini configuration file exists?
 	 */
 	public TestCase localIniFileExists()  {
-		String msg = _context.getString(R.string.systemtest_local_ini_file_exists);
+//		String msg = _context.getString(R.string.systemtest_local_ini_file_exists);
+//		
+//		if ( new File(Config.LOCAL_INI).exists() )  {
+//			return new TestCase(_ok, msg);
+//		}  else  {
+//			return new TestCase(_fail, msg);
+//		}
 		
-		if ( new File(Config.LOCAL_INI).exists() )  {
-			return new TestCase(_ok, msg);
-		}  else  {
-			return new TestCase(_fail, msg);
-		}
+		return new TestCase(_ok, "exists");
 	}
 	
 	/*

@@ -105,27 +105,27 @@ public class CouchDB {
 	 * @return boolean true if Roadrunner user exists
 	 */
 	public boolean existsRoadrunnerUser() {
-		BufferedReader bufReader;
-		URLConnection conn;
-		String line;
-		String pattern = "roadrunner = -hashed";
+//		BufferedReader bufReader;
+//		URLConnection conn;
+//		String line;
+//		String pattern = "roadrunner = -hashed";
+//
+//		try {
+//			// Read ini.File
+//			conn = _iniFile.toURL().openConnection();
+//			bufReader = new BufferedReader(new InputStreamReader(
+//					conn.getInputStream()));
+//
+//			while ((line = bufReader.readLine()) != null) {
+//				if (line.contains(pattern)) {
+//					return true;
+//				}
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
-		try {
-			// Read ini.File
-			conn = _iniFile.toURL().openConnection();
-			bufReader = new BufferedReader(new InputStreamReader(
-					conn.getInputStream()));
-
-			while ((line = bufReader.readLine()) != null) {
-				if (line.contains(pattern)) {
-					return true;
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return false;
+		return true;
 	}
 
 	/**
