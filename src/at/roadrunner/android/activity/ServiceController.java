@@ -27,6 +27,11 @@ public class ServiceController extends Activity implements OnClickListener  {
 	private Button _stopAllServices;
 	private Button _startAllServices;
 	private Button _stopRoadrunner;
+	private CouchDBService _couchDBService;
+	
+	public ServiceController() {
+		_couchDBService = new CouchDBService();
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +113,7 @@ public class ServiceController extends Activity implements OnClickListener  {
 	}
 
 	public void startAllServices(Context context) {
-		CouchDBService.startCouchDB(context);
+		_couchDBService.startCouchDB(context);
 		
 		context.startService(new Intent(context, MonitoringService.class));
 		context.startService(new Intent(context, LoggingService.class));
@@ -122,6 +127,6 @@ public class ServiceController extends Activity implements OnClickListener  {
 		context.stopService(new Intent(context, LoggingService.class));
 		context.stopService(new Intent(context, ReplicatorService.class));
 		
-		CouchDBService.stopCouchDB(context);
+		_couchDBService.stopCouchDB(context);
 	}
 }

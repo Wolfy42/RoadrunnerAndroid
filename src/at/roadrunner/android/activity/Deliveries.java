@@ -19,13 +19,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import at.roadrunner.android.Config;
+import at.roadrunner.android.R;
 import at.roadrunner.android.controller.DeliveryController;
 import at.roadrunner.android.model.Delivery;
 import at.roadrunner.android.util.AppInfo;
 
-import com.markupartist.android.widget.ActionBar;
-import com.markupartist.android.widget.ActionBar.IntentAction;
-import com.markupartist.android.widget.actionbar.R;
+//import com.markupartist.android.widget.actionbar.R;
 
 public class Deliveries extends ListActivity {
 	@SuppressWarnings("unused")
@@ -43,7 +42,7 @@ public class Deliveries extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setLayout();
 		
-		if (AppInfo.isAppRunning(this, Config.COUCHDB_SERVICE) ) {
+//		if (AppInfo.isAppRunning(this, Config.COUCHDB_SERVICE) ) {
 			_adapter = new DeliveryAdapter(this, R.layout.row_item_deliveries);
 			setListAdapter(_adapter);
 			
@@ -63,7 +62,7 @@ public class Deliveries extends ListActivity {
 			// show the Progressbar
 			_progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait),getString(R.string.app_progress_retdata), true);
 		}
-	}
+//	}
 
 	private void getDeliveries() {
 		_deliveries = new DeliveryController(this).getDeliveries();

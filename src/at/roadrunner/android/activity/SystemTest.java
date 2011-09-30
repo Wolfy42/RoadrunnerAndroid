@@ -38,6 +38,7 @@ public class SystemTest extends Activity {
 	private Context _context;
 	
 	private boolean isFixUpNeeded = true;
+	private CouchDBService _couchDBService;
 	
 	@SuppressWarnings("unused")
 	private static final String TAG = "SystemTest";
@@ -55,6 +56,7 @@ public class SystemTest extends Activity {
         _adapter = new SimpleAdapter(this, _testList, R.layout.row_item_systemtest,
 	                    new String[] {RESULT, TESTCASE}, new int[] {R.id.RESULT, R.id.TESTCASE});
         _testCaseList.setAdapter(_adapter);
+        _couchDBService = new CouchDBService();
         
         new UpdateTask().execute();
 	}
@@ -134,7 +136,7 @@ public class SystemTest extends Activity {
 			if (map.get(RESULT).equals(getString(R.string.systemtest_fail) ) ) {
 				switch (problemIndex) {
 				case 0:
-					downloadCouchDB();
+//					downloadCouchDB();
 					break;
 				case 1:
 					installCouchDB();
@@ -144,7 +146,7 @@ public class SystemTest extends Activity {
 					runCouchDB();
 					break;
 				case 4:
-					insertAdminUser();
+//					insertAdminUser();
 					break;
 				case 5:
 					createDatabase();
@@ -163,25 +165,25 @@ public class SystemTest extends Activity {
 		}
 	}
 
-	private void downloadCouchDB() {
-		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-		alertBuilder.setMessage(R.string.roadrunner_dialog_missingCouchDB);
-		alertBuilder.setCancelable(false);
-		alertBuilder.setPositiveButton(R.string.app_dialog_yes, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + Config.COUCHDB_PACKAGE));
-				startActivity(intent);
-			}
-		});
-		alertBuilder.setNegativeButton(R.string.app_dialog_no, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				dialog.cancel();
-			}
-		});
-		AlertDialog alert = alertBuilder.create();
-		
-		alert.show();
-	}
+//	private void downloadCouchDB() {
+//		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+//		alertBuilder.setMessage(R.string.roadrunner_dialog_missingCouchDB);
+//		alertBuilder.setCancelable(false);
+//		alertBuilder.setPositiveButton(R.string.app_dialog_yes, new DialogInterface.OnClickListener() {
+//			public void onClick(DialogInterface dialog, int id) {
+//				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + Config.COUCHDB_PACKAGE));
+//				startActivity(intent);
+//			}
+//		});
+//		alertBuilder.setNegativeButton(R.string.app_dialog_no, new DialogInterface.OnClickListener() {
+//			public void onClick(DialogInterface dialog, int id) {
+//				dialog.cancel();
+//			}
+//		});
+//		AlertDialog alert = alertBuilder.create();
+//		
+//		alert.show();
+//	}
 	
 	private void installCouchDB() {
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -193,13 +195,13 @@ public class SystemTest extends Activity {
 	}
 	
 	private void runCouchDB() {
-		CouchDBService.startCouchDB(this);
+		_couchDBService.startCouchDB(this);
 	}
 
-	private void insertAdminUser() {
-		new CouchDB().insertRoadrunnerUser();
-		CouchDBService.restartCouchDB(this);
-	}
+//	private void insertAdminUser() {
+//		new CouchDB().insertRoadrunnerUser();
+//		_couchDBService.restartCouchDB(this);
+//	}
 	
 	private void createDatabase() {
 		new CouchDB().createRoadrunnerDB();

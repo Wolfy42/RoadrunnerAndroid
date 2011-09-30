@@ -8,10 +8,10 @@ public class Config {
 	public static final String LOCAL_INI = "/sdcard/couch/etc/couchdb/local.ini";
 	
 	// CouchDB Packages
-	public static final String COUCHDB_PACKAGE = "com.arandomurl.couchdb";
-	public static final String COUCHDB_SERVICE = "com.arandomurl.couchdb.CouchService";
+//	public static final String COUCHDB_PACKAGE = "com.arandomurl.couchdb";
+//	public static final String COUCHDB_SERVICE = "com.arandomurl.couchdb.CouchService";
 	// CouchDB - Service
-	public static final String COUCH_SERVICE = "com.couchone.libcouch.ICouchService";
+//	public static final String COUCH_SERVICE = "com.couchone.libcouch.ICouchService";
 	
 	// Default preferences settings
 	public static final String ROADRUNNER_SERVER_NAME = "roadrunner";
@@ -26,7 +26,7 @@ public class Config {
 	
 	public static final String PROTOCOL = "http://";
 	public static final String URL = "127.0.0.1";
-	public static final String PORT = "5984";
+	public static final String PORT = "5985";
 	public static final String TIME_PORT = "10010";
 	
 	public static final String HOST = PROTOCOL + URL + ":" + PORT + "/";
