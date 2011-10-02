@@ -22,6 +22,7 @@
     	<service android:name=".service.ReplicationService" />
     	<service android:name=".service.LoggingService"/>
     	<service android:name=".service.ReplicatorService"/>
+    	<service android:name="com.couchbase.android.CouchbaseService" android:enabled="true" android:exported="false" />
     	
         <!-- Login Activity -->
         <activity android:name=".activity.Login"

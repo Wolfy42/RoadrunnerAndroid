@@ -22,11 +22,11 @@ public class CouchDBService {
 		}
 		 
          _couchServiceConnection = couch.startCouchbase();
+         Log.i("roadrunner", "call to start DB");
 	}
 	
 	public void stopCouchDB(Context context)  {
-		// unbind is used in the example-app; but unbind without bind is a problem
-//		context.unbindService(_couchServiceConnection);
+		context.unbindService(_couchServiceConnection);
 		_couchServiceConnection = null;
 	}
 
@@ -42,6 +42,8 @@ public class CouchDBService {
 	    }
 
 	    @Override
-	    public void exit(String error) {}
+	    public void exit(String error) {
+	    	Log.i("roadrunner", "CouchDB stopped");
+	    }
 	};
 }
