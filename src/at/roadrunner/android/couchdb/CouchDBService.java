@@ -26,7 +26,9 @@ public class CouchDBService {
 	}
 	
 	public void stopCouchDB(Context context)  {
-		context.unbindService(_couchServiceConnection);
+		if (_couchServiceConnection != null)  {
+			context.unbindService(_couchServiceConnection);
+		}
 		_couchServiceConnection = null;
 	}
 
