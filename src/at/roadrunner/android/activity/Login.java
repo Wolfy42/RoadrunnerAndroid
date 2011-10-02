@@ -53,30 +53,30 @@ public class Login extends Activity {
 		_container = (Spinner) findViewById(R.id.login_container);
 		
 		_ac = (ApplicationController)getApplicationContext();
-//		if (_ac.getLoginStatus() == true) {
+		if (_ac.getLoginStatus() == true) {
 			startActivity(new Intent(this, Roadrunner.class));
 			finish();
-//		} else {
-//			// Runnable to fill the items in a Thread
-//			_loadContainers = new Runnable() {
-//				@Override
-//				public void run() {
-//					loadTransportations();
-//				}
-//			};
-//	
-//			// start a new Thread to get the items
-//			new Thread(null, _loadContainers, "getTransportations").start();
-//	
-//			// show the Progressbar
-//			_progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait), getString(R.string.login_load_transportations), true);
-//			
-//			_containerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-//			_containerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//			
-//			final Spinner cbxTransportation = (Spinner) findViewById(R.id.login_container);
-//			cbxTransportation.setAdapter(_containerAdapter);
-//		}
+		} else {
+			// Runnable to fill the items in a Thread
+			_loadContainers = new Runnable() {
+				@Override
+				public void run() {
+					loadTransportations();
+				}
+			};
+	
+			// start a new Thread to get the items
+			new Thread(null, _loadContainers, "getTransportations").start();
+	
+			// show the Progressbar
+			_progressDialog = ProgressDialog.show(this, getString(R.string.app_progress_pleasewait), getString(R.string.login_load_transportations), true);
+			
+			_containerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+			_containerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			
+			final Spinner cbxTransportation = (Spinner) findViewById(R.id.login_container);
+			cbxTransportation.setAdapter(_containerAdapter);
+		}
 	}
 	
 	@Override
