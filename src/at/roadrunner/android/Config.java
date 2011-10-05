@@ -15,7 +15,7 @@ public class Config {
 	
 	// Default preferences settings
 	public static final String ROADRUNNER_SERVER_NAME = "roadrunner";
-	public static final String ROADRUNNER_SERVER_IP = "172.16.102.224";
+	public static final String ROADRUNNER_SERVER_IP = "172.16.102.182";
 	public static final String ROADRUNNER_SERVER_PORT = "5984";
 	public static final String ROADRUNNER_AUTHENTICATION_USER = "roadrunner";
 	public static final String ROADRUNNER_AUTHENTICATION_PASSWORD = "roadrunner";
