@@ -53,9 +53,9 @@ public class ReplicatorController {
 	}
 	
 	public void replicateContainerFromServer() {
-		if (!_isContainerReplicated) {
+//		if (!_isContainerReplicated) {
 			_isContainerReplicated = _containerController.replicateSelectedContainer();
-		}
+//		}
 	}
 
 	public void synchronizeTime() {
